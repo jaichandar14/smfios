@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yCz-0g-Rfk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n0n-e1-WVe">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
@@ -12,7 +12,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="JqW-B2-udJ">
             <objects>
-                <viewController id="3ll-CW-Ls0" customClass="SignInViewController" customModule="EPM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" id="3ll-CW-Ls0" customClass="SignInViewController" customModule="EPM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4u5-qo-6yx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,64 +21,81 @@
                                 <rect key="frame" x="33" y="91" width="348" height="498"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DO9-sR-pFU">
-                                        <rect key="frame" x="8" y="11" width="82.5" height="27"/>
+                                        <rect key="frame" x="8" y="11" width="78" height="27"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Sign In ">
                                                 <attributes>
-                                                    <font key="NSFont" size="23" name="ArialRoundedMTBold"/>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="NSFont" size="23" name="ArialNarrow"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsS-ZO-RVF">
-                                        <rect key="frame" x="8" y="61.5" width="45.5" height="17.5"/>
+                                        <rect key="frame" x="8" y="61.5" width="48.5" height="19"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Mobile">
                                                 <attributes>
                                                     <color key="NSColor" red="0.44559010152284262" green="0.44559010152284262" blue="0.44559010152284262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="15" name="Poppins-Regular"/>
+                                                    <font key="NSFont" size="16" name="Poppins-Regular"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82O-lF-MzR">
-                                        <rect key="frame" x="8" y="194.5" width="37" height="17.5"/>
+                                        <rect key="frame" x="8" y="196" width="39.5" height="19"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Email">
                                                 <attributes>
                                                     <color key="NSColor" red="0.44559010152284262" green="0.44559010152284262" blue="0.44559010152284262" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="15" name="Poppins-Regular"/>
+                                                    <font key="NSFont" size="16" name="Poppins-Regular"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0O-8K-1KA">
-                                        <rect key="frame" x="166" y="150.5" width="16" height="20.5"/>
+                                        <rect key="frame" x="166" y="152" width="16" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.58046478430000004" green="0.58046478430000004" blue="0.58046478430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tf1-fK-e5v">
-                                        <rect key="frame" x="10" y="93.5" width="328" height="41"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tf1-fK-e5v" customClass="FPNTextField" customModule="FlagPhoneNumber">
+                                        <rect key="frame" x="10" y="95" width="328" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="41" id="4so-Km-xKH"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVe-9x-eez">
-                                        <rect key="frame" x="10" y="227" width="328" height="40"/>
+                                        <rect key="frame" x="10" y="230" width="328" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="TLc-Cs-5SR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                                <color key="value" red="0.58046478430000004" green="0.58046478430000004" blue="0.58046478430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqW-Pc-Quj">
-                                        <rect key="frame" x="25" y="318.5" width="298" height="43"/>
+                                        <rect key="frame" x="25" y="321.5" width="298" height="43"/>
                                         <color key="backgroundColor" red="0.4238767028" green="0.42395257949999998" blue="0.42386603360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="GE3-dH-e2x"/>
@@ -89,7 +106,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                                <real key="value" value="3"/>
+                                                <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -158,6 +175,7 @@
                             <constraint firstItem="MGl-yN-kEp" firstAttribute="bottom" secondItem="KaU-0L-BMW" secondAttribute="bottom" constant="273" id="zX4-QT-a8W"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="XhE-sJ-6zt"/>
                     <connections>
                         <outlet property="MobileTextField" destination="Tf1-fK-e5v" id="iWL-al-vZA"/>
                         <outlet property="SignInButton" destination="kqW-Pc-Quj" id="V2H-B8-uUU"/>
@@ -166,12 +184,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SxY-yM-OJY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-562.31884057971024" y="173.4375"/>
+            <point key="canvasLocation" x="347.82608695652175" y="173.4375"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="hbf-4l-xaU">
             <objects>
-                <viewController id="yCz-0g-Rfk" customClass="SignUpViewController" customModule="EPM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" id="yCz-0g-Rfk" customClass="SignUpViewController" customModule="EPM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DcZ-tO-f9F">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -180,12 +198,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4On-Ej-sxI">
-                                        <rect key="frame" x="26" y="75" width="87.5" height="27"/>
+                                        <rect key="frame" x="26" y="75" width="83" height="27"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Sign Up">
                                                 <attributes>
                                                     <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <font key="NSFont" size="23" name="ArialRoundedMTBold"/>
+                                                    <font key="NSFont" size="23" name="ArialNarrow"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
@@ -380,12 +398,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fti-rw-8ie" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="192.75362318840581" y="172.76785714285714"/>
+            <point key="canvasLocation" x="1102.8985507246377" y="172.76785714285714"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="KZe-jV-kEk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="n0n-e1-WVe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H5F-eQ-p9V">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="3ll-CW-Ls0" kind="relationship" relationship="rootViewController" id="gBq-mQ-jN2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Wa-bP-eEq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-562.31884057971024" y="173.4375"/>
         </scene>
     </scenes>
     <resources>
         <namedColor name="CloudBurst">
-            <color red="0.1790349483" green="0.19027978179999999" blue="0.37140429019999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.1803921568627451" green="0.19215686274509805" blue="0.37254901960784315" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

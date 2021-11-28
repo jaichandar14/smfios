@@ -9,6 +9,8 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    
+
     @IBOutlet weak var tableview: UITableView!
       
     @IBOutlet weak var segmentedControl: SegmentedControl!
@@ -36,9 +38,9 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableview.separatorStyle = UITableViewCell.SeparatorStyle.none
-        //callToViewModelForUIUpdate()
+        NotificationCenter.default.addObserver(self, selector: #selector(disconnectPaxiSocket(_:)), name: Notification.Name(rawValue: "popover"), object: nil)
         updateDataSource()
-     }
+      }
     
     
     func callToViewModelForUIUpdate(){
@@ -50,13 +52,15 @@ class SignUpViewController: UIViewController {
     }
     
     func updateDataSource(){
-        
-        self.dataSource = UserDetailsTableViewDataSource(configureCell: { (cell, evm) in
+         self.dataSource = UserDetailsTableViewDataSource(configureCell: { (cell, evm) in
+            print(cell)
             print("done")
            })
         self.tableview.dataSource = self.dataSource
         self.tableview.reloadData()
     }
     
-
+    @objc func disconnectPaxiSocket(_ notification: Notification) {
+        navigationController?.popViewController(animated: false)    }
 }
+

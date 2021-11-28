@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD30360727513FA500071618 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DD30360627513FA500071618 /* amplifyconfiguration.json */; };
 		DD55CA2427354CB100DA375E /* UserActionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD55CA2327354CB100DA375E /* UserActionTableViewCell.swift */; };
 		DD8A9FD42738E82A0053C5DA /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD8A9FD32738E82A0053C5DA /* Colors.xcassets */; };
 		DD8A9FDE27390C1D0053C5DA /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8A9FDD27390C1D0053C5DA /* SegmentedControl.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD30360627513FA500071618 /* amplifyconfiguration.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		DD55CA2327354CB100DA375E /* UserActionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionTableViewCell.swift; sourceTree = "<group>"; };
 		DD8A9FD32738E82A0053C5DA /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		DD8A9FDD27390C1D0053C5DA /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -79,11 +81,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C375D508BEC882188610499 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		DD92B06B272C04B9003F03B9 = {
 			isa = PBXGroup;
 			children = (
 				DD92B076272C04B9003F03B9 /* EPM */,
 				DD92B075272C04B9003F03B9 /* Products */,
+				5C375D508BEC882188610499 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				DD92B085272C04BC003F03B9 /* Info.plist */,
+				DD30360627513FA500071618 /* amplifyconfiguration.json */,
 				DD92B0B9272C08A4003F03B9 /* StoryBoards */,
 				DD92B0B8272C0854003F03B9 /* App Launcher */,
 				DD92B0A3272C069B003F03B9 /* Modules */,
@@ -284,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD8A9FD42738E82A0053C5DA /* Colors.xcassets in Resources */,
+				DD30360727513FA500071618 /* amplifyconfiguration.json in Resources */,
 				DDC9D3BB2730068C00A48572 /* UserEntry.storyboard in Resources */,
 				DD92B084272C04BC003F03B9 /* LaunchScreen.storyboard in Resources */,
 				DD92B081272C04BC003F03B9 /* Assets.xcassets in Resources */,

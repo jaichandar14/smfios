@@ -6,11 +6,16 @@
 //
 
 import UIKit
+protocol UserActionTVDelegate {
+    func popoverMethod()
+}
 
 class UserActionTableViewCell: UITableViewCell {
+    var delegate : UserActionTVDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
@@ -21,6 +26,7 @@ class UserActionTableViewCell: UITableViewCell {
     }
 
     @IBAction func SignUpAction(_ sender: Any) {
+        
     }
     @IBAction func googleLoginAction(_ sender: Any) {
     }
@@ -28,5 +34,6 @@ class UserActionTableViewCell: UITableViewCell {
     }
 
     @IBAction func signInAction(_ sender: Any) {
+        delegate?.popoverMethod()
     }
 }

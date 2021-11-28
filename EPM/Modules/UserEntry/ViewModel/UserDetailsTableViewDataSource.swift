@@ -9,13 +9,12 @@ import Foundation
 import UIKit
 
 
-class UserDetailsTableViewDataSource<CELL: UITableViewCell,C> : NSObject,UITableViewDataSource,UITableViewDelegate {
-   
-    
-    
+
+class UserDetailsTableViewDataSource<CELL: UITableViewCell,C> : NSObject,UITableViewDataSource,UITableViewDelegate, UserActionTVDelegate {
+     
     var configureCell : (CELL, C) -> () = {_,_ in }
     var fieldName = ["First name","Last Name","Email ID","Mobile Number"]
-    
+     
     init(configureCell : @escaping (CELL, C) -> ()) {
         self.configureCell = configureCell
     }
@@ -33,6 +32,7 @@ class UserDetailsTableViewDataSource<CELL: UITableViewCell,C> : NSObject,UITable
             return cell
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserActionTableViewCell", for: indexPath) as! UserActionTableViewCell
+            cell.delegate = self
             return cell
             
         default:
@@ -45,4 +45,8 @@ class UserDetailsTableViewDataSource<CELL: UITableViewCell,C> : NSObject,UITable
         return UITableView.automaticDimension
     }
     
+    func popoverMethod() {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "popover"), object: nil)
+    }
+ 
 }

@@ -1,0 +1,32 @@
+PODS:
+  - Amplify (1.16.1):
+    - Amplify/Default (= 1.16.1)
+  - Amplify/Default (1.16.1)
+  - AWSCognito (2.19.1):
+    - AWSCore (= 2.19.1)
+  - AWSCore (2.19.1)
+  - FlagPhoneNumber (0.8.0):
+    - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
+  - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
+
+DEPENDENCIES:
+  - Amplify
+  - AWSCognito
+  - FlagPhoneNumber
+
+SPEC REPOS:
+  trunk:
+    - Amplify
+    - AWSCognito
+    - AWSCore
+    - FlagPhoneNumber
+
+SPEC CHECKSUMS:
+  Amplify: 6537202e60db68f911ca9382bfc19be3cdd3a78e
+  AWSCognito: f50de600804941d083af37a7568905f31a774727
+  AWSCore: 55c154ae27efc5c98bdc30a0eeea5a35d10a2ab5
+  FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
+
+PODFILE CHECKSUM: e348b082e7755c4fcdf574105bb77a5cc4b6f91a
+
+COCOAPODS: 1.10.0
