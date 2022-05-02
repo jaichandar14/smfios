@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
         Util.setIntialController(window: self.window!)
         
+        ThemeManager.applyTheme(theme: .defaultTheme)
+        
+        /// Initialize netowrk change listener
+        Connectivity.shared.startNotifier()
+        
         return true
     }
 

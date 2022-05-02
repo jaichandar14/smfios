@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DashboardViewController" customModule="SMF_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAllServices" destination="7LN-Sm-NRb" id="l5K-t1-CMF"/>
+                <outlet property="btnBranch" destination="urh-Fp-1P7" id="nWB-R4-9jf"/>
+                <outlet property="btnCalendar" destination="Hue-OB-egB" id="OCU-At-hnz"/>
+                <outlet property="containerView" destination="607-EZ-OBr" id="cZ4-Ey-4qK"/>
+                <outlet property="lblServices" destination="SPF-ao-Laa" id="ChG-3E-2ny"/>
+                <outlet property="serviceContainerView" destination="ar7-Ux-1ts" id="4pY-gt-ysB"/>
+                <outlet property="servicesCollectionView" destination="Dll-ok-6ls" id="L5q-kT-mWn"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="958"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ar7-Ux-1ts">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SERVICES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-ao-Laa">
+                            <rect key="frame" x="15" y="20" width="74" height="19.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Dll-ok-6ls">
+                            <rect key="frame" x="0.0" y="65.5" width="320" height="94.5"/>
+                            <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dWc-vT-1lj">
+                                <size key="itemSize" width="128" height="128"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hue-OB-egB">
+                            <rect key="frame" x="255" y="15" width="40" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="L8r-29-oNt"/>
+                                <constraint firstAttribute="height" constant="40" id="ivE-Tn-7TE"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Dll-ok-6ls" secondAttribute="bottom" constant="20" id="0vl-IE-beR"/>
+                        <constraint firstItem="Hue-OB-egB" firstAttribute="top" secondItem="ar7-Ux-1ts" secondAttribute="top" constant="15" id="3U3-Qi-pxA"/>
+                        <constraint firstItem="SPF-ao-Laa" firstAttribute="leading" secondItem="ar7-Ux-1ts" secondAttribute="leading" constant="15" id="572-lp-96T"/>
+                        <constraint firstItem="SPF-ao-Laa" firstAttribute="top" secondItem="ar7-Ux-1ts" secondAttribute="top" constant="20" id="TKN-uL-ciB"/>
+                        <constraint firstItem="Dll-ok-6ls" firstAttribute="leading" secondItem="ar7-Ux-1ts" secondAttribute="leading" id="cur-h3-0B4"/>
+                        <constraint firstAttribute="height" constant="180" id="d9h-PJ-1W3"/>
+                        <constraint firstAttribute="trailing" secondItem="Dll-ok-6ls" secondAttribute="trailing" id="j32-qP-qBl"/>
+                        <constraint firstAttribute="trailing" secondItem="Hue-OB-egB" secondAttribute="trailing" constant="25" id="oeg-iW-8t0"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urh-Fp-1P7">
+                    <rect key="frame" x="165" y="203" width="135" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="135" id="mjX-N5-iwf"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Branch  " image="arrow-down">
+                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnBranchTapped:" destination="-1" eventType="touchUpInside" id="CF4-ca-Cpj"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="607-EZ-OBr">
+                    <rect key="frame" x="0.0" y="248" width="320" height="710"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LN-Sm-NRb">
+                    <rect key="frame" x="20" y="203" width="135" height="35"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="35" id="9Nh-Pg-XyG"/>
+                        <constraint firstAttribute="width" constant="135" id="XG2-NI-ToE"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="All Services  " image="arrow-down">
+                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="btnServicesTapped:" destination="-1" eventType="touchUpInside" id="NrC-p2-cn5"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="urh-Fp-1P7" secondAttribute="trailing" constant="20" id="3do-E3-sf4"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ar7-Ux-1ts" secondAttribute="trailing" id="8fQ-gL-cOV"/>
+                <constraint firstItem="urh-Fp-1P7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7LN-Sm-NRb" secondAttribute="trailing" constant="5" id="8gu-bZ-gjA"/>
+                <constraint firstItem="Dll-ok-6ls" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8xy-n5-7tZ"/>
+                <constraint firstItem="urh-Fp-1P7" firstAttribute="bottom" secondItem="7LN-Sm-NRb" secondAttribute="bottom" id="EZD-M0-TZd"/>
+                <constraint firstItem="urh-Fp-1P7" firstAttribute="top" secondItem="7LN-Sm-NRb" secondAttribute="top" id="Oq7-JC-zSc"/>
+                <constraint firstItem="607-EZ-OBr" firstAttribute="top" secondItem="7LN-Sm-NRb" secondAttribute="bottom" constant="10" id="VMf-W3-SX7"/>
+                <constraint firstItem="7LN-Sm-NRb" firstAttribute="top" secondItem="ar7-Ux-1ts" secondAttribute="bottom" constant="23" id="ZEV-Lm-N9b"/>
+                <constraint firstAttribute="trailing" secondItem="Dll-ok-6ls" secondAttribute="trailing" id="dl1-QR-aGE"/>
+                <constraint firstItem="7LN-Sm-NRb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="kmg-h7-eTX"/>
+                <constraint firstItem="ar7-Ux-1ts" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qPT-IW-wPi"/>
+                <constraint firstItem="Dll-ok-6ls" firstAttribute="top" secondItem="SPF-ao-Laa" secondAttribute="bottom" constant="26" id="qfG-lE-USV"/>
+                <constraint firstItem="607-EZ-OBr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rAI-VO-dXh"/>
+                <constraint firstAttribute="trailing" secondItem="607-EZ-OBr" secondAttribute="trailing" id="uHq-5H-ieJ"/>
+                <constraint firstItem="ar7-Ux-1ts" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wfA-Kv-vgv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="607-EZ-OBr" secondAttribute="bottom" id="wlc-NJ-wqg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="131.25" y="-568.75"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow-down" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

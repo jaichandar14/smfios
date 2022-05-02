@@ -9,8 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InitialViewController" customModule="SMF_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StatusListViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="Kmr-7o-tDF" id="FDY-U9-knd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,20 +20,20 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initial Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTb-sU-vrf">
-                    <rect key="frame" x="147" y="437.5" width="120" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kmr-7o-tDF">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="hTb-sU-vrf" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Sbb-Nn-Nwy"/>
-                <constraint firstItem="hTb-sU-vrf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fww-vj-jYP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Kmr-7o-tDF" secondAttribute="trailing" id="1Tq-Hr-XXt"/>
+                <constraint firstItem="Kmr-7o-tDF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2df-gz-cwH"/>
+                <constraint firstItem="Kmr-7o-tDF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Lb9-in-9iO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Kmr-7o-tDF" secondAttribute="bottom" id="td7-M9-QSJ"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="25"/>
+            <point key="canvasLocation" x="132" y="67"/>
         </view>
     </objects>
     <resources>

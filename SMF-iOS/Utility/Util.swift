@@ -11,7 +11,7 @@ class Util {
     
     static func setIntialController(window: UIWindow) {
         
-        window.rootViewController = UINavigationController(rootViewController: InitialViewController())
+        window.rootViewController = UINavigationController(rootViewController: DashboardViewController())//InitialViewController())
         window.makeKeyAndVisible()
     }
     
