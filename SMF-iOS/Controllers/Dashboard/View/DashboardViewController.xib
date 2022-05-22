@@ -53,6 +53,7 @@
                                 <constraint firstAttribute="height" constant="40" id="ivE-Tn-7TE"/>
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="calendar"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                     <integer key="value" value="20"/>
@@ -72,57 +73,75 @@
                         <constraint firstAttribute="trailing" secondItem="Hue-OB-egB" secondAttribute="trailing" constant="25" id="oeg-iW-8t0"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urh-Fp-1P7">
-                    <rect key="frame" x="165" y="203" width="135" height="35"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="135" id="mjX-N5-iwf"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Branch  " image="arrow-down">
-                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="btnBranchTapped:" destination="-1" eventType="touchUpInside" id="CF4-ca-Cpj"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="607-EZ-OBr">
                     <rect key="frame" x="0.0" y="248" width="320" height="710"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LN-Sm-NRb">
-                    <rect key="frame" x="20" y="203" width="135" height="35"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="S0R-7e-w0Z">
+                    <rect key="frame" x="20" y="203" width="280" height="35"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LN-Sm-NRb">
+                            <rect key="frame" x="0.0" y="0.0" width="130" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="9Nh-Pg-XyG"/>
+                            </constraints>
+                            <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="30" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="All Services  ">
+                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="btnServicesTapped:" destination="-1" eventType="touchUpInside" id="NrC-p2-cn5"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urh-Fp-1P7">
+                            <rect key="frame" x="150" y="0.0" width="130" height="35"/>
+                            <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="30" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Branch  ">
+                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="btnBranchTapped:" destination="-1" eventType="touchUpInside" id="CF4-ca-Cpj"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="wI0-20-zpI">
+                    <rect key="frame" x="276" y="214.5" width="14" height="14"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="35" id="9Nh-Pg-XyG"/>
-                        <constraint firstAttribute="width" constant="135" id="XG2-NI-ToE"/>
+                        <constraint firstAttribute="height" constant="14" id="7uT-A3-vTk"/>
+                        <constraint firstAttribute="width" constant="14" id="rdO-4W-Iax"/>
                     </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="All Services  " image="arrow-down">
-                        <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <connections>
-                        <action selector="btnServicesTapped:" destination="-1" eventType="touchUpInside" id="NrC-p2-cn5"/>
-                    </connections>
-                </button>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="c38-oZ-UBZ">
+                    <rect key="frame" x="126" y="214.5" width="14" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="14" id="gCn-BB-zwV"/>
+                        <constraint firstAttribute="height" constant="14" id="pKg-Yf-3qb"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="urh-Fp-1P7" secondAttribute="trailing" constant="20" id="3do-E3-sf4"/>
+                <constraint firstItem="wI0-20-zpI" firstAttribute="centerY" secondItem="urh-Fp-1P7" secondAttribute="centerY" constant="1" id="6zg-BA-7Dd"/>
+                <constraint firstItem="S0R-7e-w0Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="8SR-To-hH0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ar7-Ux-1ts" secondAttribute="trailing" id="8fQ-gL-cOV"/>
-                <constraint firstItem="urh-Fp-1P7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7LN-Sm-NRb" secondAttribute="trailing" constant="5" id="8gu-bZ-gjA"/>
                 <constraint firstItem="Dll-ok-6ls" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8xy-n5-7tZ"/>
-                <constraint firstItem="urh-Fp-1P7" firstAttribute="bottom" secondItem="7LN-Sm-NRb" secondAttribute="bottom" id="EZD-M0-TZd"/>
-                <constraint firstItem="urh-Fp-1P7" firstAttribute="top" secondItem="7LN-Sm-NRb" secondAttribute="top" id="Oq7-JC-zSc"/>
-                <constraint firstItem="607-EZ-OBr" firstAttribute="top" secondItem="7LN-Sm-NRb" secondAttribute="bottom" constant="10" id="VMf-W3-SX7"/>
-                <constraint firstItem="7LN-Sm-NRb" firstAttribute="top" secondItem="ar7-Ux-1ts" secondAttribute="bottom" constant="23" id="ZEV-Lm-N9b"/>
+                <constraint firstItem="S0R-7e-w0Z" firstAttribute="top" secondItem="ar7-Ux-1ts" secondAttribute="bottom" constant="23" id="CkM-QP-DfH"/>
+                <constraint firstItem="c38-oZ-UBZ" firstAttribute="centerY" secondItem="7LN-Sm-NRb" secondAttribute="centerY" constant="1" id="LdJ-iz-4xv"/>
+                <constraint firstItem="c38-oZ-UBZ" firstAttribute="trailing" secondItem="7LN-Sm-NRb" secondAttribute="trailing" constant="-10" id="Xzz-pd-7pB"/>
                 <constraint firstAttribute="trailing" secondItem="Dll-ok-6ls" secondAttribute="trailing" id="dl1-QR-aGE"/>
-                <constraint firstItem="7LN-Sm-NRb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="kmg-h7-eTX"/>
+                <constraint firstItem="wI0-20-zpI" firstAttribute="trailing" secondItem="urh-Fp-1P7" secondAttribute="trailing" constant="-10" id="eYw-pb-iyz"/>
                 <constraint firstItem="ar7-Ux-1ts" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qPT-IW-wPi"/>
                 <constraint firstItem="Dll-ok-6ls" firstAttribute="top" secondItem="SPF-ao-Laa" secondAttribute="bottom" constant="26" id="qfG-lE-USV"/>
                 <constraint firstItem="607-EZ-OBr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rAI-VO-dXh"/>
                 <constraint firstAttribute="trailing" secondItem="607-EZ-OBr" secondAttribute="trailing" id="uHq-5H-ieJ"/>
                 <constraint firstItem="ar7-Ux-1ts" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wfA-Kv-vgv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="607-EZ-OBr" secondAttribute="bottom" id="wlc-NJ-wqg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="S0R-7e-w0Z" secondAttribute="trailing" constant="20" id="ysV-jM-JeG"/>
+                <constraint firstItem="607-EZ-OBr" firstAttribute="top" secondItem="S0R-7e-w0Z" secondAttribute="bottom" constant="10" id="zcW-94-f5w"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="131.25" y="-568.75"/>
@@ -130,6 +149,7 @@
     </objects>
     <resources>
         <image name="arrow-down" width="16" height="16"/>
+        <image name="calendar" width="21" height="21"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

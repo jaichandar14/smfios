@@ -60,11 +60,13 @@ class APIRequestExecutor {
         }
         switch method {
         case .GET:
-            if let param = parameters{
-                let jsonString = self.createJsonString(parameter: param)
-                let url = urlString + "?data=" + jsonString
-                request.url = URL.init(string: url)
-            }
+//            if let param = parameters {
+//                let jsonString = self.createJsonString(parameter: param)
+//                let url = urlString + "?" + jsonString
+//                request.url = URL.init(string: url)
+//            }
+            request.url = createURLRequest(url: urlString, parameters: parameters)
+            
         case .POST, .PUT, .DELETE:
             do {
                 if let params = parameters{
@@ -79,6 +81,28 @@ class APIRequestExecutor {
             }
         }
         return request
+    }
+    
+    private func createURLRequest(url: String, parameters: [String: Any]?) -> URL? {
+        if let params = parameters {
+            let urlComp = NSURLComponents(string: url)
+            var items = [URLQueryItem]()
+            params.forEach { (key: String, value: Any) in
+                if value is Int {
+                    items.append(URLQueryItem(name: key, value: "\(value)"))
+                } else {
+                    items.append(URLQueryItem(name: key, value: value as? String))
+                }
+            }
+            
+            if !items.isEmpty {
+                urlComp?.queryItems = items
+            }
+            
+            return urlComp?.url
+        } else {
+            return URL(string: url)
+        }
     }
     
     /// This method accepts a dictionary and creates json string

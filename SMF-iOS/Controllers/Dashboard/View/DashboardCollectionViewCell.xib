@@ -8,6 +8,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Muli.ttf">
+            <string>Muli</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -22,26 +27,29 @@
                         <rect key="frame" x="8" y="8" width="113" height="118"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJB-uT-hRI">
-                                <rect key="frame" x="12" y="12" width="13.5" height="27"/>
+                                <rect key="frame" x="10" y="10" width="13.5" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="o8m-cd-8AV"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label has jdhaksjh dasjkdh kajsdh aksjdh asjkdhajksdh jkasdh kjasdhk ajsdhjk ahsdkja dhskajhskjahs djk asda'" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBS-Qf-syc">
-                                <rect key="frame" x="12" y="44" width="89" height="50.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label has jdhaksjh dasjkdh kajsdh aksjdh asjkdhajksdh jkasdh kjasdhk ajsdhjk ahsdkja dhskajhskjahs djk asda'" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBS-Qf-syc">
+                                <rect key="frame" x="10" y="39" width="93" height="71"/>
+                                <fontDescription key="fontDescription" name="Muli" family="Muli" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="IJB-uT-hRI" firstAttribute="top" secondItem="Vtr-6H-wQG" secondAttribute="top" constant="12" id="ENJ-gE-HeX"/>
-                            <constraint firstItem="IJB-uT-hRI" firstAttribute="leading" secondItem="Vtr-6H-wQG" secondAttribute="leading" constant="12" id="bxR-74-Q0w"/>
-                            <constraint firstItem="yBS-Qf-syc" firstAttribute="leading" secondItem="Vtr-6H-wQG" secondAttribute="leading" constant="12" id="hQg-I6-HCK"/>
-                            <constraint firstAttribute="trailing" secondItem="yBS-Qf-syc" secondAttribute="trailing" constant="12" id="kTG-lg-b69"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yBS-Qf-syc" secondAttribute="bottom" constant="12" id="lDI-6T-EBq"/>
-                            <constraint firstItem="yBS-Qf-syc" firstAttribute="top" secondItem="IJB-uT-hRI" secondAttribute="bottom" constant="5" id="tfq-sY-zqr"/>
+                            <constraint firstItem="IJB-uT-hRI" firstAttribute="top" secondItem="Vtr-6H-wQG" secondAttribute="top" constant="10" id="ENJ-gE-HeX"/>
+                            <constraint firstItem="IJB-uT-hRI" firstAttribute="leading" secondItem="Vtr-6H-wQG" secondAttribute="leading" constant="10" id="bxR-74-Q0w"/>
+                            <constraint firstItem="yBS-Qf-syc" firstAttribute="leading" secondItem="Vtr-6H-wQG" secondAttribute="leading" constant="10" id="hQg-I6-HCK"/>
+                            <constraint firstAttribute="trailing" secondItem="yBS-Qf-syc" secondAttribute="trailing" constant="10" id="kTG-lg-b69"/>
+                            <constraint firstAttribute="bottom" secondItem="yBS-Qf-syc" secondAttribute="bottom" constant="8" id="lDI-6T-EBq"/>
+                            <constraint firstItem="yBS-Qf-syc" firstAttribute="top" secondItem="IJB-uT-hRI" secondAttribute="bottom" constant="2" id="tfq-sY-zqr"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>

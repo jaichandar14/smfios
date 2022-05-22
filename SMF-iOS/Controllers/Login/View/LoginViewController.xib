@@ -181,18 +181,38 @@
                         <constraint firstItem="e6K-sf-Bb0" firstAttribute="centerY" secondItem="U1O-if-zt2" secondAttribute="centerY" id="vf1-9N-DiO"/>
                     </constraints>
                 </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMS-Hu-DVT">
+                    <rect key="frame" x="169" y="478" width="76.5" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="SignOut"/>
+                    <connections>
+                        <action selector="signOut:" destination="-1" eventType="touchUpInside" id="o4q-zr-sV3"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Wf-ro-dHo">
+                    <rect key="frame" x="47.5" y="478" width="110.5" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Check Status"/>
+                    <connections>
+                        <action selector="checkStatus:" destination="-1" eventType="touchUpInside" id="P6V-fn-pKS"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="U1O-if-zt2" firstAttribute="centerY" secondItem="jFq-1k-4BZ" secondAttribute="centerY" id="12i-ao-9sN"/>
+                <constraint firstItem="IMS-Hu-DVT" firstAttribute="centerX" secondItem="E8Z-tn-wE5" secondAttribute="centerX" id="2lB-Ea-G5W"/>
+                <constraint firstItem="3Wf-ro-dHo" firstAttribute="top" secondItem="E8Z-tn-wE5" secondAttribute="bottom" constant="48" id="AVH-Ct-KS3"/>
                 <constraint firstItem="4g1-0Z-Qfk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="BOO-G3-G10"/>
                 <constraint firstItem="U1O-if-zt2" firstAttribute="leading" secondItem="6GU-Pe-PND" secondAttribute="leading" constant="3" id="ICc-r2-Bou"/>
+                <constraint firstItem="IMS-Hu-DVT" firstAttribute="top" secondItem="E8Z-tn-wE5" secondAttribute="bottom" constant="48" id="PRS-g5-xU3"/>
                 <constraint firstItem="4g1-0Z-Qfk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="33" id="T6d-Nc-rPI"/>
                 <constraint firstItem="oR0-kd-3tW" firstAttribute="centerY" secondItem="jFq-1k-4BZ" secondAttribute="centerY" id="TBI-F6-lR0"/>
                 <constraint firstItem="TjO-Yo-VfK" firstAttribute="trailing" secondItem="4g1-0Z-Qfk" secondAttribute="trailing" id="Ybo-Hd-Xj8"/>
                 <constraint firstItem="U1O-if-zt2" firstAttribute="trailing" secondItem="oR0-kd-3tW" secondAttribute="trailing" id="ZSF-U2-sTe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4g1-0Z-Qfk" secondAttribute="trailing" constant="33" id="cjc-lo-NWb"/>
+                <constraint firstItem="IMS-Hu-DVT" firstAttribute="leading" secondItem="3Wf-ro-dHo" secondAttribute="trailing" constant="11" id="exF-VV-6gB"/>
                 <constraint firstItem="TjO-Yo-VfK" firstAttribute="top" secondItem="4g1-0Z-Qfk" secondAttribute="bottom" constant="15" id="sCp-8D-gkD"/>
                 <constraint firstItem="TjO-Yo-VfK" firstAttribute="leading" secondItem="4g1-0Z-Qfk" secondAttribute="leading" id="vKJ-Cr-fhM"/>
             </constraints>

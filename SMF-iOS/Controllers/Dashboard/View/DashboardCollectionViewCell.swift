@@ -16,12 +16,19 @@ class DashboardCollectionViewCell: UICollectionViewCell {
     private var _theme: Theme!
     
     override func awakeFromNib() {
-        super.awakeFromNib()
+        
         
         _theme = ThemeManager.currentTheme()
         
         lblCounter.textColor = _theme.textColor
         lblTitle.textColor = _theme.textGreyColor
+//        lblTitle.font = _theme.muliFont(size: 14, style: .muliSemiBold)
+//        lblCounter.font = _theme.muliFont(size: 22, style: .muliSemiBold)
+//        lblTitle.numberOfLines = 0
+//
+//        lblTitle.lineBreakMode = .byWordWrapping
+        
+        super.awakeFromNib()
     }
     
     func setCornerRadius() {

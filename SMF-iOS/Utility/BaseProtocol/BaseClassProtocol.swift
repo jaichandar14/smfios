@@ -8,6 +8,8 @@
 import Foundation
 
 protocol BaseProtocol {
+    func styleUI()
+    func setDataToUI()
     func networkChangeListener(connectivity: Bool, connectionType: String?)
 }
 

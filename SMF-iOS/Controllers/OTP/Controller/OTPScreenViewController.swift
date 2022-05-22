@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import Amplify
 
-class OTPScreenViewController: UIViewController {
+class OTPScreenViewController: BaseViewController {
+    func styleUI() {
+        // add Stubs
+    }
+    
+    func setDataToUI() {
+        // add Stubs
+    }
+    
 
     @IBOutlet weak var lblOTPVerification: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
@@ -19,7 +28,6 @@ class OTPScreenViewController: UIViewController {
     @IBOutlet weak var otpView: UIView!
     
     private var _otpStackView: OTPStackView!
-    private var _theme: Theme!
     private var _timer: Timer?
     
     var secondsRemaining = 30
@@ -27,7 +35,6 @@ class OTPScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        _theme = ThemeManager.currentTheme()
         setUpLabel()
         
         scheduleTimer()
@@ -48,6 +55,10 @@ class OTPScreenViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         self.setNavBar(hidden: false)
+    }
+    
+    func networkChangeListener(connectivity: Bool, connectionType: String?) {
+        print("NetworkChange")
     }
     
     func scheduleTimer() {
@@ -96,7 +107,26 @@ class OTPScreenViewController: UIViewController {
     @IBAction func btnSubmitTapped(_ sender: UIButton) {
         let otp = self._otpStackView.getOTP()
 //        self._otpStackView.setAllFieldColor(color: _theme.errorColor)
-        self.navigationController?.pushViewController(DashboardViewController(), animated: true)
+        Amplify.Auth.confirmSignIn(challengeResponse: otp) { result in
+                switch result {
+                case .success(let signInResult):
+                    if signInResult.isSignedIn {
+                        print("Confirm sign in succeeded. The user is signed in.")
+                    } else {
+                        print("Confirm sign in succeeded.")
+                        print("Next step: \(signInResult.nextStep)")
+                        // Switch on the next step to take appropriate actions.
+                        // If `signInResult.isSignedIn` is true, the next step
+                        // is 'done', and the user is now signed in.
+                    }
+                    self.navigationController?.pushViewController(DashboardViewController.create(), animated: true)
+                case .failure(let error):
+                    print("Confirm sign in failed \(error)")
+                }
+            }
+        
+        
+        
     }
 }
 

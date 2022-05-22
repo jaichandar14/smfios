@@ -22,4 +22,13 @@ extension UIViewController {
     @objc func hideKeyboard() {
         self.view.endEditing(true)
     }
+    
+    func showLoader() {
+        present(Util.getLoader(), animated: true, completion: nil)
+    }
+    
+    func hideLoader() {
+        Util.loader?.dismiss(animated: false, completion: nil)
+    }
 }
+

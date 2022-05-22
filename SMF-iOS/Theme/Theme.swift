@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 enum Theme: Int {
     case defaultTheme, darkTheme
@@ -13,7 +14,7 @@ enum Theme: Int {
     var primaryColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#556CD4")
+            return ColorConstant.primaryColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -22,7 +23,7 @@ enum Theme: Int {
     var accentColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#FF3577")
+            return ColorConstant.accentColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -31,7 +32,7 @@ enum Theme: Int {
     var backgroundColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#F6FBFF")
+            return ColorConstant.backgroundColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -41,7 +42,7 @@ enum Theme: Int {
     var buttonColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#556CD4")
+            return ColorConstant.buttonColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -50,7 +51,7 @@ enum Theme: Int {
     var buttonDisabledColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#9aa4e4")
+            return ColorConstant.buttonDisabledColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -59,7 +60,7 @@ enum Theme: Int {
     var buttonTextColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#E1E1E1")
+            return ColorConstant.buttonTextColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -69,7 +70,7 @@ enum Theme: Int {
     var textColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#2B2D5C")
+            return ColorConstant.textColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -78,7 +79,7 @@ enum Theme: Int {
     var textGreyColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#9596AD")
+            return ColorConstant.textDarkColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -87,7 +88,7 @@ enum Theme: Int {
     var textLinkColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#319FFF")
+            return ColorConstant.textLinkColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -97,7 +98,7 @@ enum Theme: Int {
     var activeStatusColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#97c852")
+            return ColorConstant.activeStatusColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -106,7 +107,7 @@ enum Theme: Int {
     var closedStatusColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#556CD4")
+            return ColorConstant.closedStatusColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -115,7 +116,7 @@ enum Theme: Int {
     var rejectedStatusColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#ff0011")
+            return ColorConstant.rejectedStatusColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -124,7 +125,7 @@ enum Theme: Int {
     var draftStatusColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#ffc637")
+            return ColorConstant.draftStatusColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -134,7 +135,7 @@ enum Theme: Int {
     var successColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#44d672")
+            return ColorConstant.successColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -143,7 +144,7 @@ enum Theme: Int {
     var informationColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#4e7de2")
+            return ColorConstant.informationColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -152,7 +153,7 @@ enum Theme: Int {
     var warningColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#f7de6e")
+            return ColorConstant.warningColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -161,7 +162,7 @@ enum Theme: Int {
     var errorColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("#e9274b")
+            return ColorConstant.errorColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }
@@ -177,5 +178,62 @@ enum Theme: Int {
         }
     }
     
+    // MARK: - Fonts Setup
+    func ralewayFont(size: CGFloat, style: RalewayStyle) -> UIFont {
+        guard let customFont = UIFont(name: style.rawValue, size: size) else {
+            fatalError("""
+                    Failed to load the "\(style.rawValue)" font.
+                    Make sure the font file is included in the project and the font name is spelled correctly.
+                    """
+            )
+        }
+        
+        return customFont
+    }
     
+    func muliFont(size: CGFloat, style: MuliStyle) -> UIFont {
+        guard let customFont = UIFont(name: style.rawValue, size: size) else {
+            fatalError("""
+                    Failed to load the "\(style.rawValue)" font.
+                    Make sure the font file is included in the project and the font name is spelled correctly.
+                    """
+            )
+        }
+        
+        return customFont
+    }
+}
+
+enum MuliStyle: String {
+    case muliBold = "Muli-Bold"
+    case muliBoldItalic = "Muli-BoldItalic"
+    case muliExtraLight = "Muli-ExtraLight"
+    case muliExtraLightItalic = "Muli-ExtraLightItalic"
+    case muliItalic = "Muli-Italic"
+    case muliLight = "Muli-Light"
+    case muliLightItalic = "Muli-LightItalic"
+    case muliSemiBoldItalic = "Muli-Semi-BoldItalic"
+    case muliSemiBold = "Muli-SemiBold"
+    case muli = "Muli"
+}
+
+enum RalewayStyle: String {
+    case ralewayExtraLightItalic = "Raleway-ExtraLightItalic"
+    case ralewayBlack = "Raleway-Black"
+    case ralewayBlackItalic = "Raleway-BlackItalic"
+    case ralewayBold = "Raleway-Bold"
+    case ralewayBoldItalic = "Raleway-BoldItalic"
+    case ralewayExtraBold = "Raleway-ExtraBold"
+    case ralewayExtraBoldItalic = "Raleway-ExtraBoldItalic"
+    case ralewayExtraLight = "Raleway-ExtraLight"
+    case ralewayItalic = "Raleway-Italic"
+    case ralewayLight = "Raleway-Light"
+    case ralewayLightItalic = "Raleway-LightItalic"
+    case ralewayMedium = "Raleway-Medium"
+    case ralewayMediumItalic = "Raleway-MediumItalic"
+    case ralewayRegular = "Raleway-Regular"
+    case ralewaySemiBold = "Raleway-SemiBold"
+    case ralewaySemiBoldItalic = "Raleway-SemiBoldItalic"
+    case ralewayThin = "Raleway-Thin"
+    case ralewayThinItalic = "Raleway-ThinItalic"
 }

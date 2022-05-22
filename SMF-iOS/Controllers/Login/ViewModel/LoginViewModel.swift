@@ -16,13 +16,22 @@ final class LoginViewModel {
     
     private let _loginModel: LoginModel
     
+    var model: LoginModel {
+        return _loginModel
+    }
+    
     init(loginModel: LoginModel) {
         self._loginModel = loginModel
         
         countries = Country.getCountries()
         
-        countryCode = loginModel.selectedCountry?.dialCode ?? ""
-        flagImage = Country.flag(forCountryCode: (loginModel.selectedCountry?.iso2 ?? "")).image()
+        if let selectedCountry = loginModel.selectedCountry {
+            countryCode = selectedCountry.dialCode
+            flagImage = Country.flag(forCountryCode: (loginModel.selectedCountry?.iso2 ?? "")).image()
+        } else {
+            countryCode = countries.first!.dialCode
+            flagImage = Country.flag(forCountryCode: countries.first!.iso2).image()
+        }
     }
     
     func setEmail(text: String?) {
@@ -47,5 +56,16 @@ final class LoginViewModel {
     
     func isValidMobileNo() -> Bool {
         return (_loginModel.mobileNo ?? "").isValidMobileNo()
+    }
+    
+    func getAppAuthenticatedUser(completion: @escaping (User) -> Void) {
+        _loginModel.callAppAuthenticatedUser(id: "Auth", method: .GET, parameters: nil, priority: .high) { response, result, error in
+            print("ASDs")
+            if let responseData = response?["data"] as? [String: Any], let data = try? JSONSerialization.data(withJSONObject: responseData, options: []) {
+                if let user = try? JSONDecoder().decode(User.self, from: data) {
+                    completion(user)
+                }
+            }
+        }
     }
 }

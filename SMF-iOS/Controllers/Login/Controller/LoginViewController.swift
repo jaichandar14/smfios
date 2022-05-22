@@ -7,8 +7,17 @@
 
 import UIKit
 import DropDown
+import Amplify
 
 class LoginViewController: BaseViewController {
+    func styleUI() {
+        // add Stubs
+    }
+    
+    func setDataToUI() {
+        // add Stubs
+    }
+    
     
     var loginViewModel: LoginViewModel!
     
@@ -32,14 +41,11 @@ class LoginViewController: BaseViewController {
     
     @IBOutlet weak var btnSignIn: UIButton!
     @IBOutlet weak var countrySelectionWidthConstraint: NSLayoutConstraint!
-    
-    var _theme: Theme!
-    
+       
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loginViewModel = LoginViewModel(loginModel: LoginModel())
-        _theme = ThemeManager.currentTheme()
         
         setUpTextFields()
         setUpDropDown()
@@ -92,7 +98,7 @@ class LoginViewController: BaseViewController {
             print("Selected item: \(item) index:: \(index)")
             if let data = try? JSONEncoder().encode(self.loginViewModel.countries[index]) {
                 let string = String(data: data, encoding: .utf8)!
-                UserDefaults.standard.set(string, forKey: "country_selection")
+                UserDefault[key: .countrySelection] = string
             }
             
             loginViewModel.countryCode = self.loginViewModel.countries[index].dialCode
@@ -142,15 +148,77 @@ class LoginViewController: BaseViewController {
         setSignInButton(enabled: false)
     }
     
+    @IBAction func signOut(_ sender: UIButton) {
+        Amplify.Auth.signOut(options: .init(globalSignOut: true)) { result in
+            switch result {
+            case .success():
+                print("Successfullly signed out")
+            case .failure(let error):
+                print("Error in signing out \(error)")
+            }
+        }
+    }
+    @IBAction func checkStatus(_ sender: Any) {
+        Amplify.Auth.fetchAuthSession(options: nil) { result in
+            switch result {
+            case .success(let authSession):
+                print("Already Signed in user:: ")
+            case .failure(let error):
+                print("Failed to signed in")
+                
+            }
+        }
+    }
     @IBAction func btnSignInAction(_ sender: Any) {
         self.hideKeyboard()
         
-//        print("Is connected: \(Connectivity.shared.isConnected)")
-//        LoginModel().callLoginAPI(id: "12345", method: .GET, parameters: nil, priority: nil) { response, result, error in
-//            print("Executed")
-//        }
+        self.loginViewModel.getAppAuthenticatedUser { user in
+            DispatchQueue.main.async {
+                APIConfig.user = user
+                self.navigationController?.pushViewController(DashboardViewController.create(), animated: true)
+            }
+        }
+                
+        /*let mobileNo = self.txtMobileNo.text ?? ""
+        let emailId = "vigneshwaran.p996@gmail.com"//"jaichandar14@gmail.com" //self.txtEmail.text ?? ""//
         
-        self.navigationController?.pushViewController(OTPScreenViewController(), animated: true)
+        let param = ["loginName": mobileNo == "" ? emailId : mobileNo]
+        
+        print("Is connected: \(Connectivity.shared.isConnected)")
+        LoginModel().callLoginAPI(id: "loginAPI", method: .GET, parameters: param, priority: .high) { response, result, error in
+                    
+            print("Response \(String(describing: response))")
+            if let userName = response?[keyPath: "data.userName"] as? String {
+                Amplify.Auth.signIn(username: userName) { result in
+                    switch result {
+                    case .success:
+                        print("Sign in succeeded")
+                        DispatchQueue.main.async {
+                            self.navigationController?.pushViewController(OTPScreenViewController(), animated: true)
+                        }
+                    case .failure(let error):
+                        print("Sign in failed \(error)")
+                        if let err = error.underlyingError as NSError? {
+                            print("Cast to nserror:", err)
+                        }
+                    }
+                }
+//                Amplify.Auth.signIn(username: "chan977295jai", password: "1234") { result in
+//                    switch result {
+//                    case .success:
+//                        print("Sign in succeeded")
+//                        DispatchQueue.main.async {
+//                            self.navigationController?.pushViewController(OTPScreenViewController(), animated: true)
+//                        }
+//                    case .failure(let error):
+//                        print("Sign in failed \(error)")
+//                        if let err = error.underlyingError as NSError? {
+//                            print("Cast to nserror:", err)
+//                        }
+//                    }
+//                }
+            }
+        }*/
     }
     
     @IBAction func btnDropDownAction(_ sender: Any) {

@@ -51,9 +51,19 @@ class Country: Codable {
             return []
         }
         
-        guard let countries: [Country] = try? JSONDecoder().decode([Country].self, from: data) else {
+        guard var countries: [Country] = try? JSONDecoder().decode([Country].self, from: data) else {
             print("Could not parse json response")
             return []
+        }
+        
+        if let index = countries.firstIndex(where: { $0.iso2 == "in" }) {
+            let element = countries.remove(at: index)
+            countries.insert(element, at: 0)
+        }
+        
+        if let index = countries.firstIndex(where: { $0.iso2 == "us" }) {
+            let element = countries.remove(at: index)
+            countries.insert(element, at: 0)
         }
         return countries
     }

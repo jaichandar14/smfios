@@ -10,5 +10,9 @@ target 'SMF-iOS' do
   
   # For internet connectivity
   pod 'ReachabilitySwift'
+  
+  # For signing-in and signing-out
+  pod 'Amplify'
+  pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
 
 end

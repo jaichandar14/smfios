@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Amplify
+import AmplifyPlugins
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,7 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /// Initialize netowrk change listener
         Connectivity.shared.startNotifier()
         
+        /// Do setup for amplify
+        do {
+            try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.configure()
+            print("Amplify configured with auth plugin")
+        } catch {
+            print("An error occurred setting up Amplify: \(error)")
+        }
+        
         return true
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        UserDefaults.standard.synchronize()
     }
 
     // MARK: UISceneSession Lifecycle
