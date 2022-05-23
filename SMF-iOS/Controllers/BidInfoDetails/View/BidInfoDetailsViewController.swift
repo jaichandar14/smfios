@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EventDetailsViewController: BaseViewController {
+class BidInfoDetailsViewController: BaseViewController {
     @IBOutlet weak var eventTitle: UILabel!
     @IBOutlet weak var btnBack: UIButton!
     
@@ -32,10 +32,11 @@ class EventDetailsViewController: BaseViewController {
     @IBOutlet weak var btnDisLike: UIButton!
     @IBOutlet weak var btnLike: UIButton!
     
+    var bidRequestId: Int?
     var isBidVisible = true
     @IBOutlet weak var eventDetailsTopConstraint: NSLayoutConstraint!
     
-    var viewModel: EventDetailViewModel? {
+    var viewModel: BidInfoDetailViewModel? {
         didSet {
             setDataToUI()
         }
@@ -112,7 +113,7 @@ class EventDetailsViewController: BaseViewController {
     }
     
     func updateData() {
-        viewModel?.fetchBidDetailsList(categoryId: nil, vendorOnboardingId: nil, status: "")
+        viewModel?.fetchBidDetailsList(bidRequestId: self.bidRequestId!)
     }
     
     func updateBidList() {
@@ -164,7 +165,7 @@ class EventDetailsViewController: BaseViewController {
     }
 }
 
-extension EventDetailsViewController: UITableViewDataSource, UITableViewDelegate {
+extension BidInfoDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.bidTableView {
             return viewModel?.bidStatusList.value.count ?? 0

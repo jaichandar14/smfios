@@ -131,6 +131,36 @@ class DashboardViewModelContainer: DashboardViewModel {
         }
     }
     
+    func rejectBid(requestId: Int, reason: String?, comment: String?) {
+        let headers = [APIConstant.auth: APIConstant.auth_token]
+        
+        var params: [String: Any] = [APIConstant.bidRequestId: requestId]
+        if let reason = reason {
+            params = [APIConstant.rejectedBidReason: reason]
+        }
+        if let comment = comment {
+            params = [APIConstant.rejectedBidComment: comment]
+        }
+        
+        let url = APIConfig.branchesListURL + "/\(APIConfig.user!.spRegId)"
+        APIManager().executeDataRequest(id: "Reject Bid", url: url, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+            
+            switch result {
+            case true:
+                if let respData = response?["data"] as? [[String: Any]],
+                   let data = try? JSONSerialization.data(withJSONObject: respData, options: []),
+                   let branches = try? JSONDecoder().decode([Branch].self, from: data) {
+                    
+                    self.branches.value = branches
+                } else {
+                    self.branchesFetchError.value = "Data could not be parsed"
+                }
+            case false:
+                self.branchesFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
+            }
+        }
+    }
+    
     func getBranchItem(for index: Int) -> Branch {
         return branches.value[index]
     }

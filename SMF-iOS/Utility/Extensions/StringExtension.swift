@@ -38,4 +38,21 @@ extension String {
         let result = self.range(of: phonePattern, options: .regularExpression)
         return (result != nil)
     }
+    
+    func convertToDate(format: String) -> String {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "MM/dd/yyyy"
+        let showDate = inputFormatter.date(from: self)
+        inputFormatter.dateFormat = format
+        let resultString = inputFormatter.string(from: showDate!)
+        return resultString
+    }
+    
+    func toSMFDateFormat() -> String {
+        return self.convertToDate(format: "dd MMM yyyy")
+    }
+    
+    func toSMFShortFormat() -> String {
+        return self.convertToDate(format: "dd MMM")
+    }
 }

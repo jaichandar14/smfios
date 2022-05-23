@@ -10,7 +10,8 @@ import UIKit
 protocol ActionCardProtocol {
     func notInterestedInEvent()
     func interestedInEvent()
-    func lookForwardForEvent()
+    func lookForwardForEvent(requestId: Int)
+    func changeInMind(requestId: Int)
 }
 
 class ActionsCardTableViewCell: UITableViewCell {
@@ -41,10 +42,12 @@ class ActionsCardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var btnNext: UIButton!
     
+    @IBOutlet weak var btnChangeMind: UIButton!
     @IBOutlet weak var bidContainerView: UIView!
     @IBOutlet weak var cellContainerView: UIView!
     
     private var _theme: Theme!
+    private var bidInfo: BidStatusInfo!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -150,11 +153,12 @@ class ActionsCardTableViewCell: UITableViewCell {
     }
     
     func setData(bidInfo: BidStatusInfo) {
+        self.bidInfo = bidInfo
         lblEventName.text = bidInfo.eventName
         lblEventID.text = "\(bidInfo.eventServiceDescriptionId)"
         lblEventType.text = bidInfo.serviceName
-        lblEventDate.text = bidInfo.eventDate
-        lblServiceDate.text = bidInfo.serviceDate
+        lblEventDate.text = bidInfo.eventDate.toSMFShortFormat()
+        lblServiceDate.text = bidInfo.serviceDate.toSMFShortFormat()
 //        lblRequestType.text = bidInfo.
         lblQuotePrice.text = bidInfo.cost
         lblRemainingDate.text = "22"
@@ -171,6 +175,10 @@ class ActionsCardTableViewCell: UITableViewCell {
     }
     
     @IBAction func btnNextAction(_ sender: UIButton) {
-        delegate?.lookForwardForEvent()
+        delegate?.lookForwardForEvent(requestId: self.bidInfo.bidRequestId)
+    }
+    
+    @IBAction func btnChangeInMindAction(_ sender: UIButton) {
+        delegate?.changeInMind(requestId: self.bidInfo.bidRequestId)
     }
 }

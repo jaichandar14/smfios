@@ -44,7 +44,6 @@ class DashboardViewController: BaseViewController {
         
         setDataToUI()
         styleUI()
-        setContainer(with: getActionListController())
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
@@ -79,8 +78,8 @@ class DashboardViewController: BaseViewController {
             self.btnBranch.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
         }
         
-//        viewModel.fetchServiceCount()
-//        viewModel.fetchServices()
+        viewModel.fetchServiceCount()
+        viewModel.fetchServices()
     }
     
     func getActionStatusController() -> ActionStatusViewController {
@@ -230,6 +229,17 @@ extension DashboardViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension DashboardViewController: ActionListDelegate, StatusListDelegate {
+    func changeInMind(requestId: Int) {
+        <#code#>
+    }
+    
+    func eventDetailsView(requestId: Int) {
+        let controller = OrderDetailViewController()
+        controller.bidRequestId = requestId
+        controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func btnCloseAction() {
         actionStatusController?.updateData()
         setContainer(with: actionStatusController ?? getActionStatusController())
@@ -239,12 +249,6 @@ extension DashboardViewController: ActionListDelegate, StatusListDelegate {
         let controller = QuoteDetailsPopUpViewController()
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
-    }
-    
-    func eventDetailsView() {
-        let controller = EventDetailsViewController()
-        controller.viewModel = EventDetailViewModelContainer(model: EventDetailsModel())
-        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

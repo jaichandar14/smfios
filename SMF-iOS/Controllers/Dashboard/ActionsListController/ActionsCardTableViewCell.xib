@@ -212,9 +212,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HI-C6-XTO">
+                                <rect key="frame" x="232" y="115" width="119" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Change in Mind? ">
+                                    <color key="titleColor" systemColor="systemBlueColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnChangeInMindAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KXI-bN-nqr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="g0h-3O-oTY" firstAttribute="top" secondItem="4HI-C6-XTO" secondAttribute="bottom" constant="1" id="4D6-by-lQO"/>
+                            <constraint firstItem="4HI-C6-XTO" firstAttribute="trailing" secondItem="x5q-wt-kx1" secondAttribute="trailing" id="5BJ-8v-RdT"/>
                             <constraint firstItem="Xga-ZO-K3Z" firstAttribute="firstBaseline" secondItem="KDE-HQ-cBt" secondAttribute="firstBaseline" id="5R9-Pl-GTQ"/>
                             <constraint firstItem="x5q-wt-kx1" firstAttribute="top" secondItem="Xga-ZO-K3Z" secondAttribute="bottom" constant="16" id="85t-iz-som"/>
                             <constraint firstItem="cfO-8e-b5f" firstAttribute="top" secondItem="0H5-Gg-y9T" secondAttribute="bottom" constant="16" id="9Ht-q2-AQs"/>
@@ -244,6 +257,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="bidContainerView" destination="x5q-wt-kx1" id="Ka3-ym-x2R"/>
+                <outlet property="btnChangeMind" destination="4HI-C6-XTO" id="voJ-hh-ZGw"/>
                 <outlet property="btnDislike" destination="Ojs-zU-U1Y" id="RXF-0v-hGx"/>
                 <outlet property="btnLike" destination="8XH-VE-oyL" id="pNN-qz-fqs"/>
                 <outlet property="btnNext" destination="sYc-X3-WFk" id="6gJ-xe-Ci4"/>
@@ -269,6 +283,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

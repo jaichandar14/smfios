@@ -25,4 +25,5 @@ class APIConfig {
     static let branchesListURL = baseURL + "epm-service/api/app-services/service-branches"
     static let serviceProviderBiddingCount = baseURL + "epm-service/api/app-services/service-provider-bidding-counts"
     static let biddingStatusInfo = baseURL + "epm-service/api/app-services/bidding-status-info"
+    static let orderInfo = baseURL + "epm-service/api/app-services/order-info"
 }

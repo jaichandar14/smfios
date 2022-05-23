@@ -126,7 +126,7 @@ class ActionStatusViewController: BaseViewController {
     }
 
     func updateData() {
-//        viewModel?.fetchBidCount(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId)
+        viewModel?.fetchBidCount(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId)
     }
 }
 

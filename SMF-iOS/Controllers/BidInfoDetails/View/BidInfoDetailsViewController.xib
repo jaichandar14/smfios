@@ -14,7 +14,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDetailsViewController" customModule="SMF_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BidInfoDetailsViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="arrowImageView" destination="pSr-5y-MDv" id="BWQ-aL-FfR"/>
                 <outlet property="bidTableView" destination="ZWQ-Q0-zfI" id="5Vh-Gi-d11"/>

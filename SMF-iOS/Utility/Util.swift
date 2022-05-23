@@ -11,14 +11,14 @@ class Util {
     static var loader: UIAlertController?
     
     static func setIntialController(window: UIWindow) {
-//        if let textData = UserDefault[stringValueFor: .userData],
-//           let data = textData.data(using: .utf8),
-//           let user = try? JSONDecoder().decode(User.self, from: data) {
-//            APIConfig.user = user
+        if let textData = UserDefault[stringValueFor: .userData],
+           let data = textData.data(using: .utf8),
+           let user = try? JSONDecoder().decode(User.self, from: data) {
+            APIConfig.user = user
             window.rootViewController = UINavigationController(rootViewController: DashboardViewController.create())
-//        } else {
-//            window.rootViewController = UINavigationController(rootViewController: InitialViewController())
-//        }
+        } else {
+            window.rootViewController = UINavigationController(rootViewController: InitialViewController())
+        }
         
         window.makeKeyAndVisible()
     }

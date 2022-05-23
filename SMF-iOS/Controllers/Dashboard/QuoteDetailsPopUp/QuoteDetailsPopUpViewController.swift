@@ -45,9 +45,7 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     @IBOutlet weak var chooseFileStackView: UIStackView!
     @IBOutlet weak var viewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomButtonStackTopView: NSLayoutConstraint!
-    
-    
-    
+        
     var isHavingQuoteSelected = true
         
     override func viewDidLoad() {
@@ -83,9 +81,9 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         
         self.txtAreaComment.font = _theme.ralewayFont(size: 14, style: .ralewayRegular)
                
-        self.btnHavingQuote.titleLabel?.font = UIFont(name: "smf_icon", size: 16)
+        self.btnHavingQuote.titleLabel?.font = UIFont(name: "smf_icon", size: 18)
         self.btnHavingQuote.backgroundColor = .clear
-        self.btnWillProvideLater.titleLabel?.font = UIFont(name: "smf_icon", size: 16)
+        self.btnWillProvideLater.titleLabel?.font = UIFont(name: "smf_icon", size: 18)
         self.btnWillProvideLater.backgroundColor = .clear
         self.updateQuoteSelection()
         

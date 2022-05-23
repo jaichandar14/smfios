@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EventDetailsModel {
+class BidInfoDetailsModel {
     
 }
 
@@ -15,6 +15,17 @@ struct BidStatus {
     var title: String
     var subTitle: String
     var isCompleted: Bool
+}
+
+struct ServiceDetail {
+    var title: String
+    var subTitle: String
+    var isCompleted: Bool
+}
+
+struct QuestionAns {
+    var question: String
+    var ans: String
 }
 
 struct EventDetail {

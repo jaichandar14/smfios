@@ -37,4 +37,5 @@ protocol DashboardViewModel {
     func fetchServiceCount()
     func fetchServices()
     func fetchBranches()
+    func rejectBid(requestId: Int)
 }

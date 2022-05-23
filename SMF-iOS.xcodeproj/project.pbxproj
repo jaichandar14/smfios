@@ -47,16 +47,16 @@
 		E632FFA12823A3C400A404E7 /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E632FF8F2823A3C400A404E7 /* Raleway-SemiBoldItalic.ttf */; };
 		E632FFA22823A3C400A404E7 /* Raleway-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E632FF902823A3C400A404E7 /* Raleway-ExtraLight.ttf */; };
 		E632FFA32823A3C400A404E7 /* Raleway-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E632FF912823A3C400A404E7 /* Raleway-Black.ttf */; };
-		E634F8492839FC94006323C0 /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F8472839FC94006323C0 /* EventDetailsViewController.swift */; };
-		E634F84A2839FC94006323C0 /* EventDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E634F8482839FC94006323C0 /* EventDetailsViewController.xib */; };
+		E634F8492839FC94006323C0 /* BidInfoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F8472839FC94006323C0 /* BidInfoDetailsViewController.swift */; };
+		E634F84A2839FC94006323C0 /* BidInfoDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E634F8482839FC94006323C0 /* BidInfoDetailsViewController.xib */; };
 		E634F84F283A1819006323C0 /* BidDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F84D283A1819006323C0 /* BidDetailsTableViewCell.swift */; };
 		E634F850283A1819006323C0 /* BidDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E634F84E283A1819006323C0 /* BidDetailsTableViewCell.xib */; };
 		E634F853283A1829006323C0 /* EventDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F851283A1829006323C0 /* EventDetailsTableViewCell.swift */; };
 		E634F854283A1829006323C0 /* EventDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E634F852283A1829006323C0 /* EventDetailsTableViewCell.xib */; };
 		E634F856283A1B24006323C0 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F855283A1B24006323C0 /* Circle.swift */; };
-		E634F858283A2AF3006323C0 /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F857283A2AF3006323C0 /* EventDetailViewModel.swift */; };
-		E634F85A283A2B01006323C0 /* EventDetailsViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F859283A2B01006323C0 /* EventDetailsViewModelContainer.swift */; };
-		E634F85C283A2B97006323C0 /* EventDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F85B283A2B97006323C0 /* EventDetailsModel.swift */; };
+		E634F858283A2AF3006323C0 /* BidInfoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F857283A2AF3006323C0 /* BidInfoDetailViewModel.swift */; };
+		E634F85A283A2B01006323C0 /* BidInfoDetailsViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F859283A2B01006323C0 /* BidInfoDetailsViewModelContainer.swift */; };
+		E634F85C283A2B97006323C0 /* BidInfoDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F85B283A2B97006323C0 /* BidInfoDetailsModel.swift */; };
 		E634F85E283A3932006323C0 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F85D283A3932006323C0 /* UIViewExtension.swift */; };
 		E634F860283A3E51006323C0 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E634F85F283A3E51006323C0 /* UIImageViewExtension.swift */; };
 		E634F866283A51A7006323C0 /* smf_icon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E634F865283A51A7006323C0 /* smf_icon.ttf */; };
@@ -80,6 +80,8 @@
 		E65CCD53281FE00C00A49AEE /* StatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD51281FE00C00A49AEE /* StatusTableViewCell.xib */; };
 		E65CCD5A2820262600A49AEE /* ActionsCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD582820262600A49AEE /* ActionsCardTableViewCell.swift */; };
 		E65CCD5B2820262600A49AEE /* ActionsCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD592820262600A49AEE /* ActionsCardTableViewCell.xib */; };
+		E6659A47283B92C8008650C1 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6659A45283B92C8008650C1 /* OrderDetailViewController.swift */; };
+		E6659A48283B92C8008650C1 /* OrderDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6659A46283B92C8008650C1 /* OrderDetailViewController.xib */; };
 		E676F250281A9A90000DD648 /* APIRequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676F24F281A9A90000DD648 /* APIRequestExecutor.swift */; };
 		E676F253281AA5D0000DD648 /* DataOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676F252281AA5D0000DD648 /* DataOperation.swift */; };
 		E676F255281AA600000DD648 /* BaseOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E676F254281AA600000DD648 /* BaseOperation.swift */; };
@@ -98,6 +100,9 @@
 		E67CC63D281E4DFC00BB6D53 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67CC63B281E4DFC00BB6D53 /* DashboardViewController.swift */; };
 		E67CC63E281E4DFC00BB6D53 /* DashboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E67CC63C281E4DFC00BB6D53 /* DashboardViewController.xib */; };
 		E67CC643281E4E3D00BB6D53 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67CC642281E4E3D00BB6D53 /* DashboardViewModel.swift */; };
+		E6947015283B3F650017497C /* UINavigationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6947014283B3F650017497C /* UINavigationExtension.swift */; };
+		E694701E283B89430017497C /* QuestionAnsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E694701C283B89430017497C /* QuestionAnsTableViewCell.swift */; };
+		E694701F283B89430017497C /* QuestionAnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E694701D283B89430017497C /* QuestionAnsTableViewCell.xib */; };
 		E6A394382837C69E00A258D5 /* ActionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A394372837C69E00A258D5 /* ActionListViewModel.swift */; };
 		E6A3943A2837C6BE00A258D5 /* ActionListViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A394392837C6BE00A258D5 /* ActionListViewModelContainer.swift */; };
 		E6A3943C2837C7E800A258D5 /* ActionListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A3943B2837C7E800A258D5 /* ActionListModel.swift */; };
@@ -165,16 +170,16 @@
 		E632FF8F2823A3C400A404E7 /* Raleway-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		E632FF902823A3C400A404E7 /* Raleway-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-ExtraLight.ttf"; sourceTree = "<group>"; };
 		E632FF912823A3C400A404E7 /* Raleway-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Black.ttf"; sourceTree = "<group>"; };
-		E634F8472839FC94006323C0 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
-		E634F8482839FC94006323C0 /* EventDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsViewController.xib; sourceTree = "<group>"; };
+		E634F8472839FC94006323C0 /* BidInfoDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidInfoDetailsViewController.swift; sourceTree = "<group>"; };
+		E634F8482839FC94006323C0 /* BidInfoDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BidInfoDetailsViewController.xib; sourceTree = "<group>"; };
 		E634F84D283A1819006323C0 /* BidDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		E634F84E283A1819006323C0 /* BidDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BidDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		E634F851283A1829006323C0 /* EventDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsTableViewCell.swift; sourceTree = "<group>"; };
 		E634F852283A1829006323C0 /* EventDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		E634F855283A1B24006323C0 /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
-		E634F857283A2AF3006323C0 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
-		E634F859283A2B01006323C0 /* EventDetailsViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewModelContainer.swift; sourceTree = "<group>"; };
-		E634F85B283A2B97006323C0 /* EventDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsModel.swift; sourceTree = "<group>"; };
+		E634F857283A2AF3006323C0 /* BidInfoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidInfoDetailViewModel.swift; sourceTree = "<group>"; };
+		E634F859283A2B01006323C0 /* BidInfoDetailsViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidInfoDetailsViewModelContainer.swift; sourceTree = "<group>"; };
+		E634F85B283A2B97006323C0 /* BidInfoDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidInfoDetailsModel.swift; sourceTree = "<group>"; };
 		E634F85D283A3932006323C0 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		E634F85F283A3E51006323C0 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		E634F865283A51A7006323C0 /* smf_icon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = smf_icon.ttf; sourceTree = "<group>"; };
@@ -198,6 +203,8 @@
 		E65CCD51281FE00C00A49AEE /* StatusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusTableViewCell.xib; sourceTree = "<group>"; };
 		E65CCD582820262600A49AEE /* ActionsCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsCardTableViewCell.swift; sourceTree = "<group>"; };
 		E65CCD592820262600A49AEE /* ActionsCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionsCardTableViewCell.xib; sourceTree = "<group>"; };
+		E6659A45283B92C8008650C1 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		E6659A46283B92C8008650C1 /* OrderDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderDetailViewController.xib; sourceTree = "<group>"; };
 		E676F24F281A9A90000DD648 /* APIRequestExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestExecutor.swift; sourceTree = "<group>"; };
 		E676F252281AA5D0000DD648 /* DataOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOperation.swift; sourceTree = "<group>"; };
 		E676F254281AA600000DD648 /* BaseOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOperation.swift; sourceTree = "<group>"; };
@@ -216,6 +223,9 @@
 		E67CC63B281E4DFC00BB6D53 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		E67CC63C281E4DFC00BB6D53 /* DashboardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardViewController.xib; sourceTree = "<group>"; };
 		E67CC642281E4E3D00BB6D53 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		E6947014283B3F650017497C /* UINavigationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationExtension.swift; sourceTree = "<group>"; };
+		E694701C283B89430017497C /* QuestionAnsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnsTableViewCell.swift; sourceTree = "<group>"; };
+		E694701D283B89430017497C /* QuestionAnsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionAnsTableViewCell.xib; sourceTree = "<group>"; };
 		E6A394372837C69E00A258D5 /* ActionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionListViewModel.swift; sourceTree = "<group>"; };
 		E6A394392837C6BE00A258D5 /* ActionListViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionListViewModelContainer.swift; sourceTree = "<group>"; };
 		E6A3943B2837C7E800A258D5 /* ActionListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionListModel.swift; sourceTree = "<group>"; };
@@ -343,21 +353,21 @@
 			path = Raleway;
 			sourceTree = "<group>";
 		};
-		E634F8462839FC69006323C0 /* EventDetails */ = {
+		E634F8462839FC69006323C0 /* BidInfoDetails */ = {
 			isa = PBXGroup;
 			children = (
 				E634F84C2839FCA5006323C0 /* View */,
 				E634F84B2839FC9A006323C0 /* ViewModel */,
 			);
-			path = EventDetails;
+			path = BidInfoDetails;
 			sourceTree = "<group>";
 		};
 		E634F84B2839FC9A006323C0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				E634F857283A2AF3006323C0 /* EventDetailViewModel.swift */,
-				E634F859283A2B01006323C0 /* EventDetailsViewModelContainer.swift */,
-				E634F85B283A2B97006323C0 /* EventDetailsModel.swift */,
+				E634F857283A2AF3006323C0 /* BidInfoDetailViewModel.swift */,
+				E634F859283A2B01006323C0 /* BidInfoDetailsViewModelContainer.swift */,
+				E634F85B283A2B97006323C0 /* BidInfoDetailsModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -365,8 +375,8 @@
 		E634F84C2839FCA5006323C0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E634F8472839FC94006323C0 /* EventDetailsViewController.swift */,
-				E634F8482839FC94006323C0 /* EventDetailsViewController.xib */,
+				E634F8472839FC94006323C0 /* BidInfoDetailsViewController.swift */,
+				E634F8482839FC94006323C0 /* BidInfoDetailsViewController.xib */,
 				E634F84D283A1819006323C0 /* BidDetailsTableViewCell.swift */,
 				E634F84E283A1819006323C0 /* BidDetailsTableViewCell.xib */,
 				E634F851283A1829006323C0 /* EventDetailsTableViewCell.swift */,
@@ -582,6 +592,33 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E6947016283B6FE00017497C /* OrderDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E6947020283B89D90017497C /* ViewModel */,
+				E6947017283B6FEC0017497C /* View */,
+			);
+			path = OrderDetails;
+			sourceTree = "<group>";
+		};
+		E6947017283B6FEC0017497C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E694701C283B89430017497C /* QuestionAnsTableViewCell.swift */,
+				E694701D283B89430017497C /* QuestionAnsTableViewCell.xib */,
+				E6659A45283B92C8008650C1 /* OrderDetailViewController.swift */,
+				E6659A46283B92C8008650C1 /* OrderDetailViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E6947020283B89D90017497C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E6A394362837C68B00A258D5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,7 +710,8 @@
 		E6CEC49E2812FAF40046D0A3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E634F8462839FC69006323C0 /* EventDetails */,
+				E6947016283B6FE00017497C /* OrderDetails */,
+				E634F8462839FC69006323C0 /* BidInfoDetails */,
 				E67CC63A281E4DE000BB6D53 /* Dashboard */,
 				E64D505E281DB85F001DB406 /* OTP */,
 				E6F731B628154CE70062318F /* Login */,
@@ -767,6 +805,7 @@
 				E602F400282291670017C346 /* DictionaryExtension.swift */,
 				E634F85D283A3932006323C0 /* UIViewExtension.swift */,
 				E634F85F283A3E51006323C0 /* UIImageViewExtension.swift */,
+				E6947014283B3F650017497C /* UINavigationExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -854,6 +893,7 @@
 			files = (
 				E6508F1C28165AB200C4ABBB /* CountryFlagTableViewCell.xib in Resources */,
 				E632FF972823A3C400A404E7 /* Raleway-Thin.ttf in Resources */,
+				E6659A48283B92C8008650C1 /* OrderDetailViewController.xib in Resources */,
 				E65CCD5B2820262600A49AEE /* ActionsCardTableViewCell.xib in Resources */,
 				E6F731BA28154CFA0062318F /* LoginViewController.xib in Resources */,
 				E63269DE2822A255008306B7 /* QuoteDetailsPopUpViewController.xib in Resources */,
@@ -875,11 +915,12 @@
 				E632FF9B2823A3C400A404E7 /* Raleway-Bold.ttf in Resources */,
 				E634F850283A1819006323C0 /* BidDetailsTableViewCell.xib in Resources */,
 				E634F866283A51A7006323C0 /* smf_icon.ttf in Resources */,
-				E634F84A2839FC94006323C0 /* EventDetailsViewController.xib in Resources */,
+				E634F84A2839FC94006323C0 /* BidInfoDetailsViewController.xib in Resources */,
 				E632FF922823A3C400A404E7 /* Raleway-ThinItalic.ttf in Resources */,
 				E65CCD4F281FDC9200A49AEE /* ActionsListViewController.xib in Resources */,
 				E6CEC4972812F51C0046D0A3 /* LaunchScreen.storyboard in Resources */,
 				E632FF9C2823A3C400A404E7 /* Raleway-Italic.ttf in Resources */,
+				E694701F283B89430017497C /* QuestionAnsTableViewCell.xib in Resources */,
 				E632FFA22823A3C400A404E7 /* Raleway-ExtraLight.ttf in Resources */,
 				E632FF982823A3C400A404E7 /* Raleway-SemiBold.ttf in Resources */,
 				E632FF762823A26F00A404E7 /* Muli-Italic.ttf in Resources */,
@@ -953,7 +994,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E60AAFCD28362CB2006000C2 /* DashboardViewModelContainer.swift in Sources */,
-				E634F85C283A2B97006323C0 /* EventDetailsModel.swift in Sources */,
+				E634F85C283A2B97006323C0 /* BidInfoDetailsModel.swift in Sources */,
+				E694701E283B89430017497C /* QuestionAnsTableViewCell.swift in Sources */,
 				E67C38122816A49E00EF5353 /* NotificationExtension.swift in Sources */,
 				E6F731C728155C4B0062318F /* TextFieldExtension.swift in Sources */,
 				E6C7B7DB2814638B00E5C889 /* InitialViewController.swift in Sources */,
@@ -985,12 +1027,13 @@
 				E6C7B7D0281460D500E5C889 /* Util.swift in Sources */,
 				E6F4840E28353656006AF21D /* User.swift in Sources */,
 				E676F255281AA600000DD648 /* BaseOperation.swift in Sources */,
-				E634F8492839FC94006323C0 /* EventDetailsViewController.swift in Sources */,
+				E634F8492839FC94006323C0 /* BidInfoDetailsViewController.swift in Sources */,
 				E67C38152816A5D600EF5353 /* BaseController.swift in Sources */,
 				E60AAFCB283618F6006000C2 /* Observable.swift in Sources */,
 				E6F48410283555A1006AF21D /* UserDefault.swift in Sources */,
 				E634F853283A1829006323C0 /* EventDetailsTableViewCell.swift in Sources */,
 				E634F85E283A3932006323C0 /* UIViewExtension.swift in Sources */,
+				E6947015283B3F650017497C /* UINavigationExtension.swift in Sources */,
 				E6F731B928154CFA0062318F /* LoginViewController.swift in Sources */,
 				E67CC63D281E4DFC00BB6D53 /* DashboardViewController.swift in Sources */,
 				E67C38182816AB5600EF5353 /* BaseClassProtocol.swift in Sources */,
@@ -1007,13 +1050,14 @@
 				E64D5069281DBA51001DB406 /* OTPTextField.swift in Sources */,
 				E64D5061281DB892001DB406 /* OTPScreenViewController.swift in Sources */,
 				E60AAFCF28362CFF006000C2 /* DashboardModel.swift in Sources */,
+				E6659A47283B92C8008650C1 /* OrderDetailViewController.swift in Sources */,
 				E676F260281AAD8C000DD648 /* APIConfig.swift in Sources */,
 				E6A3943C2837C7E800A258D5 /* ActionListModel.swift in Sources */,
-				E634F85A283A2B01006323C0 /* EventDetailsViewModelContainer.swift in Sources */,
+				E634F85A283A2B01006323C0 /* BidInfoDetailsViewModelContainer.swift in Sources */,
 				E65CCD40281FB7D500A49AEE /* DashboardCollectionViewCell.swift in Sources */,
 				E65CCD44281FDB3F00A49AEE /* ActionStatusViewController.swift in Sources */,
 				E6A3943A2837C6BE00A258D5 /* ActionListViewModelContainer.swift in Sources */,
-				E634F858283A2AF3006323C0 /* EventDetailViewModel.swift in Sources */,
+				E634F858283A2AF3006323C0 /* BidInfoDetailViewModel.swift in Sources */,
 				E65CCD5A2820262600A49AEE /* ActionsCardTableViewCell.swift in Sources */,
 				E65CCD4E281FDC9200A49AEE /* ActionsListViewController.swift in Sources */,
 				E676F257281AA721000DD648 /* SessionManager.swift in Sources */,

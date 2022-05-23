@@ -10,7 +10,8 @@ import UIKit
 protocol ActionListDelegate {
     func btnCloseAction()
     func interestedInEvent(id: String)
-    func eventDetailsView()
+    func eventDetailsView(requestId: Int)
+    func changeInMind(requestId: Int)
 }
 
 class ActionsListViewController: BaseViewController {
@@ -19,6 +20,7 @@ class ActionsListViewController: BaseViewController {
     var status: String = ""
     var delegate: ActionListDelegate?
     
+    @IBOutlet weak var btnClose: UIButton!
     var dashboardViewModel: DashboardViewModel?
     var viewModel: ActionListViewModel? {
         didSet {
@@ -47,7 +49,8 @@ class ActionsListViewController: BaseViewController {
     }
     
     func styleUI() {
-        // add Stubs
+        
+        self.btnClose.backgroundColor = .clear
     }
     
     func setDataToUI() {
@@ -71,7 +74,7 @@ class ActionsListViewController: BaseViewController {
     }
     
     func updateData() {
-//        viewModel?.fetchActionList(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId, status: status)
+        viewModel?.fetchActionList(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId, status: status)
     }
     
     func updateList() {
@@ -92,7 +95,7 @@ class ActionsListViewController: BaseViewController {
 
 extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1// viewModel?.bidStatusInfoList.value.count ?? 0
+        return viewModel?.bidStatusInfoList.value.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,9 +107,8 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
         cell.circularProgressView.progressClr = _theme.primaryColor
         cell.circularProgressView.setProgressWithAnimation(duration: 1.0, value: 0.70)
         
-//        let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row)
-//        cell.setData(bidInfo: bidInfo)
-        
+        let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row)
+        cell.setData(bidInfo: bidInfo)
         
         return cell
     }
@@ -117,6 +119,10 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
 }
 
 extension ActionsListViewController: ActionCardProtocol {
+    func changeInMind(requestId: Int) {
+        delegate?.changeInMind(requestId: requestId)
+    }
+    
     func notInterestedInEvent() {
         
     }
@@ -125,7 +131,7 @@ extension ActionsListViewController: ActionCardProtocol {
         delegate?.interestedInEvent(id: "0")
     }
     
-    func lookForwardForEvent() {
-        delegate?.eventDetailsView()
+    func lookForwardForEvent(requestId: Int) {
+        delegate?.eventDetailsView(requestId: requestId)
     }
 }

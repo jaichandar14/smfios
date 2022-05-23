@@ -175,7 +175,7 @@ class LoginViewController: BaseViewController {
         self.loginViewModel.getAppAuthenticatedUser { user in
             DispatchQueue.main.async {
                 APIConfig.user = user
-                self.navigationController?.pushViewController(DashboardViewController.create(), animated: true)
+                self.navigationController?.setViewControllers([DashboardViewController.create()], animated: true)
             }
         }
                 

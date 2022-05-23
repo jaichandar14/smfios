@@ -17,30 +17,26 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fc6-fm-9PE">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="firstBaseline" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fc6-fm-9PE">
                         <rect key="frame" x="5" y="8" width="310" height="28"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPx-dp-J6b">
-                                <rect key="frame" x="0.0" y="0.0" width="152.5" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPx-dp-J6b">
+                                <rect key="frame" x="0.0" y="7.5" width="152.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAJ-GU-r58">
-                                <rect key="frame" x="157.5" y="0.0" width="152.5" height="28"/>
+                                <rect key="frame" x="157.5" y="7.5" width="152.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="HAJ-GU-r58" firstAttribute="firstBaseline" secondItem="iPx-dp-J6b" secondAttribute="firstBaseline" id="lis-Pi-C2n"/>
-                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fc6-fm-9PE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="7rf-iN-eQI"/>
-                    <constraint firstItem="fc6-fm-9PE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Dyf-S4-6j9"/>
                     <constraint firstItem="fc6-fm-9PE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="hdV-Sj-TI0"/>
                     <constraint firstAttribute="bottom" secondItem="fc6-fm-9PE" secondAttribute="bottom" constant="8" id="kyu-QV-gOd"/>
                     <constraint firstAttribute="trailing" secondItem="fc6-fm-9PE" secondAttribute="trailing" constant="5" id="mxc-XD-ksh"/>
