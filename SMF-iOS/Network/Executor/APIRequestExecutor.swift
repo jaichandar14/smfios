@@ -71,10 +71,10 @@ class APIRequestExecutor {
             do {
                 if let params = parameters{
                     let data = try JSONSerialization.data(withJSONObject: params, options: [])
-                    let jsonString = String.init(data: data, encoding: .utf8)
-                    let url = ["data": jsonString]
-                    let data1 = try JSONSerialization.data(withJSONObject: url, options: [])
-                    request.httpBody =  data1
+//                    let jsonString = String.init(data: data, encoding: .utf8)
+//                    let url = ["data": jsonString]
+//                    let data1 = try JSONSerialization.data(withJSONObject: url, options: [])
+                    request.httpBody =  data
                 }
             } catch {
                 print(error.localizedDescription)

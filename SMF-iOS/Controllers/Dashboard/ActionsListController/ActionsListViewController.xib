@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActionsListViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="btnClose" destination="OBy-et-Z7r" id="CHx-UC-aIN"/>
+                <outlet property="lblNewRequestCount" destination="gu9-t6-hIf" id="Zf3-Dx-xEV"/>
                 <outlet property="tableView" destination="Wb2-OU-bOD" id="Iwx-ox-Dor"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

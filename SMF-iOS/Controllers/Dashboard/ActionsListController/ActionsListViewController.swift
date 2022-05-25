@@ -9,7 +9,8 @@ import UIKit
 
 protocol ActionListDelegate {
     func btnCloseAction()
-    func interestedInEvent(id: String)
+    func notInterestedInEvent(requestId: Int)
+    func interestedInEvent(requestId: Int)
     func eventDetailsView(requestId: Int)
     func changeInMind(requestId: Int)
 }
@@ -20,6 +21,7 @@ class ActionsListViewController: BaseViewController {
     var status: String = ""
     var delegate: ActionListDelegate?
     
+    @IBOutlet weak var lblNewRequestCount: UILabel!
     @IBOutlet weak var btnClose: UIButton!
     var dashboardViewModel: DashboardViewModel?
     var viewModel: ActionListViewModel? {
@@ -44,12 +46,15 @@ class ActionsListViewController: BaseViewController {
         self.tableView.register(UINib.init(nibName: String.init(describing: ActionsCardTableViewCell.self), bundle: nil), forCellReuseIdentifier: "statusCell")
         
         styleUI()
-        setDataToUI()
         self.tableView.reloadData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setDataToUI()
+    }
+    
     func styleUI() {
-        
         self.btnClose.backgroundColor = .clear
     }
     
@@ -63,22 +68,30 @@ class ActionsListViewController: BaseViewController {
         }
 
         viewModel.bidStatusInfoList.bindAndFire { [weak self] infoList in
-            self?.updateList()
+            self?.updateList(list: infoList)
         }
         
         viewModel.bidStatusInfoLoading.bindAndFire { isLoading in
-            print("\(isLoading ? "Show" : "Hide") loading")
+            DispatchQueue.main.async {
+                if isLoading {
+                    self.view.showBlurLoader()
+                } else {
+                    self.view.removeBluerLoader()
+                }
+            }
         }
                 
         updateData()
     }
     
     func updateData() {
+        viewModel?.bidStatusInfoList.value.removeAll()
         viewModel?.fetchActionList(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId, status: status)
     }
     
-    func updateList() {
+    func updateList(list: [BidStatusInfo]) {
         DispatchQueue.main.async {
+            self.lblNewRequestCount.text = "\(list.count) \(self.status)"
             self.tableView.reloadData()
         }
     }
@@ -110,6 +123,16 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
         let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row)
         cell.setData(bidInfo: bidInfo)
         
+        if status == "BID REQUESTED" {
+            cell.btnChangeMind.isHidden = true
+            cell.btnLike.isHidden = false
+            cell.btnDislike.isHidden = false
+        } else {
+            cell.btnChangeMind.isHidden = false
+            cell.btnLike.isHidden = true
+            cell.btnDislike.isHidden = true
+        }
+        
         return cell
     }
     
@@ -123,12 +146,12 @@ extension ActionsListViewController: ActionCardProtocol {
         delegate?.changeInMind(requestId: requestId)
     }
     
-    func notInterestedInEvent() {
-        
+    func notInterestedInEvent(requestId: Int) {
+        delegate?.notInterestedInEvent(requestId: requestId)
     }
     
-    func interestedInEvent() {
-        delegate?.interestedInEvent(id: "0")
+    func interestedInEvent(requestId: Int) {
+        delegate?.interestedInEvent(requestId: requestId)
     }
     
     func lookForwardForEvent(requestId: Int) {

@@ -40,7 +40,6 @@ class ActionStatusViewController: BaseViewController {
         super.viewDidLoad()
 
         styleUI()
-        setDataToUI()
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
@@ -103,7 +102,13 @@ class ActionStatusViewController: BaseViewController {
         }
         
         viewModel.isBidCountLoading.bindAndFire { [weak self] isLoading in
-            print("\(isLoading ? "Show" : "Hide") Loading")
+            DispatchQueue.main.async {
+                if isLoading {
+                    self?.view.showBlurLoader()
+                } else {
+                    self?.view.removeBluerLoader()
+                }
+            }
         }
         
         viewModel.bidCountFetchError.bind { [weak self] error in

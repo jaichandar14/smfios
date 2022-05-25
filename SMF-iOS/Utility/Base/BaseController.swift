@@ -18,6 +18,10 @@ class BaseController: UIViewController {
         addNetworkListener()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func addNetworkListener() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.networkChange(notification:)), name: .networkConnection, object: nil)
     }

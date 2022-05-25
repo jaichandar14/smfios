@@ -73,7 +73,7 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         self.lblQuoteDetail.font = _theme.ralewayFont(size: 12, style: .ralewayRegular)
         
         self.lblCommentTitle.textColor = _theme.textGreyColor
-        self.lblQuoteDetail.font = _theme.ralewayFont(size: 12, style: .ralewayRegular)
+        self.lblCommentTitle.font = _theme.ralewayFont(size: 12, style: .ralewayRegular)
         
         self.txtAreaContainer.layer.borderColor = ColorConstant.greyColor8.cgColor
         self.txtAreaContainer.layer.borderWidth = 1

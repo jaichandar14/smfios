@@ -101,6 +101,7 @@ class DashboardViewModelContainer: DashboardViewModel {
     
     func fetchBranches() {
         self.isBranchesLoading.value = true
+        self.selectedBranch.value = nil
         
         let headers = [APIConstant.auth: APIConstant.auth_token]
         
@@ -131,27 +132,23 @@ class DashboardViewModelContainer: DashboardViewModel {
         }
     }
     
-    func rejectBid(requestId: Int, reason: String?, comment: String?) {
+    func rejectBid(requestId: Int, reason: String?, comment: String?, completion: @escaping () -> Void) {
         let headers = [APIConstant.auth: APIConstant.auth_token]
         
         var params: [String: Any] = [APIConstant.bidRequestId: requestId]
         if let reason = reason {
-            params = [APIConstant.rejectedBidReason: reason]
+            params[APIConstant.rejectedBidReason] = reason
         }
         if let comment = comment {
-            params = [APIConstant.rejectedBidComment: comment]
+            params[APIConstant.rejectedBidComment] = comment
         }
         
-        let url = APIConfig.branchesListURL + "/\(APIConfig.user!.spRegId)"
-        APIManager().executeDataRequest(id: "Reject Bid", url: url, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+        APIManager().executeDataRequest(id: "Reject Bid", url: APIConfig.rejectBidRequest, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
             
             switch result {
             case true:
-                if let respData = response?["data"] as? [[String: Any]],
-                   let data = try? JSONSerialization.data(withJSONObject: respData, options: []),
-                   let branches = try? JSONDecoder().decode([Branch].self, from: data) {
-                    
-                    self.branches.value = branches
+                if let respData = response?["data"] as? [String: Any] {
+                   completion()
                 } else {
                     self.branchesFetchError.value = "Data could not be parsed"
                 }

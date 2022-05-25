@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ActionCardProtocol {
-    func notInterestedInEvent()
-    func interestedInEvent()
+    func notInterestedInEvent(requestId: Int)
+    func interestedInEvent(requestId: Int)
     func lookForwardForEvent(requestId: Int)
     func changeInMind(requestId: Int)
 }
@@ -106,6 +106,10 @@ class ActionsCardTableViewCell: UITableViewCell {
         setUpButtonView(self.btnDislike, backgroundColor: _theme.errorColor, size: 30)
         setUpButtonView(self.btnLike, backgroundColor: _theme.successColor, size: 30)
         
+        self.btnChangeMind.backgroundColor = .clear
+        self.btnChangeMind.titleLabel?.font = _theme.muliFont(size: 14, style: .muli)
+        self.btnChangeMind.setTitleColor(UIColor.systemBlue, for: .normal)
+        
         bidContainerView.backgroundColor = UIColor().colorFromHex("f5f5f5")
         bidContainerView.layer.masksToBounds = false
         bidContainerView.layer.cornerRadius = 8
@@ -167,11 +171,11 @@ class ActionsCardTableViewCell: UITableViewCell {
     
     
     @IBAction func btnDislikeAction(_ sender: UIButton) {
-        delegate?.notInterestedInEvent()
+        delegate?.notInterestedInEvent(requestId: self.bidInfo.bidRequestId)
     }
     
     @IBAction func btnLikeAction(_ sender: UIButton) {
-        delegate?.interestedInEvent()
+        delegate?.interestedInEvent(requestId: self.bidInfo.bidRequestId)
     }
     
     @IBAction func btnNextAction(_ sender: UIButton) {

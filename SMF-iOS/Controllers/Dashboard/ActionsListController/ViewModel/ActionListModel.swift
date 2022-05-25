@@ -153,7 +153,7 @@ class BidInfoAddress: Codable {
 
 
 class ActionListModel {
-    func fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: String, completion: @escaping ([[String: Any]]?, String?) -> Void) {
+    func  fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: String, completion: @escaping ([[String: Any]]?, String?) -> Void) {
         
         let headers = [APIConstant.auth: APIConstant.auth_token]
         var params: [String: Any] = [APIConstant.bidStatus: status]

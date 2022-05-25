@@ -46,6 +46,12 @@ class DashboardViewController: BaseViewController {
         styleUI()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        actionStatusController?.setDataToUI()
+    }
+    
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
         print("NetworkChange")
     }
@@ -168,6 +174,9 @@ class DashboardViewController: BaseViewController {
             }
             self?.viewModel?.fetchBranches()
             self?.actionStatusController?.updateData()
+            if let self = self {
+                self.setContainer(with: self.actionStatusController ?? self.getActionStatusController())
+            }
         }
     }
     
@@ -181,6 +190,9 @@ class DashboardViewController: BaseViewController {
                 self?.viewModel?.selectedBranch.value = self?.viewModel?.getBranchItem(for: index - 1)
             }
             self?.actionStatusController?.updateData()
+            if let self = self {
+                self.setContainer(with: self.actionStatusController ?? self.getActionStatusController())
+            }
         }
     }
     
@@ -228,9 +240,18 @@ extension DashboardViewController: UICollectionViewDataSource, UICollectionViewD
     }
 }
 
-extension DashboardViewController: ActionListDelegate, StatusListDelegate {
+extension DashboardViewController: ActionListDelegate, StatusListDelegate, ChangeInMindDelegate {
     func changeInMind(requestId: Int) {
-        <#code#>
+        let controller = ChangeInMindViewController()
+        controller.viewModel = self.viewModel
+        controller.rejectBidId = requestId
+        controller.delegate = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: false, completion: nil)
+    }
+    
+    func rejectionCompleted() {
+        actionsListController?.updateData()
     }
     
     func eventDetailsView(requestId: Int) {
@@ -245,7 +266,13 @@ extension DashboardViewController: ActionListDelegate, StatusListDelegate {
         setContainer(with: actionStatusController ?? getActionStatusController())
     }
     
-    func interestedInEvent(id: String) {
+    func notInterestedInEvent(requestId: Int) {
+        viewModel?.rejectBid(requestId: requestId, reason: nil, comment: nil) { [weak self] in
+            self?.actionsListController?.updateData()
+        }
+    }
+    
+    func interestedInEvent(requestId: Int) {
         let controller = QuoteDetailsPopUpViewController()
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
