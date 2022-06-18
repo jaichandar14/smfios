@@ -21,10 +21,10 @@ class ActionListViewModelContainer: ActionListViewModel {
         self.bidStatusInfoFetchError = Observable<String>("")
     }
     
-    func fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: String) {
+    func fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: BiddingStatus) {
         self.bidStatusInfoLoading.value = true
         
-        model.fetchActionList(categoryId: categoryId, vendorOnboardingId: vendorOnboardingId, status: status) { response, error in
+        model.fetchActionList(categoryId: categoryId, vendorOnboardingId: vendorOnboardingId, status: status.rawValue) { response, error in
         
             self.bidStatusInfoLoading.value = false
             if let data = response {

@@ -158,6 +158,25 @@ class DashboardViewModelContainer: DashboardViewModel {
         }
     }
     
+    func acceptBid(requestId: Int, params: [String: Any], completion: @escaping () -> ()) {
+        let headers = [APIConstant.auth: APIConstant.auth_token]
+        
+        let url = APIConfig.acceptBidRequest + "/\(requestId)"
+        APIManager().executeDataRequest(id: "Accept Bid", url: url, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+            
+            switch result {
+            case true:
+                if let respData = response?["data"] as? [String: Any] {
+                   completion()
+                } else {
+                    self.branchesFetchError.value = "Data could not be parsed"
+                }
+            case false:
+                self.branchesFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
+            }
+        }
+    }
+    
     func getBranchItem(for index: Int) -> Branch {
         return branches.value[index]
     }

@@ -58,6 +58,9 @@ class APIRequestExecutor {
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
         }
+        
+        print("URL Request:\(urlString)")
+        print("Parameters:\(parameters?.printPrettyJSON())")
         switch method {
         case .GET:
 //            if let param = parameters {

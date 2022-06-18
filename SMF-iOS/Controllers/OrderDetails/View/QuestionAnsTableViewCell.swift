@@ -12,10 +12,17 @@ class QuestionAnsTableViewCell: UITableViewCell {
     @IBOutlet weak var lblQuestion: UILabel!
     @IBOutlet weak var lblAnswer: UILabel!
     
-    
+    private var _theme: Theme!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        _theme = ThemeManager.currentTheme()
+        
+        self.lblQuestion.textColor = _theme.textColor
+        self.lblQuestion.font = _theme.muliFont(size: 15, style: .muli)
+        
+        self.lblAnswer.textColor = _theme.textColor
+        self.lblAnswer.font = _theme.muliFont(size: 15, style: .muli)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

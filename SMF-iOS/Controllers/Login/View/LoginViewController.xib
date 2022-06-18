@@ -8,13 +8,17 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="smf_icon_2.ttf">
+            <string>smf_icon_2</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="btnDropDownOverlay" destination="tAi-pO-5YW" id="mon-yu-hDu"/>
                 <outlet property="btnSignIn" destination="E8Z-tn-wE5" id="W9m-BD-rp2"/>
                 <outlet property="countrySelectionWidthConstraint" destination="J8Y-Wo-ILh" id="xEp-cn-77p"/>
-                <outlet property="downArrowImageView" destination="e6K-sf-Bb0" id="2j4-7b-rkm"/>
                 <outlet property="dropDownView" destination="U1O-if-zt2" id="BWQ-xc-wiv"/>
                 <outlet property="flagImageView" destination="tQr-cm-uBU" id="0Eq-Y9-JyL"/>
                 <outlet property="lblCountryCode" destination="Usm-cH-CJx" id="EPE-Om-ARP"/>
@@ -151,34 +155,37 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="e6K-sf-Bb0">
-                            <rect key="frame" x="78" y="9" width="12" height="12"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="12" id="DiJ-lj-rTf"/>
-                                <constraint firstAttribute="height" constant="12" id="ibJ-vw-ahi"/>
-                            </constraints>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAi-pO-5YW">
-                            <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAi-pO-5YW">
+                            <rect key="frame" x="-61" y="0.0" width="100" height="30"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <connections>
                                 <action selector="btnDropDownAction:" destination="-1" eventType="touchUpInside" id="9Yx-fR-o6S"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eh-pB-x1W">
+                            <rect key="frame" x="78" y="9" width="12" height="12"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="12" id="ifB-lY-zjQ"/>
+                                <constraint firstAttribute="height" constant="12" id="zsm-I8-l1z"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <constraints>
                         <constraint firstItem="Usm-cH-CJx" firstAttribute="centerY" secondItem="U1O-if-zt2" secondAttribute="centerY" id="6hm-F5-dbv"/>
                         <constraint firstItem="tAi-pO-5YW" firstAttribute="top" secondItem="U1O-if-zt2" secondAttribute="top" id="FoO-Db-krC"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="J8Y-Wo-ILh"/>
+                        <constraint firstItem="5eh-pB-x1W" firstAttribute="centerY" secondItem="U1O-if-zt2" secondAttribute="centerY" id="KM7-cZ-9BY"/>
+                        <constraint firstItem="5eh-pB-x1W" firstAttribute="leading" secondItem="Usm-cH-CJx" secondAttribute="trailing" constant="8" id="KUy-a1-3Lx"/>
                         <constraint firstAttribute="trailing" secondItem="tAi-pO-5YW" secondAttribute="trailing" id="YjZ-UV-QHz"/>
-                        <constraint firstAttribute="trailing" secondItem="e6K-sf-Bb0" secondAttribute="trailing" constant="10" id="cfK-4y-JAy"/>
                         <constraint firstItem="tQr-cm-uBU" firstAttribute="centerY" secondItem="U1O-if-zt2" secondAttribute="centerY" constant="-2" id="dw6-10-nE1"/>
+                        <constraint firstAttribute="trailing" secondItem="5eh-pB-x1W" secondAttribute="trailing" constant="10" id="jD9-1n-Q8B"/>
                         <constraint firstItem="tAi-pO-5YW" firstAttribute="leading" secondItem="U1O-if-zt2" secondAttribute="leading" id="mxV-BS-Drw"/>
-                        <constraint firstItem="e6K-sf-Bb0" firstAttribute="leading" secondItem="Usm-cH-CJx" secondAttribute="trailing" constant="8" id="neQ-q8-rti"/>
                         <constraint firstAttribute="bottom" secondItem="tAi-pO-5YW" secondAttribute="bottom" id="oCJ-St-JIu"/>
                         <constraint firstItem="tQr-cm-uBU" firstAttribute="leading" secondItem="U1O-if-zt2" secondAttribute="leading" constant="5" id="oTp-nE-amy"/>
                         <constraint firstItem="Usm-cH-CJx" firstAttribute="leading" secondItem="tQr-cm-uBU" secondAttribute="trailing" constant="3" id="pY5-bU-Km0"/>
-                        <constraint firstItem="e6K-sf-Bb0" firstAttribute="centerY" secondItem="U1O-if-zt2" secondAttribute="centerY" id="vf1-9N-DiO"/>
                     </constraints>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMS-Hu-DVT">
@@ -220,7 +227,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow-down" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

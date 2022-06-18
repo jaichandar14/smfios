@@ -29,11 +29,11 @@ class EventDetailsTableViewCell: UITableViewCell {
     }
     
     func styleUI() {
-        self.lblTitle.textColor = ColorConstant.greyColor5
-        self.lblTitle.font = _theme.muliFont(size: 16, style: .muli)
-        
         self.lblTitle.textColor = ColorConstant.greyColor1
         self.lblTitle.font = _theme.muliFont(size: 16, style: .muli)
+        
+        self.lblValue.textColor = ColorConstant.greyColor3
+        self.lblValue.font = _theme.muliFont(size: 16, style: .muli)
     }
     
     func setData(eventDetail: EventDetail) {

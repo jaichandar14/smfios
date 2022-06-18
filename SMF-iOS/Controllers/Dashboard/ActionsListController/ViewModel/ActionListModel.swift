@@ -7,6 +7,21 @@
 
 import Foundation
 
+enum BiddingStatus: String, Codable {
+    case bidSubmitted = "BID SUBMITTED"
+    case bidRequested = "BID REQUESTED"
+    case pendingForQuote = "PENDING FOR QUOTE"
+    case bidRejected = "BID REJECTED"
+    case none = "none"
+}
+
+enum CostingType: String, Codable {
+    case bidding = "Bidding"
+    case fixed = "Fixed Cost"
+    case variable = "Variable Cost"
+}
+
+
 class BidStatusInfo: Codable {
     
     let bidRequestId: Int
@@ -20,8 +35,8 @@ class BidStatusInfo: Codable {
     let serviceDate: String
     let bidRequestedDate: String
     let biddingCutOffDate: String
-    let costingType: String
-    let cost: String
+    let costingType: CostingType
+    var cost: String
     let bidStatus: String
     let currencyType: String?
     let isExistingUser: Bool
@@ -30,7 +45,8 @@ class BidStatusInfo: Codable {
     let eventServiceDescriptionId: Int
     let branchName: String
     let timeLeft: Double
-    let serviceAddressDto: BidInfoAddress
+    let serviceAddressDto: VenueAddress
+    let latestBidValue: Int?
     //                   let serviceProviderId: null,
     //                   let serviceProviderName: null,
     //                   let bidCurrencyUnit: null,
@@ -54,7 +70,7 @@ class BidStatusInfo: Codable {
     //                   let preferredSlots: null
     
     enum CodingKeys: String, CodingKey {
-        case bidRequestId, serviceCategoryId, spRegId, serviceVendorOnboardingId, eventId, eventDate, eventName, serviceName, serviceDate, bidRequestedDate, biddingCutOffDate, costingType, cost, bidStatus, currencyType, isExistingUser, serviceProviderEmail, serviceAddress, eventServiceDescriptionId, branchName, timeLeft, serviceAddressDto
+        case bidRequestId, serviceCategoryId, spRegId, serviceVendorOnboardingId, eventId, eventDate, eventName, serviceName, serviceDate, bidRequestedDate, biddingCutOffDate, costingType, cost, bidStatus, currencyType, isExistingUser, serviceProviderEmail, serviceAddress, eventServiceDescriptionId, branchName, timeLeft, serviceAddressDto, latestBidValue
     }
     
     required init(from decoder: Decoder) throws {
@@ -71,8 +87,11 @@ class BidStatusInfo: Codable {
         serviceDate = try container.decode(String.self, forKey: .serviceDate)
         bidRequestedDate = try container.decode(String.self, forKey: .bidRequestedDate)
         biddingCutOffDate = try container.decode(String.self, forKey: .biddingCutOffDate)
-        costingType = try container.decode(String.self, forKey: .costingType)
+        costingType = try container.decode(CostingType.self, forKey: .costingType)
         cost = try container.decode(String.self, forKey: .cost)
+        if cost.lowercased() == "null" {
+            cost = ""
+        }
         bidStatus = try container.decode(String.self, forKey: .bidStatus)
         currencyType = try? container.decode(String.self, forKey: .currencyType)
         isExistingUser = try container.decode(Bool.self, forKey: .isExistingUser)
@@ -81,7 +100,8 @@ class BidStatusInfo: Codable {
         eventServiceDescriptionId = try container.decode(Int.self, forKey: .eventServiceDescriptionId)
         branchName = try container.decode(String.self, forKey: .branchName)
         timeLeft = try container.decode(Double.self, forKey: .timeLeft)
-        serviceAddressDto = try container.decode(BidInfoAddress.self, forKey: .serviceAddressDto)
+        serviceAddressDto = try container.decode(VenueAddress.self, forKey: .serviceAddressDto)
+        latestBidValue = try? container.decode(Int.self, forKey: .latestBidValue)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -98,7 +118,7 @@ class BidStatusInfo: Codable {
         try container.encode(serviceDate, forKey: .serviceDate)
         try container.encode(bidRequestedDate, forKey: .bidRequestedDate)
         try container.encode(biddingCutOffDate, forKey: .biddingCutOffDate)
-        try container.encode(costingType, forKey: .costingType)
+        try container.encode(costingType.rawValue, forKey: .costingType)
         try container.encode(cost, forKey: .cost)
         try container.encode(bidStatus, forKey: .bidStatus)
         try? container.encode(currencyType, forKey: .currencyType)
@@ -113,7 +133,7 @@ class BidStatusInfo: Codable {
     
 }
 
-class BidInfoAddress: Codable {
+class VenueAddress: Codable {
     let addressLine1: String
     let addressLine2: String
     let city: String

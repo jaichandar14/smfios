@@ -12,6 +12,9 @@
         <array key="Muli.ttf">
             <string>Muli</string>
         </array>
+        <array key="smf_icon_2.ttf">
+            <string>smf_icon_2</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChangeInMindViewController" customModule="SMF_iOS" customModuleProvider="target">
@@ -70,13 +73,16 @@
                                 <action selector="btnChooseReason:" destination="-1" eventType="touchUpInside" id="o9o-o3-F72"/>
                             </connections>
                         </button>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="Iwb-Qo-9WD">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlM-ti-ueN">
                             <rect key="frame" x="323" y="128" width="14" height="14"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="14" id="OYm-HM-lAN"/>
-                                <constraint firstAttribute="width" constant="14" id="zyi-Ce-YEd"/>
+                                <constraint firstAttribute="height" constant="14" id="Evq-Gz-hbp"/>
+                                <constraint firstAttribute="width" constant="14" id="ai6-V7-pEH"/>
                             </constraints>
-                        </imageView>
+                            <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IvE-4P-jgU">
                             <rect key="frame" x="22" y="182" width="79" height="19.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -143,7 +149,6 @@
                         <constraint firstItem="rYX-aN-aJx" firstAttribute="leading" secondItem="SLV-9o-h0T" secondAttribute="leading" constant="22" id="6kw-Tl-quk"/>
                         <constraint firstItem="rYX-aN-aJx" firstAttribute="top" secondItem="oLr-pJ-rtc" secondAttribute="bottom" constant="20" id="7Xd-bd-le4"/>
                         <constraint firstItem="O7X-Pm-ugb" firstAttribute="leading" secondItem="SLV-9o-h0T" secondAttribute="leading" constant="22" id="966-Z3-Dio"/>
-                        <constraint firstItem="Iwb-Qo-9WD" firstAttribute="centerY" secondItem="Bor-NB-94y" secondAttribute="centerY" id="AH4-G4-mUJ"/>
                         <constraint firstItem="oLr-pJ-rtc" firstAttribute="top" secondItem="SLV-9o-h0T" secondAttribute="top" constant="40" id="AXQ-QT-Jtn"/>
                         <constraint firstItem="KIw-36-e1B" firstAttribute="top" secondItem="IvE-4P-jgU" secondAttribute="bottom" constant="5" id="Ce6-gU-h7C"/>
                         <constraint firstAttribute="bottom" secondItem="O7X-Pm-ugb" secondAttribute="bottom" constant="20" id="Mm7-HS-N2x"/>
@@ -152,9 +157,10 @@
                         <constraint firstItem="Bor-NB-94y" firstAttribute="top" secondItem="rYX-aN-aJx" secondAttribute="bottom" constant="10" id="f8K-xz-mT0"/>
                         <constraint firstAttribute="trailing" secondItem="rYX-aN-aJx" secondAttribute="trailing" constant="22" id="lK1-tU-N0W"/>
                         <constraint firstAttribute="trailing" secondItem="KIw-36-e1B" secondAttribute="trailing" constant="22" id="qb8-BE-LFw"/>
-                        <constraint firstItem="Iwb-Qo-9WD" firstAttribute="trailing" secondItem="Bor-NB-94y" secondAttribute="trailing" constant="-15" id="sLL-Wj-aAD"/>
+                        <constraint firstItem="UlM-ti-ueN" firstAttribute="centerY" secondItem="Bor-NB-94y" secondAttribute="centerY" id="roa-pQ-zTC"/>
                         <constraint firstItem="O7X-Pm-ugb" firstAttribute="top" secondItem="KIw-36-e1B" secondAttribute="bottom" priority="750" constant="40" id="sXg-zz-esG"/>
                         <constraint firstItem="IvE-4P-jgU" firstAttribute="leading" secondItem="SLV-9o-h0T" secondAttribute="leading" constant="22" id="tsm-F4-5lc"/>
+                        <constraint firstItem="UlM-ti-ueN" firstAttribute="trailing" secondItem="Bor-NB-94y" secondAttribute="trailing" constant="-15" id="xgs-wz-ETz"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -181,7 +187,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow-down" width="16" height="16"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -39,6 +39,8 @@
 		<string>Raleway-Thin.ttf</string>
 		<string>Raleway-ThinItalic.ttf</string>
 		<string>smf_icon.ttf</string>
+		<string>smf_icon_2.ttf</string>
+		<string>Playball-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

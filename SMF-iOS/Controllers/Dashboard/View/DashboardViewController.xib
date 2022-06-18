@@ -8,6 +8,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="smf_icon_2.ttf">
+            <string>smf_icon_2</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DashboardViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
@@ -59,6 +64,9 @@
                                     <integer key="value" value="20"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="btnCalendarAction:" destination="-1" eventType="touchUpInside" id="Izj-k0-Vwn"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,36 +115,42 @@
                         </button>
                     </subviews>
                 </stackView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="wI0-20-zpI">
-                    <rect key="frame" x="276" y="214.5" width="14" height="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpL-K5-Ggh">
+                    <rect key="frame" x="276" y="213.5" width="14" height="14"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="14" id="7uT-A3-vTk"/>
-                        <constraint firstAttribute="width" constant="14" id="rdO-4W-Iax"/>
+                        <constraint firstAttribute="width" constant="14" id="Zbs-Iq-eIL"/>
+                        <constraint firstAttribute="height" constant="14" id="fCS-vx-MvJ"/>
                     </constraints>
-                </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="c38-oZ-UBZ">
-                    <rect key="frame" x="126" y="214.5" width="14" height="14"/>
+                    <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNG-3F-LUn">
+                    <rect key="frame" x="126" y="213.5" width="14" height="14"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="14" id="gCn-BB-zwV"/>
-                        <constraint firstAttribute="height" constant="14" id="pKg-Yf-3qb"/>
+                        <constraint firstAttribute="height" constant="14" id="ULk-9x-89d"/>
+                        <constraint firstAttribute="width" constant="14" id="smg-9x-44g"/>
                     </constraints>
-                </imageView>
+                    <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="wI0-20-zpI" firstAttribute="centerY" secondItem="urh-Fp-1P7" secondAttribute="centerY" constant="1" id="6zg-BA-7Dd"/>
                 <constraint firstItem="S0R-7e-w0Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="8SR-To-hH0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ar7-Ux-1ts" secondAttribute="trailing" id="8fQ-gL-cOV"/>
                 <constraint firstItem="Dll-ok-6ls" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="8xy-n5-7tZ"/>
                 <constraint firstItem="S0R-7e-w0Z" firstAttribute="top" secondItem="ar7-Ux-1ts" secondAttribute="bottom" constant="23" id="CkM-QP-DfH"/>
-                <constraint firstItem="c38-oZ-UBZ" firstAttribute="centerY" secondItem="7LN-Sm-NRb" secondAttribute="centerY" constant="1" id="LdJ-iz-4xv"/>
-                <constraint firstItem="c38-oZ-UBZ" firstAttribute="trailing" secondItem="7LN-Sm-NRb" secondAttribute="trailing" constant="-10" id="Xzz-pd-7pB"/>
+                <constraint firstItem="zpL-K5-Ggh" firstAttribute="trailing" secondItem="urh-Fp-1P7" secondAttribute="trailing" constant="-10" id="GWE-JP-k3x"/>
+                <constraint firstItem="jNG-3F-LUn" firstAttribute="centerY" secondItem="7LN-Sm-NRb" secondAttribute="centerY" id="GXv-aA-nL6"/>
+                <constraint firstItem="zpL-K5-Ggh" firstAttribute="centerY" secondItem="urh-Fp-1P7" secondAttribute="centerY" id="Xop-iR-K9U"/>
                 <constraint firstAttribute="trailing" secondItem="Dll-ok-6ls" secondAttribute="trailing" id="dl1-QR-aGE"/>
-                <constraint firstItem="wI0-20-zpI" firstAttribute="trailing" secondItem="urh-Fp-1P7" secondAttribute="trailing" constant="-10" id="eYw-pb-iyz"/>
                 <constraint firstItem="ar7-Ux-1ts" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qPT-IW-wPi"/>
                 <constraint firstItem="Dll-ok-6ls" firstAttribute="top" secondItem="SPF-ao-Laa" secondAttribute="bottom" constant="26" id="qfG-lE-USV"/>
                 <constraint firstItem="607-EZ-OBr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rAI-VO-dXh"/>
+                <constraint firstItem="jNG-3F-LUn" firstAttribute="trailing" secondItem="7LN-Sm-NRb" secondAttribute="trailing" constant="-10" id="rYh-rV-DST"/>
                 <constraint firstAttribute="trailing" secondItem="607-EZ-OBr" secondAttribute="trailing" id="uHq-5H-ieJ"/>
                 <constraint firstItem="ar7-Ux-1ts" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wfA-Kv-vgv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="607-EZ-OBr" secondAttribute="bottom" id="wlc-NJ-wqg"/>
@@ -148,7 +162,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow-down" width="16" height="16"/>
         <image name="calendar" width="21" height="21"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

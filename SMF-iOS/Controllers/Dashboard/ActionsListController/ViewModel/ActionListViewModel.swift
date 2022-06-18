@@ -13,5 +13,5 @@ protocol ActionListViewModel {
     var bidStatusInfoFetchError: Observable<String> { get }
     
     func getBidInfoItem(for index: Int) -> BidStatusInfo
-    func fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: String)
+    func fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: BiddingStatus)
 }

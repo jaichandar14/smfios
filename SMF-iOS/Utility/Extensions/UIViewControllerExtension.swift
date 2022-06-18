@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 extension UIViewController {
     
@@ -24,11 +25,11 @@ extension UIViewController {
     }
     
     func showLoader() {
-        present(Util.getLoader(), animated: true, completion: nil)
+        ProgressHUD.show("Progress loader...")
     }
     
     func hideLoader() {
-        Util.loader?.dismiss(animated: false, completion: nil)
+        ProgressHUD.dismiss()
     }
 }
 

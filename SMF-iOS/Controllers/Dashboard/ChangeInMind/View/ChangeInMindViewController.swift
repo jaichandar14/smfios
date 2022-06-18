@@ -57,6 +57,10 @@ class ChangeInMindViewController: BaseViewController {
         self.setButton(self.btnOK, backgroundColor: ColorConstant.greyColor4, textColor: UIColor.white)
     }
     
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func setDataToUI() {
         //
     }
@@ -72,7 +76,7 @@ class ChangeInMindViewController: BaseViewController {
         button.layer.cornerRadius = 20
     }
     
-    func showDropDown(on view: UIView, items: [String], selection: SelectionClosure?) {
+    override func showDropDown(on view: UIView, items: [String], selection: SelectionClosure?) {
         let dropDown = DropDown()
         dropDown.anchorView = view
         

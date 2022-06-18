@@ -8,7 +8,7 @@
 import UIKit
 protocol QuoteDetailsPopUpDelegate {
     func cancelTapped()
-    func okTapped()
+    func okTapped(bidInfo: BidStatusInfo, cost: String, comment: String, isQuoteSelected: Bool)
     func chooseFileTapped()
 }
 
@@ -40,12 +40,12 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnOK: UIButton!
     
-    @IBOutlet weak var arrowImgView: UIImageView!
+    @IBOutlet weak var arrowImgView: UILabel!
     @IBOutlet weak var priceStackView: UIStackView!
     @IBOutlet weak var chooseFileStackView: UIStackView!
-    @IBOutlet weak var viewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomButtonStackTopView: NSLayoutConstraint!
         
+    var bidInfo: BidStatusInfo?
     var isHavingQuoteSelected = true
         
     override func viewDidLoad() {
@@ -53,6 +53,10 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         
         styleUI()
         setDataToUI()
+    }
+    
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func styleUI() {
@@ -115,7 +119,6 @@ class QuoteDetailsPopUpViewController: BaseViewController {
             self.btnWillProvideLater.setTitleColor(ColorConstant.greyColor7, for: .normal)
             
             UIView.animate(withDuration: 0.3) {
-                self.viewHeightConstraint.constant = 650
                 self.bottomButtonStackTopView.priority = UILayoutPriority(650)
                 self.view.layoutIfNeeded()
             } completion: { isCompleted in
@@ -128,13 +131,10 @@ class QuoteDetailsPopUpViewController: BaseViewController {
             self.btnHavingQuote.setTitleColor(ColorConstant.greyColor7, for: .normal)
             self.btnWillProvideLater.setTitle("A", for: .normal)
             self.btnWillProvideLater.setTitleColor(_theme.primaryColor, for: .normal)
-            self.viewHeightConstraint.constant = 350
-            
             
             UIView.animate(withDuration: 0.3) {
                 self.bottomButtonStackTopView.priority = UILayoutPriority(850)
                 self.setVisibility(to: true)
-                self.viewHeightConstraint.constant = 250
                 self.view.layoutIfNeeded()
             }
         }
@@ -173,7 +173,7 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     }
     
     @IBAction func btnOkAction(_ sender: UIButton) {
-        delegate?.okTapped()
+        delegate?.okTapped(bidInfo: self.bidInfo!, cost: self.txtQuotePrice.text ?? "", comment: self.txtAreaComment.text, isQuoteSelected: self.isHavingQuoteSelected)
     }
     
     @IBAction func btnHavingQuote(_ sender: UIButton) {

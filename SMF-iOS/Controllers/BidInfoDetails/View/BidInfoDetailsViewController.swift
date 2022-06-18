@@ -61,6 +61,10 @@ class BidInfoDetailsViewController: BaseViewController {
         setNavBar(hidden: false)
     }
     
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func styleUI() {
         setUpViewShadow(self.eventDetailsContainerView, backgroundColor: UIColor.white, radius: 15, shadowRadius: 10, isHavingBorder: false)
         
@@ -151,7 +155,7 @@ class BidInfoDetailsViewController: BaseViewController {
         self.toggleBidDetailsVisibility(isHidden: !self.isBidVisible)
     }
     
-    @IBAction func backButtonAction(_ sender: UIButton) {
+    @IBAction func backButtonTapped(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     

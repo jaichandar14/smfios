@@ -83,27 +83,27 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
         case isStatus
     }
     
-    func getItemStatus(key: String) -> (ActionStatusCheck, String, String) {
+    func getItemStatus(key: String) -> (ActionStatusCheck, String, BiddingStatus) {
         switch key {
         case "bidRequestedCount":
-            return (.isAction, "New request", "BID REQUESTED")
+            return (.isAction, "New request", .bidRequested)
         case "bidSubmittedCount":
-            return (.isAction, "Bid Submitted", "BID SUBMITTED")
+            return (.isAction, "Bid Submitted", .bidSubmitted)
         case "pendingForQuoteCount":
-            return (.isAction, "Pending Quote", "PENDING FOR QUOTE")
+            return (.isAction, "Pending Quote", .pendingForQuote)
         case "wonBidCount":
-            return (.isAction, "Won Bid", "")
+            return (.isAction, "Won Bid", .none)
             
         case "bidRejectedCount":
-            return (.isStatus, "Bid Rejected", "BID REJECTED")
+            return (.isStatus, "Bid Rejected", .bidRejected)
         case "lostBidCount":
-            return (.isStatus, "Lost Bid", "")
+            return (.isStatus, "Lost Bid", .none)
         case "bidTimedOutCount":
-            return (.isStatus, "Timed Out", "")
+            return (.isStatus, "Timed Out", .none)
         case "serviceDoneCount":
-            return (.isStatus, "Request closed", "")
+            return (.isStatus, "Request closed", .none)
         default:
-            return (.isStatus, "", "")
+            return (.isStatus, "", .none)
         }
     }
     

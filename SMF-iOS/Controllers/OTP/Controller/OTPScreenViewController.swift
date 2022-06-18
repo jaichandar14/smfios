@@ -57,6 +57,10 @@ class OTPScreenViewController: BaseViewController {
         self.setNavBar(hidden: false)
     }
     
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
         print("NetworkChange")
     }

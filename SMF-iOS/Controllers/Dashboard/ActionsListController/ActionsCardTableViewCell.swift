@@ -7,17 +7,11 @@
 
 import UIKit
 
-protocol ActionCardProtocol {
-    func notInterestedInEvent(requestId: Int)
-    func interestedInEvent(requestId: Int)
-    func lookForwardForEvent(requestId: Int)
-    func changeInMind(requestId: Int)
-}
-
 class ActionsCardTableViewCell: UITableViewCell {
     
-    var delegate: ActionCardProtocol?
-
+    var delegate: ActionListDelegate?
+    var status: BiddingStatus?
+    
     @IBOutlet weak var lblEventName: UILabel!
     @IBOutlet weak var lblEventID: UILabel!
     
@@ -65,8 +59,6 @@ class ActionsCardTableViewCell: UITableViewCell {
     }
     
     func setUpViews() {
-        
-        
         lblEventName.textColor = _theme.textColor
         lblEventID.textColor = UIColor.systemBlue
         lblEventType.textColor = _theme.textColor
@@ -154,6 +146,8 @@ class ActionsCardTableViewCell: UITableViewCell {
         view.layer.shadowOpacity = 0.4
         view.layer.shadowRadius = shadowRadius
         
+        self.circularProgressView.trackClr = ColorConstant.greyColor8
+        self.circularProgressView.progressClr = _theme.primaryColor
     }
     
     func setData(bidInfo: BidStatusInfo) {
@@ -164,22 +158,35 @@ class ActionsCardTableViewCell: UITableViewCell {
         lblEventDate.text = bidInfo.eventDate.toSMFShortFormat()
         lblServiceDate.text = bidInfo.serviceDate.toSMFShortFormat()
 //        lblRequestType.text = bidInfo.
-        lblQuotePrice.text = bidInfo.cost
-        lblRemainingDate.text = "22"
-        
+        if status != .bidRequested {
+            if bidInfo.costingType == .fixed {
+                lblQuotePrice.text = bidInfo.cost == "" ? "" : "$\(bidInfo.cost)"
+            } else {
+                lblQuotePrice.text = bidInfo.latestBidValue == nil ? "" : "$\(bidInfo.latestBidValue!)"
+            }
+        } else {
+            lblQuotePrice.text = bidInfo.cost == "" ? "" : "$\(bidInfo.cost)"
+        }
+        lblRemainingDate.text = bidInfo.biddingCutOffDate.formatDateStringTo(format: "dd")
+        lblCutOffDate.text = bidInfo.biddingCutOffDate.formatDateStringTo(format: "MMM")
+        self.circularProgressView.setProgressWithAnimation(duration: 1.0, value: Float(bidInfo.timeLeft) / 100)
     }
     
     
     @IBAction func btnDislikeAction(_ sender: UIButton) {
-        delegate?.notInterestedInEvent(requestId: self.bidInfo.bidRequestId)
+        delegate?.rejectBidAction(requestId: self.bidInfo.bidRequestId)
     }
     
     @IBAction func btnLikeAction(_ sender: UIButton) {
-        delegate?.interestedInEvent(requestId: self.bidInfo.bidRequestId)
+        if self.bidInfo.costingType == .bidding {
+            delegate?.showQuoteDetailsPopUp(bidInfo: self.bidInfo)
+        } else {
+            delegate?.acceptBidAction(bidInfo: self.bidInfo)
+        }
     }
     
     @IBAction func btnNextAction(_ sender: UIButton) {
-        delegate?.lookForwardForEvent(requestId: self.bidInfo.bidRequestId)
+        delegate?.eventDetailsView(bidInfo: self.bidInfo)
     }
     
     @IBAction func btnChangeInMindAction(_ sender: UIButton) {

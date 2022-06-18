@@ -9,16 +9,17 @@ import UIKit
 
 protocol ActionListDelegate {
     func btnCloseAction()
-    func notInterestedInEvent(requestId: Int)
-    func interestedInEvent(requestId: Int)
-    func eventDetailsView(requestId: Int)
+    func rejectBidAction(requestId: Int)
+    func acceptBidAction(bidInfo: BidStatusInfo)
+    func eventDetailsView(bidInfo: BidStatusInfo)
     func changeInMind(requestId: Int)
+    func showQuoteDetailsPopUp(bidInfo: BidStatusInfo)
 }
 
 class ActionsListViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var status: String = ""
+    var status: BiddingStatus = .none
     var delegate: ActionListDelegate?
     
     @IBOutlet weak var lblNewRequestCount: UILabel!
@@ -54,8 +55,13 @@ class ActionsListViewController: BaseViewController {
         setDataToUI()
     }
     
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func styleUI() {
         self.btnClose.backgroundColor = .clear
+        self.btnClose.setTitleColor(.black, for: .normal)
     }
     
     func setDataToUI() {
@@ -76,7 +82,7 @@ class ActionsListViewController: BaseViewController {
                 if isLoading {
                     self.view.showBlurLoader()
                 } else {
-                    self.view.removeBluerLoader()
+                    self.view.removeBlurLoader()
                 }
             }
         }
@@ -115,15 +121,14 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell") as? ActionsCardTableViewCell else {
             return UITableViewCell()
         }
-        cell.delegate = self
-        cell.circularProgressView.trackClr = ColorConstant.greyColor8
-        cell.circularProgressView.progressClr = _theme.primaryColor
-        cell.circularProgressView.setProgressWithAnimation(duration: 1.0, value: 0.70)
+        cell.delegate = self.delegate
+        cell.status = self.status
+        
         
         let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row)
         cell.setData(bidInfo: bidInfo)
         
-        if status == "BID REQUESTED" {
+        if status == .bidRequested {
             cell.btnChangeMind.isHidden = true
             cell.btnLike.isHidden = false
             cell.btnDislike.isHidden = false
@@ -138,23 +143,5 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 230
-    }
-}
-
-extension ActionsListViewController: ActionCardProtocol {
-    func changeInMind(requestId: Int) {
-        delegate?.changeInMind(requestId: requestId)
-    }
-    
-    func notInterestedInEvent(requestId: Int) {
-        delegate?.notInterestedInEvent(requestId: requestId)
-    }
-    
-    func interestedInEvent(requestId: Int) {
-        delegate?.interestedInEvent(requestId: requestId)
-    }
-    
-    func lookForwardForEvent(requestId: Int) {
-        delegate?.eventDetailsView(requestId: requestId)
     }
 }

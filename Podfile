@@ -14,5 +14,11 @@ target 'SMF-iOS' do
   # For signing-in and signing-out
   pod 'Amplify'
   pod 'AmplifyPlugins/AWSCognitoAuthPlugin'
+  
+  # Calendar support
+  pod 'FSCalendar'
+  
+  # Show progress loader
+  pod 'ProgressHUD'
 
 end

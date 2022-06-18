@@ -12,11 +12,13 @@
         <array key="smf_icon.ttf">
             <string>smf_icon</string>
         </array>
+        <array key="smf_icon_2.ttf">
+            <string>smf_icon_2</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BidInfoDetailsViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="arrowImageView" destination="pSr-5y-MDv" id="BWQ-aL-FfR"/>
                 <outlet property="bidTableView" destination="ZWQ-Q0-zfI" id="5Vh-Gi-d11"/>
                 <outlet property="bidTableViewHeightConstraint" destination="1Xo-Oc-icp" id="yAI-or-Nzd"/>
                 <outlet property="btnBack" destination="qcH-tl-P3r" id="RS7-8i-cc6"/>
@@ -63,7 +65,7 @@
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" title="b"/>
                                     <connections>
-                                        <action selector="backButtonAction:" destination="-1" eventType="touchUpInside" id="Lfk-Yh-rxe"/>
+                                        <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="ocw-Dy-ldr"/>
                                     </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unL-Vk-eJd">
@@ -90,13 +92,16 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="woD-fK-ehj">
                                             <rect key="frame" x="15" y="98" width="126" height="14"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-down" translatesAutoresizingMaskIntoConstraints="NO" id="pSr-5y-MDv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UzQ-rN-pS0">
                                                     <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="c3i-AL-AaV"/>
-                                                        <constraint firstAttribute="width" constant="14" id="rAM-yk-h2U"/>
+                                                        <constraint firstAttribute="width" constant="14" id="Hq5-lP-qGG"/>
+                                                        <constraint firstAttribute="height" constant="14" id="xRR-zb-PBh"/>
                                                     </constraints>
-                                                </imageView>
+                                                    <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid Accepted" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORA-mf-MUZ">
                                                     <rect key="frame" x="24" y="0.0" width="102" height="14"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -105,6 +110,13 @@
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnM-Wk-SQg">
+                                            <rect key="frame" x="15" y="98" width="126" height="14"/>
+                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                            <connections>
+                                                <action selector="btnBidExpandCollapse:" destination="-1" eventType="touchUpInside" id="hci-By-bXG"/>
+                                            </connections>
+                                        </button>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="yKJ-Ul-rXd">
                                             <rect key="frame" x="265" y="89" width="84" height="32"/>
                                             <subviews>
@@ -143,13 +155,6 @@
                                             <state key="normal" title="View Quote"/>
                                             <connections>
                                                 <action selector="btnViewQuoteAction:" destination="-1" eventType="touchUpInside" id="4Ia-NW-JsT"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnM-Wk-SQg">
-                                            <rect key="frame" x="15" y="98" width="126" height="14"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <connections>
-                                                <action selector="btnBidExpandCollapse:" destination="-1" eventType="touchUpInside" id="hci-By-bXG"/>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PL-PS-Qzd">
@@ -257,7 +262,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow-down" width="16" height="16"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

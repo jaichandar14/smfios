@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import UIKit
 
-protocol BaseProtocol {
+@objc protocol BaseProtocol {
     func styleUI()
     func setDataToUI()
     func networkChangeListener(connectivity: Bool, connectionType: String?)
+    @objc func backButtonAction(_ sender: UIBarButtonItem)
 }
 
 typealias BaseViewController = BaseController & BaseProtocol

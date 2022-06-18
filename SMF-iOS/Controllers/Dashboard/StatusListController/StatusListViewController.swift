@@ -13,7 +13,7 @@ protocol StatusListDelegate {
 
 class StatusListViewController: BaseViewController {
 
-    var status: String = ""
+    var status: BiddingStatus = .none
     var delegate: StatusListDelegate?
 
     @IBOutlet weak var tableView: UITableView!
@@ -43,6 +43,10 @@ class StatusListViewController: BaseViewController {
         styleUI()
         setDataToUI()
         self.tableView.reloadData()
+    }
+    
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func styleUI() {

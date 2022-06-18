@@ -50,8 +50,6 @@ class LoginViewController: BaseViewController {
         setUpTextFields()
         setUpDropDown()
         setCountryCode()
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +62,10 @@ class LoginViewController: BaseViewController {
         super.viewWillDisappear(animated)
         
         setNavBar(hidden: false)
+    }
+    
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {

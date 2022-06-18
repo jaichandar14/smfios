@@ -27,4 +27,8 @@ class APIConfig {
     static let biddingStatusInfo = baseURL + "epm-service/api/app-services/bidding-status-info"
     static let orderInfo = baseURL + "epm-service/api/app-services/order-info"
     static let rejectBidRequest = baseURL + "epm-service/api/app-services/bid-request-info"
+    static let acceptBidRequest = baseURL + "epm-service/api/app-services/accept-bid"
+    static let orderDescriptionAPI = baseURL + "epm-service/api/app-services/order-description"
+    static let calendarEvents = baseURL + "epm-service/api/app-services/calendar-events"
+    static let bookedServiceSlot = baseURL + "epm-service/api/app-services/booked-service-slots"
 }

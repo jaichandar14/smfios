@@ -11,7 +11,7 @@ struct BidCount: Codable {
     let key: String
     let title: String
     let count: Int
-    let apiLabel: String
+    let apiLabel: BiddingStatus
 }
 
 class ActionStatusModel {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class OrderDetailViewController: BaseViewController {
 
@@ -23,9 +24,15 @@ class OrderDetailViewController: BaseViewController {
     @IBOutlet weak var questionAnsTableView: UITableView!
     @IBOutlet weak var questionAnsTableViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblServices: UILabel!
+    @IBOutlet weak var lblQuestions: UILabel!
     @IBOutlet weak var serviceTableViewHeightConstraint: NSLayoutConstraint!
     
-    var bidRequestId: Int?
+    var eventId: Int?
+    var eventServiceDescId: Int?
+    var eventName: String?
+    var eventDate: String?
+    
     var viewModel: BidInfoDetailViewModel? {
         didSet {
             setDataToUI()
@@ -69,6 +76,10 @@ class OrderDetailViewController: BaseViewController {
         setNavBar(hidden: false)
     }
     
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func styleUI() {
         setUpViewShadow(self.orderDetailsView, backgroundColor: UIColor.white, radius: 15, shadowRadius: 10, isHavingBorder: false)
         
@@ -84,6 +95,14 @@ class OrderDetailViewController: BaseViewController {
         self.questionAnsTableView.rowHeight = UITableView.automaticDimension
         self.questionAnsTableView.estimatedRowHeight = 50
         self.questionAnsTableView.register(UINib.init(nibName: String.init(describing: QuestionAnsTableViewCell.self), bundle: nil), forCellReuseIdentifier: "qaCell")
+        
+        self.lblServices.text = "Service Details"
+        self.lblServices.font = _theme.muliFont(size: 16, style: .muliBold)
+        self.lblServices.textColor = _theme.textColor
+        
+        self.lblQuestions.text = "Questions"
+        self.lblQuestions.font = _theme.muliFont(size: 16, style: .muliBold)
+        self.lblQuestions.textColor = _theme.textColor
     }
     
     func setDataToUI() {
@@ -96,8 +115,8 @@ class OrderDetailViewController: BaseViewController {
             return
         }
 
-        viewModel.bidStatus.bindAndFire { [weak self] bidStatusInfo in
-            self?.updateView(with: bidStatusInfo)
+        viewModel.orderDetails.bindAndFire { [weak self] orderDetail in
+            self?.updateView(with: orderDetail)
         }
         
         viewModel.serviceList.bindAndFire { [weak self] infoList in
@@ -108,17 +127,16 @@ class OrderDetailViewController: BaseViewController {
             DispatchQueue.main.async {
                 if isLoading {
                     self?.orderDetailsView.isHidden = true
-                    self?.showLoader()
+                    ProgressHUD.show()
+                    print("Show Loader")
                 } else {
                     self?.orderDetailsView.isHidden = false
-                    self?.hideLoader()
+//                    ProgressHUD.dismiss()
+                    print("Hide Loader")
                 }
             }
         }
-        
-        viewModel.questionAnsList.bindAndFire { [weak self] infoList in
-            self?.updateQAList()
-        }
+
                 
         updateData()
     }
@@ -127,17 +145,18 @@ class OrderDetailViewController: BaseViewController {
         //
     }
     
-    func updateView(with model: BidStatusInfo?) {
+    func updateView(with model: QuestionareWrapperDTO?) {
         DispatchQueue.main.async {
-            self.lblEventTitle.text = model?.eventName
+            self.lblEventTitle.text = self.eventName
             self.lblServiceID.text = model?.eventServiceDescriptionId.description ?? ""
-            self.lblEventValue.text = model?.eventDate.toSMFDateFormat()
-            self.lblVenueZipValue.text = model?.serviceAddressDto.zipCode
+            self.lblEventValue.text = self.eventDate?.toSMFDateFormat()
+            self.lblVenueZipValue.text = model?.venueAddress?.zipCode
+            self.questionAnsTableView.reloadData()
         }
     }
     
     func updateData() {
-        viewModel?.fetchBidDetailsList(bidRequestId: self.bidRequestId!)
+        viewModel?.fetchOrderDescription(eventId: eventId!, eventServiceDescId: eventServiceDescId!)
     }
     
     func updateServiceList() {
@@ -162,7 +181,7 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
         if tableView == self.serviceInfoTableView {
             return viewModel?.serviceList.value.count ?? 0
         } else {
-            return viewModel?.questionAnsList.value.count ?? 0
+            return viewModel?.getQuestionDTO()?.count ?? 0
         }
     }
     
@@ -184,9 +203,10 @@ extension OrderDetailViewController: UITableViewDelegate, UITableViewDataSource 
                 return UITableViewCell()
             }
             
-            let item = viewModel!.questionAnsList.value[indexPath.row]
-            cell.lblQuestion.text = item.question
-            cell.lblAnswer.text = item.ans
+            let item: QuestionAns = viewModel!.getQuestionDTO()![indexPath.row]
+            
+            cell.lblQuestion.text = "Q\(indexPath.row + 1): \(item.questionMetadata.question)"
+            cell.lblAnswer.text = "Answer: - \(item.questionMetadata.answer)"
             
             return cell
         }

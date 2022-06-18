@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ActionStatusDelegate {
-    func actionPerformedOnCount(label: String)
-    func statusPerformedOnCount(label: String)
+    func actionPerformedOnCount(label: BiddingStatus)
+    func statusPerformedOnCount(label: BiddingStatus)
 }
 
 class ActionStatusViewController: BaseViewController {
@@ -40,6 +40,10 @@ class ActionStatusViewController: BaseViewController {
         super.viewDidLoad()
 
         styleUI()
+    }
+    
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
@@ -106,7 +110,7 @@ class ActionStatusViewController: BaseViewController {
                 if isLoading {
                     self?.view.showBlurLoader()
                 } else {
-                    self?.view.removeBluerLoader()
+                    self?.view.removeBlurLoader()
                 }
             }
         }
@@ -168,7 +172,7 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.actionsCollectionView {
-            if viewModel!.actionBidCountList.value[indexPath.row].apiLabel != "" {
+            if viewModel!.actionBidCountList.value[indexPath.row].apiLabel != .none {
                 self.delegate?.actionPerformedOnCount(label: viewModel!.actionBidCountList.value[indexPath.row].apiLabel)
             }
         } else {

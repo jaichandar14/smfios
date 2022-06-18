@@ -22,10 +22,10 @@ class ThemeManager {
         let sharedApplication = UIApplication.shared
         sharedApplication.delegate?.window??.tintColor = theme.primaryColor
         
-        UINavigationBar.appearance().barStyle = theme.barStyle
-        //        UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)
-        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "backArrow")
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "backArrowMaskFixed")
+//        UINavigationBar.appearance().barStyle = theme.barStyle
+//        //        UINavigationBar.appearance().setBackgroundImage(theme.navigationBackgroundImage, for: .default)
+//        UINavigationBar.appearance().backIndicatorImage = UIImage(named: "back_arrow")
+////        UINavigationBar.appearance().backIndicatorTransitionMaskImage = UIImage(named: "backArrowMaskFixed")
         
         UITabBar.appearance().barStyle = theme.barStyle
         //        UITabBar.appearance().backgroundImage = theme.tabBarBackgroundImage

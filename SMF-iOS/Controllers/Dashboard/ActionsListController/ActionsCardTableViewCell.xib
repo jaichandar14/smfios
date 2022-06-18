@@ -12,6 +12,9 @@
         <array key="smf_icon.ttf">
             <string>smf_icon</string>
         </array>
+        <array key="smf_icon_2.ttf">
+            <string>smf_icon_2</string>
+        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -54,7 +57,7 @@
                                             <constraint firstAttribute="height" constant="30" id="FVJ-f9-D7B"/>
                                             <constraint firstAttribute="width" constant="30" id="cbW-Qo-jG3"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="smf_icon" family="smf_icon" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="d"/>
                                         <userDefinedRuntimeAttributes>
@@ -73,7 +76,7 @@
                                             <constraint firstAttribute="width" constant="30" id="OEg-W6-u5l"/>
                                             <constraint firstAttribute="height" constant="30" id="bd3-gq-zVr"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="smf_icon" family="smf_icon" pointSize="18"/>
+                                        <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="u"/>
                                         <userDefinedRuntimeAttributes>
@@ -107,7 +110,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5q-wt-kx1">
-                                <rect key="frame" x="241" y="46.5" width="110" height="40"/>
+                                <rect key="frame" x="241" y="47" width="110" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bid cut-off" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKU-Jf-hKA">
                                         <rect key="frame" x="7" y="5" width="57" height="13.5"/>
@@ -116,7 +119,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UK4-xj-3EC">
-                                        <rect key="frame" x="7" y="20.5" width="22" height="14.5"/>
+                                        <rect key="frame" x="7" y="18.5" width="22" height="14.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -144,14 +147,14 @@
                                     <constraint firstItem="r4P-FE-D1L" firstAttribute="centerY" secondItem="6MO-lB-SXR" secondAttribute="centerY" id="TOh-Fe-ccq"/>
                                     <constraint firstAttribute="height" constant="40" id="WGn-QD-xFg"/>
                                     <constraint firstItem="UK4-xj-3EC" firstAttribute="leading" secondItem="x5q-wt-kx1" secondAttribute="leading" constant="7" id="XUK-8f-yxG"/>
-                                    <constraint firstItem="UK4-xj-3EC" firstAttribute="top" secondItem="gKU-Jf-hKA" secondAttribute="bottom" constant="2" id="Xx1-SV-873"/>
+                                    <constraint firstItem="UK4-xj-3EC" firstAttribute="top" secondItem="gKU-Jf-hKA" secondAttribute="bottom" id="Xx1-SV-873"/>
                                     <constraint firstItem="6MO-lB-SXR" firstAttribute="centerY" secondItem="x5q-wt-kx1" secondAttribute="centerY" id="gga-e2-fnG"/>
                                     <constraint firstItem="r4P-FE-D1L" firstAttribute="centerX" secondItem="6MO-lB-SXR" secondAttribute="centerX" id="lcz-4k-Y6s"/>
                                     <constraint firstAttribute="width" constant="110" id="u0S-gR-rYp"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="lastBaseline" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xga-ZO-K3Z">
-                                <rect key="frame" x="255" y="12" width="96" height="18.5"/>
+                                <rect key="frame" x="255" y="12.5" width="96" height="18.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quote:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2d-rc-wSz">
                                         <rect key="frame" x="0.0" y="2.5" width="41" height="16"/>
@@ -228,10 +231,10 @@
                         <constraints>
                             <constraint firstItem="g0h-3O-oTY" firstAttribute="top" secondItem="4HI-C6-XTO" secondAttribute="bottom" constant="1" id="4D6-by-lQO"/>
                             <constraint firstItem="4HI-C6-XTO" firstAttribute="trailing" secondItem="x5q-wt-kx1" secondAttribute="trailing" id="5BJ-8v-RdT"/>
-                            <constraint firstItem="Xga-ZO-K3Z" firstAttribute="firstBaseline" secondItem="KDE-HQ-cBt" secondAttribute="firstBaseline" id="5R9-Pl-GTQ"/>
                             <constraint firstItem="x5q-wt-kx1" firstAttribute="top" secondItem="Xga-ZO-K3Z" secondAttribute="bottom" constant="16" id="85t-iz-som"/>
                             <constraint firstItem="cfO-8e-b5f" firstAttribute="top" secondItem="0H5-Gg-y9T" secondAttribute="bottom" constant="16" id="9Ht-q2-AQs"/>
                             <constraint firstItem="MFY-bS-buJ" firstAttribute="top" secondItem="KDE-HQ-cBt" secondAttribute="bottom" constant="5" id="ANk-iU-h3E"/>
+                            <constraint firstItem="Xga-ZO-K3Z" firstAttribute="centerY" secondItem="KDE-HQ-cBt" secondAttribute="centerY" id="Az9-vK-veL"/>
                             <constraint firstItem="cfO-8e-b5f" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="leading" id="B3O-qf-hUa"/>
                             <constraint firstItem="0H5-Gg-y9T" firstAttribute="top" secondItem="fSO-sZ-XID" secondAttribute="bottom" constant="11" id="GaY-KY-gEY"/>
                             <constraint firstItem="MFY-bS-buJ" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="leading" id="Me6-rH-tXv"/>

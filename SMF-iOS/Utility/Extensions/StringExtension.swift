@@ -39,7 +39,13 @@ extension String {
         return (result != nil)
     }
     
-    func convertToDate(format: String) -> String {
+    func convertToDate() -> Date? {
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "MM/dd/yyyy"
+        return inputFormatter.date(from: self)
+    }
+    
+    func formatDateStringTo(format: String) -> String {
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "MM/dd/yyyy"
         let showDate = inputFormatter.date(from: self)
@@ -49,10 +55,10 @@ extension String {
     }
     
     func toSMFDateFormat() -> String {
-        return self.convertToDate(format: "dd MMM yyyy")
+        return self.formatDateStringTo(format: "dd MMM yyyy")
     }
     
     func toSMFShortFormat() -> String {
-        return self.convertToDate(format: "dd MMM")
+        return self.formatDateStringTo(format: "dd MMM")
     }
 }

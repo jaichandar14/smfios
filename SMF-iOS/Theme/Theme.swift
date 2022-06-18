@@ -202,6 +202,30 @@ enum Theme: Int {
         
         return customFont
     }
+    
+    func playballFont(size: CGFloat) -> UIFont {
+        guard let customFont = UIFont(name: "Playball-Regular", size: size) else {
+            fatalError("""
+                    Failed to load the "Playball-Regular" font.
+                    Make sure the font file is included in the project and the font name is spelled correctly.
+                    """
+            )
+        }
+        
+        return customFont
+    }
+    
+    func smfFont(size: CGFloat) -> UIFont {
+        guard let customFont = UIFont(name: "smf_icon_2", size: size) else {
+            fatalError("""
+                    Failed to load the "smf_icon_2" font.
+                    Make sure the font file is included in the project and the font name is spelled correctly.
+                    """
+            )
+        }
+        
+        return customFont
+    }
 }
 
 enum MuliStyle: String {

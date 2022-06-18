@@ -9,17 +9,11 @@ import UIKit
 import Amplify
 
 class InitialViewController: BaseViewController {
-    func styleUI() {
-        // add Stubs
-    }
-    
-    func setDataToUI() {
-        // add Stubs
-    }
-    
-
+    @IBOutlet weak var lblEventPlanner: UILabel!
+    @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var getStarted: UIButton!
     
+    @IBOutlet weak var btnGetStarted: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +30,28 @@ class InitialViewController: BaseViewController {
         super.viewWillDisappear(animated)
         
         setNavBar(hidden: false)
+    }
+    
+    func styleUI() {
+        let eventAttributed = NSMutableAttributedString(string: "Event", attributes: [NSAttributedString.Key.font: _theme.playballFont(size: 30), NSAttributedString.Key.foregroundColor: _theme.primaryColor])
+        let plannerAttributed = NSMutableAttributedString(string: " planner", attributes: [NSAttributedString.Key.font: _theme.muliFont(size: 23, style: .muli), NSAttributedString.Key.foregroundColor: _theme.textColor])
+        
+        let attributed = NSMutableAttributedString()
+        attributed.append(eventAttributed)
+        attributed.append(plannerAttributed)
+        self.lblEventPlanner.attributedText = NSAttributedString(attributedString: attributed)
+        
+        self.btnGetStarted.backgroundColor = _theme.accentColor
+        self.btnGetStarted.titleLabel?.font = _theme.muliFont(size: 18, style: .muliBold)
+        self.btnGetStarted.setTitleColor(UIColor.white, for: .normal)
+    }
+    
+    func setDataToUI() {
+        // add Stubs
+    }
+    
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {

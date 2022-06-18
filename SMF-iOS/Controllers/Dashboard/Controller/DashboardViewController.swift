@@ -52,6 +52,10 @@ class DashboardViewController: BaseViewController {
         actionStatusController?.setDataToUI()
     }
     
+    func backButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
         print("NetworkChange")
     }
@@ -125,18 +129,13 @@ class DashboardViewController: BaseViewController {
         self.servicesCollectionView.dataSource = self
         self.servicesCollectionView.delegate = self
         
-        setDashboardButton(self.btnAllServices)
-        setDashboardButton(self.btnBranch)
+        self.btnAllServices.setBorderedButton(textColor: _theme.textColor)
+        self.btnBranch.setBorderedButton(textColor: _theme.textColor)
+        self.btnCalendar.setTitle("c", for: .normal)
+        self.btnCalendar.setTitleColor(_theme.textColor, for: .normal)
+        self.btnCalendar.titleLabel?.font = _theme.smfFont(size: 20)
         
         self.servicesCollectionView.register(UINib.init(nibName: String.init(describing: DashboardCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "serviceCell")
-    }
-    
-    func setDashboardButton(_ button: UIButton) {
-        button.setTitleColor(_theme.textColor, for: .normal)
-        button.backgroundColor = UIColor.white
-        button.layer.borderColor = UIColor().colorFromHex("#E0E0E0").cgColor
-        button.layer.cornerRadius = 5
-        button.layer.borderWidth = 1
     }
     
     func setContainer(with controller: UIViewController) {
@@ -161,6 +160,12 @@ class DashboardViewController: BaseViewController {
         DispatchQueue.main.async {
             self.servicesCollectionView.reloadData()
         }
+    }
+    
+    @IBAction func btnCalendarAction(_ sender: UIButton) {
+        let view = CalendarPickerViewController.create()
+        view.dashboardViewModel = self.viewModel
+        self.navigationController?.pushViewController(view, animated: true)
     }
     
     @IBAction func btnServicesTapped(_ sender: UIButton) {
@@ -195,21 +200,6 @@ class DashboardViewController: BaseViewController {
             }
         }
     }
-    
-    func showDropDown(on view: UIView, items: [String], selection: SelectionClosure?) {
-        let dropDown = DropDown()
-        dropDown.anchorView = view
-        
-        dropDown.dataSource = items
-        
-        dropDown.selectionAction = { (index: Int, item: String) in
-            print("Selected Item \(item)")
-            selection?(index, item)
-            dropDown.hide()
-        }
-        
-        dropDown.show()
-    }
 }
 
 extension DashboardViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -241,6 +231,16 @@ extension DashboardViewController: UICollectionViewDataSource, UICollectionViewD
 }
 
 extension DashboardViewController: ActionListDelegate, StatusListDelegate, ChangeInMindDelegate {
+    func eventDetailsView(bidInfo: BidStatusInfo) {
+        let controller = OrderDetailViewController()
+        controller.eventId = bidInfo.eventId
+        controller.eventServiceDescId = bidInfo.eventServiceDescriptionId
+        controller.eventName = bidInfo.eventName
+        controller.eventDate = bidInfo.eventDate
+        controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func changeInMind(requestId: Int) {
         let controller = ChangeInMindViewController()
         controller.viewModel = self.viewModel
@@ -254,41 +254,102 @@ extension DashboardViewController: ActionListDelegate, StatusListDelegate, Chang
         actionsListController?.updateData()
     }
     
-    func eventDetailsView(requestId: Int) {
-        let controller = OrderDetailViewController()
-        controller.bidRequestId = requestId
-        controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
-        self.navigationController?.pushViewController(controller, animated: true)
-    }
-    
     func btnCloseAction() {
         actionStatusController?.updateData()
         setContainer(with: actionStatusController ?? getActionStatusController())
     }
     
-    func notInterestedInEvent(requestId: Int) {
+    func rejectBidAction(requestId: Int) {
         viewModel?.rejectBid(requestId: requestId, reason: nil, comment: nil) { [weak self] in
             self?.actionsListController?.updateData()
         }
     }
     
-    func interestedInEvent(requestId: Int) {
+    func acceptBidAction(bidInfo: BidStatusInfo) {
+//        { "bidRequestId":2651,"bidStatus":"BID SUBMITTED","branchName":"jai1","comment":"","cost":"540","costingType":"Variable Cost","currencyType":"USD($)","latestBidValue":0}
+        let params: [String: Any] = [
+            APIConstant.bidRequestId: bidInfo.bidRequestId,
+            APIConstant.bidStatus: BiddingStatus.bidSubmitted.rawValue,
+            APIConstant.branchName: bidInfo.branchName,
+            APIConstant.comment: "",
+            APIConstant.cost: bidInfo.cost,
+            APIConstant.costingType: CostingType.variable.rawValue,
+            APIConstant.currencyType: bidInfo.currencyType ?? "",
+            APIConstant.latestBidValue: 0
+        ]
+        
+        viewModel?.acceptBid(
+            requestId: bidInfo.bidRequestId,
+            params: params,
+            completion: {
+            let controller = BidInfoDetailsViewController()
+            controller.bidRequestId = bidInfo.bidRequestId
+            controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
+    }
+    
+    func showQuoteDetailsPopUp(bidInfo: BidStatusInfo) {
         let controller = QuoteDetailsPopUpViewController()
+        controller.delegate = self
+        controller.bidInfo = bidInfo
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
     }
 }
 
+extension DashboardViewController: QuoteDetailsPopUpDelegate {
+    func cancelTapped() {
+        // Nothing to do here
+    }
+    
+    func okTapped(bidInfo: BidStatusInfo, cost: String, comment: String, isQuoteSelected: Bool) {
+        // Will provide later
+        // {"bidRequestId":2668,"bidStatus":"PENDING FOR QUOTE", "branchName":"jai56","costingType":"Bidding","fileType":"QUOTE_DETAILS","latestBidValue":0}
+        // Having Quote
+        //{"bidRequestId":2666,"bidStatus":"BID_SUBMITTED", "branchName":"jai3", "comment":"", "costingType": "Bidding", "currencyType":"USD($)", "fileType": "QUOTE_DETAILS", "latestBidValue":25000}
+
+        var params: [String: Any] = [
+            APIConstant.bidRequestId: bidInfo.bidRequestId,
+            APIConstant.costingType: CostingType.bidding.rawValue,
+            APIConstant.latestBidValue: cost,
+            APIConstant.fileType: "QUOTE_DETAILS",
+            APIConstant.branchName: bidInfo.branchName
+        ]
+        
+        if isQuoteSelected {
+            params[APIConstant.bidStatus] = BiddingStatus.bidSubmitted.rawValue
+            params[APIConstant.comment] = comment
+            params[APIConstant.currencyType] = bidInfo.currencyType ?? ""
+        } else {
+            params[APIConstant.bidStatus] = BiddingStatus.pendingForQuote.rawValue
+        }
+        
+        viewModel?.acceptBid(requestId: bidInfo.bidRequestId, params: params, completion: {
+            DispatchQueue.main.async {
+                let controller = BidInfoDetailsViewController()
+                controller.bidRequestId = bidInfo.bidRequestId
+                controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+        })
+    }
+    
+    func chooseFileTapped() {
+        // Later to be implemented
+    }
+}
+
 extension DashboardViewController: ActionStatusDelegate {
-    func statusPerformedOnCount(label: String) {
-        let controller = statusListController ?? getStatusListController()
+    func actionPerformedOnCount(label: BiddingStatus) {
+        let controller = actionsListController ?? getActionListController()
         controller.status = label
         controller.updateData()
         setContainer(with: controller)
     }
     
-    func actionPerformedOnCount(label: String) {
-        let controller = actionsListController ?? getActionListController()
+    func statusPerformedOnCount(label: BiddingStatus) {
+        let controller = statusListController ?? getStatusListController()
         controller.status = label
         controller.updateData()
         setContainer(with: controller)
