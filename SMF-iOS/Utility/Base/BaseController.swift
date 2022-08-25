@@ -45,6 +45,59 @@ class BaseController: UIViewController {
         }
     }
     
+    func clearNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    func setStatusBarColor(_ color: UIColor) {
+        if #available(iOS 13.0, *) {
+            let app = UIApplication.shared
+            let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+            
+            let statusbarView = UIView()
+            statusbarView.backgroundColor = color
+            view.addSubview(statusbarView)
+            
+            statusbarView.translatesAutoresizingMaskIntoConstraints = false
+            statusbarView.heightAnchor
+                .constraint(equalToConstant: statusBarHeight).isActive = true
+            statusbarView.widthAnchor
+                .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+            statusbarView.topAnchor
+                .constraint(equalTo: view.topAnchor).isActive = true
+            statusbarView.centerXAnchor
+                .constraint(equalTo: view.centerXAnchor).isActive = true
+            
+        } else {
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.backgroundColor = color
+            
+        }
+    }
+    
+    func setNavigationBarColor(_ backgroundColor: UIColor, color: UIColor) {
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithDefaultBackground()
+            appearance.backgroundColor = backgroundColor
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+            //            let naviFont = UIFont(name: "Chalkduster", size: 30) ?? .systemFont(ofSize: 30)
+            //            appearance.titleTextAttributes = [NSAttributedString.Key.font: naviFont]
+            
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            //navigationController?.navigationBar.compactAppearance = appearance
+        } else {
+            // Fallback on earlier versions
+            navigationController?.navigationBar.barTintColor = backgroundColor
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        }
+    }
+    
     @objc func networkChange(notification: Notification) {
         var connectivity = false
         var connectionType: String?

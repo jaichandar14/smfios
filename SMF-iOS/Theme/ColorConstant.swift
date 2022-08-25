@@ -12,7 +12,9 @@ class ColorConstant {
     static var baseColor = UIColor.red
     
     static var primaryColor = UIColor().colorFromHex("#556CD4")
+    static var primaryDarkColor = UIColor().colorFromHex("#495DC6")
     static var accentColor = UIColor().colorFromHex("#FF3577")
+    static var accentDisabledColor = UIColor().colorFromHex("#FF3577").withAlphaComponent(0.5)
     static var backgroundColor = UIColor().colorFromHex("#F6FBFF")
     
     static var buttonColor = UIColor().colorFromHex("#556CD4")
@@ -32,6 +34,24 @@ class ColorConstant {
     static var informationColor = UIColor().colorFromHex("#4e7de2")
     static var warningColor = UIColor().colorFromHex("#f7de6e")
     static var errorColor = UIColor().colorFromHex("#e9274b")
+    
+    static var textPrimary = UIColor().colorFromHex("#084172")
+    static var eventCountLabelColor = UIColor().colorFromHex("#D5F9FF")
+    static var textBlueColor = UIColor().colorFromHex("#52A1FC")
+    static var currentDateBackgroundColor = UIColor().colorFromHex("#5bd1ff")
+    
+    static var arrowBtnActionColor = UIColor().colorFromHex("#772149")
+    static var actionCardBackgroundColor = UIColor().colorFromHex("#F0F8FF")
+    
+    static var disLikeBtnActionColor = UIColor().colorFromHex("544cab")
+    static var likeBtnActionColor = UIColor().colorFromHex("b2c72c")
+    
+    static var calendarSelectionBackgroundColor = UIColor().colorFromHex("#F0F8FF")
+    static var selectionBorderColor = UIColor().colorFromHex("#D8F2FF")
+    
+    static var lightBlueColor = UIColor().colorFromHex("b34caa")
+    static var dashboardCircleColor = UIColor().colorFromHex("23cabc")
+    static var arrowDownBtnColor = UIColor().colorFromHex("#297EDF")
     
     static var greyColor1 = UIColor().colorFromHex("#252525")
     static var greyColor2 = UIColor().colorFromHex("#454545")

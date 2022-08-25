@@ -9,16 +9,20 @@ import UIKit
 import FSCalendar
 import ProgressHUD
 
-protocol Event { }
+protocol Event {
+    var parentId: Int { get set }
+}
 
 class CalendarEventHeader: Event {
+    var parentId: Int = -1
+    
     var id: Int
     var title: String
     var fromDate: Date
     var toDate: Date
     var isExpanded: Bool
     var isEnabled: Bool
-    var bookedSlots: [BookedSlot]
+    var bookedSlots: [Event]
     var isLoading: Bool
     
     init(id: Int, title: String, fromDate: Date, toDate: Date, isExpanded: Bool, isEnabled: Bool, bookedSlots: [BookedSlot], isLoading: Bool) {
@@ -68,6 +72,8 @@ class CalendarPickerViewController: BaseViewController {
     
     var dashboardViewModel: DashboardViewModel?
     
+    var manuallySelectedDate: Date!
+    
     static func create() -> CalendarPickerViewController {
         let controller = CalendarPickerViewController()
         
@@ -77,8 +83,11 @@ class CalendarPickerViewController: BaseViewController {
         return controller
     }
     
+    // MARK: - Lifecycle methods
     override func viewDidLoad() {
         self.calendarTimeLineTableView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
+        self.manuallySelectedDate = Date()
+        
         super.viewDidLoad()
     }
     
@@ -95,20 +104,35 @@ class CalendarPickerViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.customizeBackButton()
-        //        self.setNavBar(hidden: true)
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.rightBarButtonItem = closeNavigationIcon()
+//        self.customizeBackButton()
+        self.setStatusBarColor(_theme.primaryColor)
+        self.setNavigationBarColor(_theme.primaryColor, color: UIColor.white)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        //        self.setNavBar(hidden: false)
+        self.clearNavigationBar()
+    }
+    
+    // MARK: - Setup layer
+    func closeNavigationIcon() -> UIBarButtonItem {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        button.setTitle("x", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = _theme.smfFont(size: 22)
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(self.backButtonAction(_:)), for: .touchUpInside)
+        
+        return UIBarButtonItem(customView: button)
     }
     
     func backButtonAction(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
-    
     
     func styleUI() {
         self.title = "Calendar"
@@ -119,8 +143,12 @@ class CalendarPickerViewController: BaseViewController {
         self.lblSwitchToModify.font = _theme.muliFont(size: 16, style: .muliSemiBold)
         self.lblSwitchToModify.textColor = _theme.textColor
         
-        self.btnAllServices.setBorderedButton(textColor: _theme.textColor)
-        self.btnAllBranches.setBorderedButton(textColor: _theme.textColor)
+        self.btnAllServices.backgroundColor = .clear
+        self.btnAllBranches.backgroundColor = .clear
+        self.btnAllServices.titleLabel?.font = _theme.muliFont(size: 16, style: .muli)
+        self.btnAllServices.setTitleColor(_theme.textColor, for: .normal)
+        self.btnAllBranches.titleLabel?.font = _theme.muliFont(size: 16, style: .muli)
+        self.btnAllBranches.setTitleColor(_theme.textColor, for: .normal)
         
         self.lblMonth.font = _theme.muliFont(size: 18, style: .muliSemiBold)
         self.lblMonth.textColor = _theme.textColor
@@ -145,20 +173,35 @@ class CalendarPickerViewController: BaseViewController {
         self.calendarTimeLineTableView.estimatedRowHeight = 50
         
         self.setUpCalendar()
-        self.calendarContainerView.setBorderedView(radius: 12)
+//        self.calendarContainerView.setBorderedView(radius: 12)
+        
+        let selectedSegAttr: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+        let segAttr: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.foregroundColor: _theme.textGreyColor
+        ]
+        self.segmentControl.setTitleTextAttributes(selectedSegAttr, for: .selected)
+        self.segmentControl.setTitleTextAttributes(segAttr, for: .normal)
+        if #available(iOS 13.0, *) {
+            self.segmentControl.selectedSegmentTintColor = _theme.accentColor
+        } else {
+            self.segmentControl.tintColor = _theme.accentColor
+        }
         
         self.btnSwitch.onTintColor = _theme.primaryColor
     }
     
     func setUpCalendar() {
         self.fsCalendar.allowsMultipleSelection = true
-        self.fsCalendar.select(Date(), scrollToDate: true)
+        self.fsCalendar.select(manuallySelectedDate, scrollToDate: true)
+        self.fsCalendar.backgroundColor = .clear
         
         self.fsCalendar.dataSource = self
         self.fsCalendar.delegate = self
         self.fsCalendar.register(CalendarDateCollectionViewCell.self, forCellReuseIdentifier: "cell")
         
-        self.lblMonth.text = Date().toString(with: "MMMM yyyy")
+        self.lblMonth.text = manuallySelectedDate.toString(with: "MMMM yyyy")
         
         self.fsCalendar.headerHeight = 0
         self.fsCalendar.reloadData()
@@ -172,18 +215,42 @@ class CalendarPickerViewController: BaseViewController {
         guard let viewModel = viewModel else {
             return
         }
-        
-        dashboardViewModel?.selectedService.bindAndFire { service in
-            self.btnAllServices.setTitle((service?.serviceName ?? "All Services") + "   ", for: .normal)
-            self.calendarTimeLineTableView.reloadData()
+                
+        // Service dropdown update listener
+        dashboardViewModel?.selectedService.bindAndFire { [weak self] service in
+            DispatchQueue.main.async {
+                self?.btnAllServices.setTitle((service?.serviceName ?? "All Services") + "   ", for: .normal)
+                self?.calendarTimeLineTableView.reloadData()
+            }
         }
         
-        dashboardViewModel?.selectedBranch.bindAndFire { branch in
-            self.btnAllBranches.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
+        // Branch dropdown update listener
+        dashboardViewModel?.selectedBranch.bindAndFire { [weak self] branch in
+            DispatchQueue.main.async {
+                self?.btnAllBranches.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
+                self?.fetchCalendarEventsFor()
+            }
+        }
+        
+        // Branches fetched listener
+        dashboardViewModel?.branches.bindAndFire{ [weak self] branches in
+            if !branches.isEmpty {
+                self?.dashboardViewModel?.selectedBranch.value = branches.first
+            }
         }
         
         dashboardViewModel?.fetchServices()
         
+        if let dashboardViewModel = dashboardViewModel, !dashboardViewModel.serviceList.value.isEmpty {
+            dashboardViewModel.selectedService.value = dashboardViewModel.serviceList.value.first
+            self.dashboardViewModel?.fetchBranches()
+        }
+        
+        if let dashboardViewModel = dashboardViewModel, !dashboardViewModel.branches.value.isEmpty {
+            dashboardViewModel.selectedBranch.value = dashboardViewModel.branches.value.first
+        }
+        
+        // Calendar events fetch update listener
         viewModel.calendarEvents.bindAndFire { dates in
             DispatchQueue.main.async {
                 if !viewModel.bookedSlotsLoading.value {
@@ -194,68 +261,17 @@ class CalendarPickerViewController: BaseViewController {
                     self.view.removeBlurLoader()
                 }
                 
-                self.calendarEventHeaders.removeAll()
-                if self.segmentControl.selectedSegmentIndex == 0 {
-                    for i in 0 ..< dates.count {
-                        let model = CalendarEventHeader(id: i, title: dates[i].date.toString(with: "MMM dd - EEEE"), fromDate: dates[i].date, toDate: dates[i].date, isExpanded: false, isEnabled: (i == 2) ? false : true, bookedSlots: [], isLoading: false)
-                        self.calendarEventHeaders.append(model)
-                    }
-                } else if self.segmentControl.selectedSegmentIndex == 1 {
-                    let firstDayOfMonth = Date().firstDayOfTheMonth()
-                    let lastDayOfMonth = Date().lastDayOfMonth()
-                    
-                    var iteratorDate = firstDayOfMonth
-                    
-                    for i in 0 ..< 6 {
-                        let (firstDayOfWeek, lastDayOfWeek) = self.firstAndLastDayOfWeek(date: iteratorDate)
-                        if let firstDate = firstDayOfWeek, var lastDate = lastDayOfWeek {
-                            let model = CalendarEventHeader(
-                                id: i,
-                                title: "\(firstDate.toString(with: "MMM dd EEE")) - \(lastDate.toString(with: "dd EEE"))",
-                                fromDate: firstDate, toDate: lastDate, isExpanded: false, isEnabled: (i == 2) ? false : true, bookedSlots: [], isLoading: false)
-                            self.calendarEventHeaders.append(model)
-                            
-                            lastDate.addDays(n: 1)
-                            if lastDate > lastDayOfMonth {
-                                break
-                            } else {
-                                iteratorDate = lastDate
-                            }
-                        }
-                    }
-                    
-                    print("Check weeks")
-                } else if self.segmentControl.selectedSegmentIndex == 2 {
-                    let title = "\(Date().toString(with: "MMM dd EEE")) - \(Date().getAllDaysInMonth().last!.toString(with: "dd EEE"))"
-                    let model = CalendarEventHeader(id: 0, title: title, fromDate: Date(), toDate: Date().getAllDaysInMonth().last!, isExpanded: false, isEnabled: true, bookedSlots: [], isLoading: false)
-                    self.calendarEventHeaders.append(model)
+                if (self.btnSwitch.isOn) {
+                    self.showAllDatesAvailability(dates: dates)
+                } else {
+                    self.showEventDatesOnTimeLine(dates: dates)
                 }
                 
                 self.fsCalendar.reloadData()
-                self.calendarTimeLineTableView.reloadData()
             }
         }
-        
-//        viewModel.dayCount.bindAndFire { dayCount in
-//            DispatchQueue.main.async {
-//                self.segmentControl.setTitle("Day (\(dayCount))", forSegmentAt: 0)
-//            }
-//        }
-//
-//        viewModel.weekCount.bindAndFire { weekCount in
-//            DispatchQueue.main.async {
-//                self.segmentControl.setTitle("Week (\(weekCount))", forSegmentAt: 1)
-//            }
-//        }
-//
-//        viewModel.monthCount.bindAndFire { monthCount in
-//            DispatchQueue.main.async {
-//                self.segmentControl.setTitle("Month (\(monthCount))", forSegmentAt: 2)
-//            }
-//        }
-        
-        fetchCalendarEventsFor()
-        
+                
+        // Timeline bookedSlot fetch update listener
         viewModel.bookedSlots.bindAndFire { slots in
             DispatchQueue.main.async {
                 if !viewModel.bookedSlotsLoading.value {
@@ -267,25 +283,28 @@ class CalendarPickerViewController: BaseViewController {
                 for i in 0 ..< self.calendarEventHeaders.count {
                     if let firstSlot = slots.first,
                        let calendarEvent = self.calendarEventHeaders[i] as? CalendarEventHeader {
-                        firstSlot.parentId == calendarEvent.id
-                        
                         calendarEvent.isLoading = false
-                        calendarEvent.bookedSlots = slots
-                        index = i
+                        
+                        if firstSlot.parentId == calendarEvent.id {
+                            calendarEvent.bookedSlots = slots
+                            index = i
+                            break
+                        }
                     }
                 }
                 
                 if index != -1 {
                     if let event = self.calendarEventHeaders[index] as? CalendarEventHeader {
                         self.calendarEventHeaders.removeAll(where: { slotEvent in
-                            if let slotEvent = slotEvent as? BookedSlot, slotEvent.parentId == event.id {
+                            if slotEvent.parentId == event.id {
                                 return true
                             } else {
                                 return false
                             }
                         })
-                        event.bookedSlots[event.bookedSlots.count - 1].isLast = true
+                        
                         self.calendarEventHeaders.insert(contentsOf: event.bookedSlots, at: index + 1)
+                        (event.bookedSlots[event.bookedSlots.count - 1] as? BookedSlot)?.isLast = true
                     }
                 }
                 
@@ -294,6 +313,7 @@ class CalendarPickerViewController: BaseViewController {
             }
         }
         
+        // Calendar event loading listener
         viewModel.calendarEventLoading.bindAndFire { isLoading in
             DispatchQueue.main.async {
                 if isLoading {
@@ -303,6 +323,7 @@ class CalendarPickerViewController: BaseViewController {
             }
         }
         
+        // TimeLine slot loading listener
         viewModel.bookedSlotsLoading.bindAndFire { isLoading in
             DispatchQueue.main.async {
                 if isLoading {
@@ -312,24 +333,225 @@ class CalendarPickerViewController: BaseViewController {
         }
     }
     
+    // MARK: - Utility Methods
+    func getWeekName(for firstDate: Date, lastDate: Date) -> String {
+        return "\(firstDate.toString(with: "MMM dd EEE")) - \(lastDate.toString(with: "dd EEE"))"
+    }
+    
+    func getMonthName(for firstDate: Date, lastDate: Date) -> String {
+        return "\(firstDate.toString(with: "MMM dd EEE")) - \(lastDate.toString(with: "dd EEE"))"
+    }
+    
+    func showEventDatesOnTimeLine(dates: [CalendarEvent]) {
+        self.calendarEventHeaders.removeAll()
+        if self.segmentControl.selectedSegmentIndex == 0 {
+            for i in 0 ..< dates.count {
+                let model = CalendarEventHeader(id: i, title: dates[i].date.toString(with: "MMM dd - EEEE"), fromDate: dates[i].date, toDate: dates[i].date, isExpanded: false, isEnabled: true, bookedSlots: [], isLoading: false)
+                self.calendarEventHeaders.append(model)
+            }
+        } else if self.segmentControl.selectedSegmentIndex == 1 {
+            let firstDayOfMonth = manuallySelectedDate.firstDayOfTheMonth()
+            let lastDayOfMonth = manuallySelectedDate.lastDayOfMonth()
+            
+            var iteratorDate = firstDayOfMonth
+            
+            for i in 0 ..< 6 {
+                let (firstDayOfWeek, lastDayOfWeek) = self.firstAndLastDayOfWeek(date: iteratorDate)
+                if let firstDate = firstDayOfWeek, var lastDate = lastDayOfWeek {
+                    if lastDate.compare(Date()) == .orderedAscending {
+                        lastDate.addDays(n: 1)
+                        iteratorDate = lastDate
+                        continue;
+                    }
+                    let model = CalendarEventHeader(
+                        id: i,
+                        title: "\(firstDate.toString(with: "MMM dd EEE")) - \(lastDate.toString(with: "dd EEE"))",
+                        fromDate: firstDate, toDate: lastDate, isExpanded: false, isEnabled: (i == 2) ? false : true, bookedSlots: [], isLoading: false)
+                    self.calendarEventHeaders.append(model)
+                    
+                    lastDate.addDays(n: 1)
+                    if lastDate > lastDayOfMonth {
+                        break
+                    } else {
+                        iteratorDate = lastDate
+                    }
+                }
+            }
+            
+            print("Check weeks")
+        } else if self.segmentControl.selectedSegmentIndex == 2 {
+            updateTimeLine(forMonth: dates)
+        }
+        
+        self.calendarTimeLineTableView.reloadData()
+    }
+    
+    func showAllDatesAvailability(dates: [CalendarEvent]) {
+        self.calendarEventHeaders.removeAll()
+        
+        if self.segmentControl.selectedSegmentIndex == 0 {
+            self.updateTimeLine(forDay: dates)
+        } else if self.segmentControl.selectedSegmentIndex == 1 {
+            self.updateTimeLine(forWeek: dates)
+        } else if self.segmentControl.selectedSegmentIndex == 2 {
+            self.updateTimeLine(forMonth: dates)
+        }
+        
+        self.calendarTimeLineTableView.reloadData()
+    }
+    
+    func updateTimeLine(forDay events: [CalendarEvent]) {
+        var i = 0
+        if var currentDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: manuallySelectedDate)) {
+            let lastDay = currentDate.lastDayOfMonth()
+            while true {
+                let model = CalendarEventHeader(id: i, title: currentDate.toString(with: "MMM dd - EEEE"), fromDate: currentDate, toDate: currentDate, isExpanded: false, isEnabled: true, bookedSlots: [], isLoading: false)
+                self.calendarEventHeaders.append(model)
+                
+                if currentDate.compare(lastDay) == .orderedSame {
+                    break
+                }
+                
+                currentDate.addDays(n: 1)
+                i += 1
+            }
+        }
+    }
+    
+    func updateTimeLine(forWeek events: [CalendarEvent]) {
+        let currentDate = manuallySelectedDate
+        let lastDayOfMonth = manuallySelectedDate.lastDayOfMonth()
+        
+        var iteratorDate: Date = currentDate!
+        
+        for i in 0 ..< 6 {
+            let (firstDayOfWeek, lastDayOfWeek) = self.firstAndLastDayOfWeek(date: iteratorDate)
+            if let firstDate = firstDayOfWeek, var lastDate = lastDayOfWeek {
+                let model = CalendarEventHeader(
+                    id: i,
+                    title: self.getWeekName(for: firstDate, lastDate: lastDate),
+                    fromDate: firstDate, toDate: lastDate, isExpanded: false, isEnabled: true, bookedSlots: [], isLoading: false)
+                self.calendarEventHeaders.append(model)
+                
+                if lastDate > lastDayOfMonth {
+                    break
+                }
+                lastDate.addDays(n: 1)
+                iteratorDate = lastDate
+            }
+        }
+    }
+    
+    func updateTimeLine(forMonth events: [CalendarEvent]) {
+        let title = self.getMonthName(for: manuallySelectedDate, lastDate: manuallySelectedDate.lastDayOfMonth())
+        let model = CalendarEventHeader(id: 0, title: title, fromDate: manuallySelectedDate, toDate: manuallySelectedDate.getAllDaysInMonth().last!, isExpanded: false, isEnabled: true, bookedSlots: [], isLoading: false)
+        self.calendarEventHeaders.append(model)
+    }
+    
     func firstAndLastDayOfWeek(date: Date) -> (Date?, Date?) {
         return (date.startOfWeek, date.endOfWeek)
     }
     
+    // MARK: - API Fetch
     func fetchCalendarEventsFor() {
-        let fromDate = Date()
-        let toDate = Date().getAllDaysInMonth().last
+        var fromDate: Date! = manuallySelectedDate
+        var toDate: Date! = manuallySelectedDate
         
-        viewModel?.fetchCalendarEvents(
+        var calendarHeaderId = 0
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            fromDate = manuallySelectedDate
+            toDate = manuallySelectedDate
+            if (btnSwitch.isOn) {
+                let firstItem = self.calendarEventHeaders.first { event in
+                    if let calendarEvent = event as? CalendarEventHeader {
+                        return calendarEvent.title == manuallySelectedDate.toString(with: "MMM dd - EEEE")
+                    } else {
+                        return false
+                    }
+                }
+                (firstItem as! CalendarEventHeader).isExpanded = true
+                calendarHeaderId = (firstItem as! CalendarEventHeader).id
+            }
+        } else if segmentControl.selectedSegmentIndex == 1 {
+            (fromDate, toDate) = firstAndLastDayOfWeek(date: manuallySelectedDate)
+            if (btnSwitch.isOn) {
+                let firstItem = self.calendarEventHeaders.first { event in
+                    if let calendarEvent = event as? CalendarEventHeader {
+                        return calendarEvent.title == self.getWeekName(for: fromDate, lastDate: toDate)
+                    } else {
+                        return false
+                    }
+                }
+                
+                (firstItem as! CalendarEventHeader).isExpanded = true
+                calendarHeaderId = (firstItem as! CalendarEventHeader).id
+            }
+        } else if segmentControl.selectedSegmentIndex == 2 {
+            fromDate = manuallySelectedDate.firstDayOfTheMonth()
+            toDate = manuallySelectedDate.lastDayOfMonth()
+            if (btnSwitch.isOn) {
+                let firstItem = self.calendarEventHeaders.first { event in
+                    if let calendarEvent = event as? CalendarEventHeader {
+                        return calendarEvent.title == self.getMonthName(for: manuallySelectedDate, lastDate: manuallySelectedDate.lastDayOfMonth())
+                    } else {
+                        return false
+                    }
+                }
+                (firstItem as! CalendarEventHeader).isExpanded = true
+                calendarHeaderId = (firstItem as! CalendarEventHeader).id
+            }
+        }
+        
+        if self.btnSwitch.isOn {
+            viewModel?.fetchSlotsAvailability(
+                calendarHeaderId: calendarHeaderId,
+                categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
+                onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
+                fromDate: fromDate,
+                toDate: toDate,
+                isMonth: segmentControl.selectedSegmentIndex == 2)
+        } else {
+            let firstDate = manuallySelectedDate.firstDayOfTheMonth()
+            let lastDate = manuallySelectedDate.lastDayOfMonth()
+            viewModel?.fetchCalendarEvents(
+                categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
+                onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
+                fromDate: firstDate, toDate: lastDate)
+        }
+    }
+    
+    func updateTimeLineEvent(isAvailable: Bool, slotTitle: String, fromDate: Date, toDate: Date) {
+        var modifyFor: FetchDataForSegment
+        switch segmentControl.selectedSegmentIndex {
+        case 0:
+            modifyFor = .day
+            break
+        case 1:
+            modifyFor = .week
+            break
+        case 2:
+            modifyFor = .month
+            break
+        default:
+            modifyFor = .day
+        }
+        
+        self.viewModel?.modifySlotAvailability(
             categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
             onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
-            fromDate: fromDate, toDate: toDate)
+            fromDate: fromDate,
+            toDate: toDate,
+            fetchDataFor: modifyFor,
+            isAvailable: isAvailable,
+            modifiedSlot: slotTitle)
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
         //
     }
     
+    // MARK: - Action Methods
     @IBAction func btnAllServices(_ sender: UIButton) {
         var services = dashboardViewModel!.serviceList.value.map { $0.serviceName }
         services.insert("All Services", at: 0)
@@ -360,16 +582,26 @@ class CalendarPickerViewController: BaseViewController {
     @IBAction func btnPreviousAction(_ sender: UIButton) {
         if let previousMonth = Calendar.current.date(byAdding: .month, value: -1, to: self.fsCalendar.currentPage) {
             self.fsCalendar.setCurrentPage(previousMonth, animated: true)
+            self.manuallySelectedDate = previousMonth
+            self.showAllDatesAvailability(dates: [])
+            self.fetchCalendarEventsFor()
         }
     }
     
     @IBAction func btnNextAction(_ sender: UIButton) {
-        if let previousMonth = Calendar.current.date(byAdding: .month, value: 1, to: self.fsCalendar.currentPage) {
-            self.fsCalendar.setCurrentPage(previousMonth, animated: true)
+        if let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: self.fsCalendar.currentPage) {
+            self.fsCalendar.setCurrentPage(nextMonth, animated: true)
+            self.manuallySelectedDate = nextMonth
+            self.showAllDatesAvailability(dates: [])
+            self.fetchCalendarEventsFor()
         }
     }
     
     @IBAction func btnSwitchAction(_ sender: UISwitch) {
+        if sender.isOn {
+            self.showAllDatesAvailability(dates: [])
+        }
+        self.fetchCalendarEventsFor()
     }
     
     @IBAction func segmentControlAction(_ sender: UISegmentedControl) {
@@ -377,18 +609,23 @@ class CalendarPickerViewController: BaseViewController {
             self.fsCalendar.deselect(date)
         }
         
+//        self.manuallySelectedDate = Date()
         switch sender.selectedSegmentIndex {
         case 0:
-            self.fsCalendar.select(Date(), scrollToDate: true)
+            self.fsCalendar.select(self.manuallySelectedDate, scrollToDate: true)
             break
         case 1:
-            self.fsCalendar.selectWeek()
+            self.fsCalendar.selectWeek(date: self.manuallySelectedDate)
             break
         case 2:
-            self.fsCalendar.selectMonth()
+            self.fsCalendar.selectMonth(date: self.manuallySelectedDate)
             break
         default:
             break
+        }
+        
+        if self.btnSwitch.isOn {
+            self.showAllDatesAvailability(dates: [])
         }
         
         self.fetchCalendarEventsFor()
@@ -396,17 +633,9 @@ class CalendarPickerViewController: BaseViewController {
     }
 }
 
+// MARK: - TableView Methods
 extension CalendarPickerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        var total = 0
-//        self.calendarEventHeaders.forEach({ event in
-//            if let event = event as? CalendarEventHeader {
-//                if (event.isExpanded) {
-//                    total += event.bookedSlots.count == 0 ? 1 : event.bookedSlots.count
-//                }
-//            }
-//        })
-        
         return self.calendarEventHeaders.count
     }
     
@@ -426,13 +655,46 @@ extension CalendarPickerViewController: UITableViewDataSource, UITableViewDelega
             }
             
             cell.selectionStyle = .none
+            cell.btnChangeBooking.backgroundColor = .clear
+            
             var title = ""
-            if let slotEventDetail = event.slotEventDetails?.first {
+            event.slotEventDetails?.forEach({ slotEventDetail in
+                if (title != "") {
+                    title += "\n"
+                }
                 title += slotEventDetail.eventDate.formatDateStringTo(format: "MMM dd")
                 title += ", \(slotEventDetail.eventName) Event"
                 title += ", \(slotEventDetail.branchName)"
-            }
+            })
             cell.setData(time: event.serviceSlot, bookedDescription: title, isLast: event.isLast)
+            
+            return cell
+        } else if let event = self.calendarEventHeaders[indexPath.row] as? SlotAvailability {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "timeLineCell") as? CalendarTimeLineTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.btnChangeBooking.backgroundColor = .clear
+            
+            cell.indexPath = indexPath
+            var bookedDesc: String?
+            if (!event.slotEvents.isEmpty) {
+                event.slotEvents.forEach { event in
+                    if (bookedDesc != nil && bookedDesc != "") {
+                        bookedDesc! += "\n"
+                    }
+                    var bookedDate = ""
+                    if segmentControl.selectedSegmentIndex != 0 {
+                        bookedDate = event.eventDate.formatDateStringTo(format: "MMM dd, ")
+                    }
+                    
+                    bookedDesc = (bookedDesc ?? "") + bookedDate + event.eventName + " Event\n" + event.branchName
+                }
+            }
+
+            cell.setData(time: event.serviceSlot, bookedDescription: bookedDesc, isLast: event.isLast, slotAvailable: event.isAvailable)
             
             return cell
         } else if let event = self.calendarEventHeaders[indexPath.row] as? EmptyData {
@@ -441,7 +703,7 @@ extension CalendarPickerViewController: UITableViewDataSource, UITableViewDelega
             }
             
             cell.selectionStyle = .none
-            cell.tit
+            cell.title.text = event.title
             
             return cell
             
@@ -458,27 +720,55 @@ extension CalendarPickerViewController: UITableViewDataSource, UITableViewDelega
         if let event = self.calendarEventHeaders[indexPath.row] as? CalendarEventHeader {
             if event.isExpanded {
                 self.calendarEventHeaders.removeAll { bookedEvent in
-                    if let bookedEvent = bookedEvent as? BookedSlot {
-                        return bookedEvent.parentId == event.id
-                    } else {
-                        return false
-                    }
+                    return bookedEvent.parentId == event.id                    
                 }
                 event.isExpanded = false
                 self.calendarTimeLineTableView.reloadData()
             } else {
                 self.calendarEventHeaders.insert(contentsOf: event.bookedSlots, at: indexPath.row + 1)
                 event.isExpanded = true
-                self.viewModel?.fetchBookedServiceSlots(
-                    calendarHeaderId: event.id,
-                    categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
-                    onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
-                    fromDate: event.fromDate, toDate: event.toDate)
+                
+                if self.btnSwitch.isOn {
+                    let isMonth = self.segmentControl.selectedSegmentIndex == 2
+                    self.viewModel?.fetchSlotsAvailability(calendarHeaderId: event.id,
+                        categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
+                        onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
+                        fromDate: event.fromDate,
+                        toDate: event.toDate,
+                        isMonth: isMonth)
+                } else {
+                    self.viewModel?.fetchBookedServiceSlots(
+                        calendarHeaderId: event.id,
+                        categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
+                        onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
+                        fromDate: event.fromDate, toDate: event.toDate)
+                }
             }
+        }
+    }
+    
+    func collapseAllExpanded() {
+        self.calendarEventHeaders.forEach { event in
+             if let headerEvent = event as? CalendarEventHeader, headerEvent.isExpanded {
+                self.calendarEventHeaders.removeAll { bookedEvent in
+                    return bookedEvent.parentId == headerEvent.id
+                }
+                headerEvent.isExpanded = false
+            }
+        }
+        self.calendarTimeLineTableView.reloadData()
+    }
+}
+
+extension CalendarPickerViewController: CalendarTimeLineActionDelegate {
+    func tapOnChangeAvailability(indexPath: IndexPath) {
+        if let availability = self.calendarEventHeaders[indexPath.row] as? SlotAvailability {
+            self.updateTimeLineEvent(isAvailable: !availability.isAvailable, slotTitle: availability.serviceSlot, fromDate: availability.fromDate, toDate: availability.toDate)
         }
     }
 }
 
+// MARK: - Calendar Methods
 extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
@@ -503,6 +793,18 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     // MARK:- FSCalendarDelegate
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         self.lblMonth.text = calendar.currentPage.toString(with: "MMMM yyyy")
+        if segmentControl.selectedSegmentIndex == 2 {
+            calendar.selectedDates.forEach { date in
+                calendar.deselect(date)
+            }
+            
+            let dates = calendar.currentPage.getAllDaysInMonth()
+            dates.forEach { date in
+                calendar.select(date)
+            }
+            
+            self.configureVisibleCells()
+        }
     }
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
@@ -511,7 +813,9 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        return monthPosition == .current
+        let currentDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))
+        
+        return (date.compare(currentDate!) != .orderedAscending) && monthPosition == .current
     }
     
     func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
@@ -520,12 +824,35 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did select date \(date.toString(with: "dd/MMM/yyyy"))")
+        self.manuallySelectedDate = date
+        
+        if segmentControl.selectedSegmentIndex == 0 {
+            calendar.selectedDates.forEach { date in
+                calendar.deselect(date)
+            }
+    
+            self.collapseAllExpanded()
+            calendar.select(date)
+        } else if segmentControl.selectedSegmentIndex == 1 {
+            calendar.selectedDates.forEach { date in
+                calendar.deselect(date)
+            }
+            
+            let dates = date.getAllDaysInWeek()
+            dates.forEach { date in
+                calendar.select(date)
+            }
+            self.collapseAllExpanded()
+        }
+        
+        self.fetchCalendarEventsFor()
         self.configureVisibleCells()
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         print("did deselect date \(date.toString(with: "dd/MMM/yyyy"))")
-        self.configureVisibleCells()
+        // Do nothing here
+//        self.configureVisibleCells()
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
@@ -537,7 +864,15 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
         }
         return [appearance.eventDefaultColor]
     }
+        
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        return ColorConstant.greyColor3
+    }
     
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+        return ColorConstant.greyColor1
+    }
+            
     private func configureVisibleCells() {
         //        fsCalendar.calendarHeaderView.collectionView.visibleCells.forEach { cell in
         //            cell.isHidden = true
@@ -552,10 +887,18 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         
         let dateCell = (cell as! CalendarDateCollectionViewCell)
-        // Custom today circle
-        //        dateCell.circleImageView.isHidden = !self.gregorian.isDateInToday(date)
-        // Configure selection layer
-        if position == .current {
+
+        if position == .current {            
+            if Calendar.current.isDate(Date(), inSameDayAs: date) {
+                dateCell.currentDateSelectionLayer.isHidden = false
+            } else {
+                dateCell.currentDateSelectionLayer.isHidden = true
+            }
+            
+            let result = self.viewModel?.calendarEvents.value.contains(where: { event in
+                return event.date.isSameDay(date: date)
+            })
+            dateCell.eventDateSelectionLayer.isHidden = (result ?? false) ? false : true
             
             var selectionType = SelectionType.none
             if fsCalendar.selectedDates.contains(date) {
@@ -583,8 +926,8 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
             dateCell.selectionType = selectionType
             
         } else {
-            //            dateCell.circleImageView.isHidden = true
             dateCell.selectionLayer.isHidden = true
+            dateCell.currentDateSelectionLayer.isHidden = true
         }
     }
 }

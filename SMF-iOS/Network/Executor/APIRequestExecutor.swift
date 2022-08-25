@@ -68,7 +68,9 @@ class APIRequestExecutor {
 //                let url = urlString + "?" + jsonString
 //                request.url = URL.init(string: url)
 //            }
+            
             request.url = createURLRequest(url: urlString, parameters: parameters)
+            print("URL::: \(request.url)")
             
         case .POST, .PUT, .DELETE:
             do {
@@ -88,7 +90,7 @@ class APIRequestExecutor {
     
     private func createURLRequest(url: String, parameters: [String: Any]?) -> URL? {
         if let params = parameters {
-            let urlComp = NSURLComponents(string: url)
+            var urlComp = URLComponents(string: url)
             var items = [URLQueryItem]()
             params.forEach { (key: String, value: Any) in
                 if value is Int {
@@ -99,7 +101,9 @@ class APIRequestExecutor {
             }
             
             if !items.isEmpty {
-                urlComp?.queryItems = items
+                var compsCopy = urlComp
+                compsCopy?.queryItems = items
+                urlComp?.percentEncodedQuery = compsCopy?.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
             }
             
             return urlComp?.url

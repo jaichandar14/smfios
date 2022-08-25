@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        Util.setIntialController(window: self.window!)
+        Util.checkAndUpdateController(window: self.window!)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

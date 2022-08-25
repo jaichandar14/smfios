@@ -39,8 +39,30 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
     
     func fetchBidDetailsList(bidRequestId: Int) {
         self.bidStatusInfoLoading.value = true
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//            self.bidStatusList.value = [
+//                BidStatus(title: "Bid accepted", subTitle: "Quote send to the customer - $2500", isCompleted: true),
+//                BidStatus(title: "Won/Reject/LostBid", subTitle: "", isCompleted: false),
+//                BidStatus(title: "Service Status", subTitle: "", isCompleted: false),
+//                BidStatus(title: "Review Feedback", subTitle: "", isCompleted: false)
+//            ]
+//
+//            self.eventInfoList.value = [
+//                EventDetail(title: "Event date", value: "06 Jul 2022"),
+//                EventDetail(title: "Bid proposal date", value: "23 Jul 2022"),
+//                EventDetail(title: "Cut off date", value: "26 Jul 2022"),
+//                EventDetail(title: "Service date", value: "06 Jul 2022"),
+//                EventDetail(title: "Payment status", value: "NA"),
+//                EventDetail(title: "Service by", value: "NA"),
+//                EventDetail(title: "Address", value: "352 Mullai new housing thanjour"),
+//                EventDetail(title: "Customer Rating", value: "NA"),
+//                EventDetail(title: "Review Comment", value: "NA"),
+//            ]
+//        }
+//
+//        return
         
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
         let url = APIConfig.orderInfo + "/\(bidRequestId)"
         APIManager().executeDataRequest(id: "BidOrderInfo", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
@@ -53,7 +75,7 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
                     do {
                         let data = try JSONSerialization.data(withJSONObject: respData, options: [])
                         let obj = try JSONDecoder().decode(BidStatusInfo.self, from: data)
-                        //                            self.updateServiceList(with: obj)
+
                         self.bidStatus.value = obj
                     } catch let error {
                         print("Error :: \(error)")
@@ -72,7 +94,7 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
         self.bidStatusInfoLoading.value = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let headers = [APIConstant.auth: APIConstant.auth_token]
+            let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
             
             let url = APIConfig.orderDescriptionAPI + "/\(eventId)" + "/\(eventServiceDescId)"
             APIManager().executeDataRequest(id: "OrderDescription", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
@@ -112,6 +134,12 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
     
     func getQuestionDTO() -> [QuestionAns]? {
         return self.orderDetails.value?.questionnaireWrapperDto.questionnaireDtos
+    }
+    
+    func updateBidEventStatus(model: BidStatusInfo) {
+        self.eventInfoList.value = [
+//            EventDetail(title: , value: )
+        ]
     }
     
     func updateServiceList(with model: QuestionareWrapperDTO) {

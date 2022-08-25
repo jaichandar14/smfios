@@ -13,6 +13,8 @@ enum UserDefaultKeys: String {
     case selectedTheme
     case countrySelection
     case userData
+    case awsToken
+    case isAlreadyLaunch
 }
 
 

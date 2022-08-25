@@ -26,7 +26,6 @@ class DataOperation: BaseOperation {
             state = .executing
             self.executeDataRequest()
         }
-        
     }
     
     func executeDataRequest()  {

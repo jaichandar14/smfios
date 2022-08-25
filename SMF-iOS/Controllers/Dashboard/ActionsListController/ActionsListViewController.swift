@@ -22,8 +22,6 @@ class ActionsListViewController: BaseViewController {
     var status: BiddingStatus = .none
     var delegate: ActionListDelegate?
     
-    @IBOutlet weak var lblNewRequestCount: UILabel!
-    @IBOutlet weak var btnClose: UIButton!
     var dashboardViewModel: DashboardViewModel?
     var viewModel: ActionListViewModel? {
         didSet {
@@ -44,6 +42,7 @@ class ActionsListViewController: BaseViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.tableView.register(UINib.init(nibName: String.init(describing: ListCloseTableViewCell.self), bundle: nil), forCellReuseIdentifier: "listCloseCell")
         self.tableView.register(UINib.init(nibName: String.init(describing: ActionsCardTableViewCell.self), bundle: nil), forCellReuseIdentifier: "statusCell")
         
         styleUI()
@@ -60,8 +59,7 @@ class ActionsListViewController: BaseViewController {
     }
     
     func styleUI() {
-        self.btnClose.backgroundColor = .clear
-        self.btnClose.setTitleColor(.black, for: .normal)
+     
     }
     
     func setDataToUI() {
@@ -97,13 +95,8 @@ class ActionsListViewController: BaseViewController {
     
     func updateList(list: [BidStatusInfo]) {
         DispatchQueue.main.async {
-            self.lblNewRequestCount.text = "\(list.count) \(self.status)"
             self.tableView.reloadData()
         }
-    }
-    
-    @IBAction func btnCloseAction(_ sender: UIButton) {
-        self.delegate?.btnCloseAction()
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
@@ -111,37 +104,51 @@ class ActionsListViewController: BaseViewController {
     }
 }
 
-
 extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.bidStatusInfoList.value.count ?? 0
+        return (viewModel?.bidStatusInfoList.value.count ?? 0) + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell") as? ActionsCardTableViewCell else {
-            return UITableViewCell()
-        }
-        cell.delegate = self.delegate
-        cell.status = self.status
-        
-        
-        let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row)
-        cell.setData(bidInfo: bidInfo)
-        
-        if status == .bidRequested {
-            cell.btnChangeMind.isHidden = true
-            cell.btnLike.isHidden = false
-            cell.btnDislike.isHidden = false
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "listCloseCell") as? ListCloseTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self.delegate
+            cell.lblNewRequestCount.text = "\(viewModel?.bidStatusInfoList.value.count ?? 0) \(self.status.rawValue)"
+            
+            return cell
         } else {
-            cell.btnChangeMind.isHidden = false
-            cell.btnLike.isHidden = true
-            cell.btnDislike.isHidden = true
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "statusCell") as? ActionsCardTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self.delegate
+            cell.status = self.status
+            
+            
+            let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row - 1)
+            cell.setData(bidInfo: bidInfo)
+            
+            if status == .bidRequested {
+                cell.btnChangeMind.isHidden = true
+                cell.btnLike.isHidden = false
+                cell.btnDislike.isHidden = false
+            } else {
+                cell.btnChangeMind.isHidden = false
+                cell.btnLike.isHidden = true
+                cell.btnDislike.isHidden = true
+            }
+            
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 230
+        if indexPath.row == 0 {
+            return 80
+        } else {
+            return 270
+        }
     }
 }

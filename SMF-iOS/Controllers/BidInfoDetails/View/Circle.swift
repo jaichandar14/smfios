@@ -16,6 +16,12 @@ class Circle: UIView {
           trackLyr.strokeColor = trackClr.cgColor
        }
     }
+    
+    var lineWidth: CGFloat = 1.0 {
+       didSet {
+          trackLyr.lineWidth = lineWidth
+       }
+    }
 
     required init?(coder aDecoder: NSCoder) {
        super.init(coder: aDecoder)
@@ -29,7 +35,7 @@ class Circle: UIView {
        trackLyr.path = circlePath.cgPath
        trackLyr.fillColor = UIColor.clear.cgColor
        trackLyr.strokeColor = trackClr.cgColor
-       trackLyr.lineWidth = 1.0
+       trackLyr.lineWidth = lineWidth
        trackLyr.strokeEnd = 1.0
        layer.addSublayer(trackLyr)
     }

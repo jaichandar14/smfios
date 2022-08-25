@@ -81,9 +81,12 @@ class OrderDetailViewController: BaseViewController {
     }
     
     func styleUI() {
-        setUpViewShadow(self.orderDetailsView, backgroundColor: UIColor.white, radius: 15, shadowRadius: 10, isHavingBorder: false)
+        setUpViewShadow(self.orderDetailsView, backgroundColor: UIColor.white, radius: 11, shadowRadius: 10, isHavingBorder: false)
         
-        self.btnBack.roundCorners([.allCorners], radius: 45 / 2)
+        self.lblControllerTitle.textColor = _theme.primaryColor
+        self.btnBack.backgroundColor = .clear//roundCorners([.allCorners], radius: 45 / 2)
+        self.btnBack.setTitleColor(_theme.primaryColor, for: .normal)
+        self.btnBack.titleLabel?.font = _theme.smfFont(size: 28)
         
         self.serviceInfoTableView.delegate = self
         self.serviceInfoTableView.dataSource = self
@@ -95,6 +98,8 @@ class OrderDetailViewController: BaseViewController {
         self.questionAnsTableView.rowHeight = UITableView.automaticDimension
         self.questionAnsTableView.estimatedRowHeight = 50
         self.questionAnsTableView.register(UINib.init(nibName: String.init(describing: QuestionAnsTableViewCell.self), bundle: nil), forCellReuseIdentifier: "qaCell")
+        
+        self.lblServiceID.textColor = _theme.eventIDTextColor
         
         self.lblServices.text = "Service Details"
         self.lblServices.font = _theme.muliFont(size: 16, style: .muliBold)

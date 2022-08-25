@@ -12,8 +12,8 @@
         <array key="Muli.ttf">
             <string>Muli</string>
         </array>
-        <array key="smf_icon_2.ttf">
-            <string>smf_icon_2</string>
+        <array key="smf_icon.ttf">
+            <string>smf_icon</string>
         </array>
     </customFonts>
     <objects>
@@ -79,7 +79,7 @@
                                 <constraint firstAttribute="height" constant="14" id="Evq-Gz-hbp"/>
                                 <constraint firstAttribute="width" constant="14" id="ai6-V7-pEH"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="smf_icon" family="smf_icon" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

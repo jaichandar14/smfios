@@ -18,14 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let frame = UIScreen.main.bounds
         self.window = UIWindow(frame: frame)
+        
+        if #available(iOS 13.0, *) {
+        
+        } else {
+            Util.checkAndUpdateController(window: window!)
+        }
                 
-        Util.setIntialController(window: self.window!)
-        
-        ThemeManager.applyTheme(theme: .defaultTheme)
-        
-        /// Initialize netowrk change listener
-        Connectivity.shared.startNotifier()
-        
         /// Do setup for amplify
         do {
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
@@ -34,7 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("An error occurred setting up Amplify: \(error)")
         }
+                
+        ThemeManager.applyTheme(theme: .defaultTheme)
         
+        /// Initialize netowrk change listener
+        Connectivity.shared.startNotifier()
+                
         return true
     }
     

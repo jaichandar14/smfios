@@ -8,18 +8,12 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Muli.ttf">
-            <string>Muli</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InitialViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="btnGetStarted" destination="atX-Hi-z2d" id="Fcu-dZ-LBM"/>
                 <outlet property="getStarted" destination="atX-Hi-z2d" id="kvM-pz-xUw"/>
                 <outlet property="lblDescription" destination="Cuy-wP-2HA" id="yFV-bQ-dmq"/>
-                <outlet property="lblEventPlanner" destination="Fbw-Dq-zum" id="4f9-7L-A8r"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -29,10 +23,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OQ-wh-eb4">
-                    <rect key="frame" x="40" y="130.33333333333334" width="334" height="475.33333333333326"/>
+                    <rect key="frame" x="40" y="160.66666666666666" width="334" height="414.66666666666674"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LandingImage" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-c9-XBc">
-                            <rect key="frame" x="0.0" y="70.666666666666657" width="334" height="334"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="initial_banner" translatesAutoresizingMaskIntoConstraints="NO" id="VK7-c9-XBc">
+                            <rect key="frame" x="0.0" y="10" width="334" height="334"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="VK7-c9-XBc" secondAttribute="height" multiplier="1:1" id="Hf9-si-ocT"/>
                             </constraints>
@@ -43,14 +37,8 @@
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Curabitur pretium pellentesque tristique. Donec nec nisi fermentum." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cuy-wP-2HA">
-                            <rect key="frame" x="30" y="414.66666666666663" width="284" height="40.666666666666686"/>
+                            <rect key="frame" x="30" y="354" width="284" height="40.666666666666686"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event planner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbw-Dq-zum">
-                            <rect key="frame" x="87.333333333333329" y="14.999999999999996" width="159.33333333333337" height="35.666666666666657"/>
-                            <fontDescription key="fontDescription" name="Muli" family="Muli" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -58,12 +46,10 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Cuy-wP-2HA" secondAttribute="trailing" constant="20" id="3Uh-yx-xLx"/>
-                        <constraint firstItem="VK7-c9-XBc" firstAttribute="top" secondItem="Fbw-Dq-zum" secondAttribute="bottom" constant="20" id="Ifq-f6-Kpw"/>
                         <constraint firstAttribute="trailing" secondItem="VK7-c9-XBc" secondAttribute="trailing" id="NMo-YL-yNm"/>
-                        <constraint firstItem="Fbw-Dq-zum" firstAttribute="top" secondItem="9OQ-wh-eb4" secondAttribute="top" constant="15" id="OI7-sE-U7L"/>
                         <constraint firstItem="VK7-c9-XBc" firstAttribute="centerX" secondItem="9OQ-wh-eb4" secondAttribute="centerX" id="Tr6-d5-Wb6"/>
                         <constraint firstAttribute="bottom" secondItem="Cuy-wP-2HA" secondAttribute="bottom" constant="20" id="Yju-AT-ZuA"/>
-                        <constraint firstItem="Fbw-Dq-zum" firstAttribute="centerX" secondItem="9OQ-wh-eb4" secondAttribute="centerX" id="dhz-Tt-wZq"/>
+                        <constraint firstItem="VK7-c9-XBc" firstAttribute="top" secondItem="9OQ-wh-eb4" secondAttribute="top" constant="10" id="csO-cw-P0O"/>
                         <constraint firstItem="Cuy-wP-2HA" firstAttribute="top" secondItem="VK7-c9-XBc" secondAttribute="bottom" constant="10" id="ips-ye-oXa"/>
                         <constraint firstItem="VK7-c9-XBc" firstAttribute="leading" secondItem="9OQ-wh-eb4" secondAttribute="leading" id="qJe-yG-c32"/>
                         <constraint firstItem="Cuy-wP-2HA" firstAttribute="leading" secondItem="9OQ-wh-eb4" secondAttribute="leading" constant="30" id="tyl-fM-kFO"/>
@@ -90,7 +76,7 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="atX-Hi-z2d" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="5Tf-wx-nbn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="atX-Hi-z2d" secondAttribute="trailing" constant="40" id="Sc2-69-xxl"/>
@@ -103,7 +89,7 @@
         </view>
     </objects>
     <resources>
-        <image name="LandingImage" width="283" height="242"/>
+        <image name="initial_banner" width="286" height="273.33334350585938"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

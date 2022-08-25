@@ -8,16 +8,9 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="smf_icon_2.ttf">
-            <string>smf_icon_2</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ActionsListViewController" customModule="SMF_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="btnClose" destination="OBy-et-Z7r" id="CHx-UC-aIN"/>
-                <outlet property="lblNewRequestCount" destination="gu9-t6-hIf" id="Zf3-Dx-xEV"/>
                 <outlet property="tableView" destination="Wb2-OU-bOD" id="Iwx-ox-Dor"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,55 +20,17 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wb2-OU-bOD">
-                    <rect key="frame" x="0.0" y="128.5" width="414" height="733.5"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wb2-OU-bOD">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EGw-B7-OCM">
-                    <rect key="frame" x="28" y="74" width="54.5" height="19.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 New Request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gu9-t6-hIf">
-                    <rect key="frame" x="28" y="98.5" width="110" height="20"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OBy-et-Z7r">
-                    <rect key="frame" x="346" y="78.5" width="40" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="40" id="Mjx-fx-6rB"/>
-                        <constraint firstAttribute="height" constant="40" id="V46-i7-JeS"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="smf_icon_2" family="smf_icon_2" pointSize="20"/>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="t">
-                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="20"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="btnCloseAction:" destination="-1" eventType="touchUpInside" id="aqj-s7-GxN"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Wb2-OU-bOD" firstAttribute="top" secondItem="gu9-t6-hIf" secondAttribute="bottom" constant="10" id="6M5-Ib-Fat"/>
-                <constraint firstItem="gu9-t6-hIf" firstAttribute="leading" secondItem="EGw-B7-OCM" secondAttribute="leading" id="8aN-PO-3bB"/>
+                <constraint firstItem="Wb2-OU-bOD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="CLV-qk-Tvr"/>
                 <constraint firstItem="Wb2-OU-bOD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="NlJ-rw-6gy"/>
-                <constraint firstItem="EGw-B7-OCM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="SLC-VU-BKv"/>
-                <constraint firstItem="EGw-B7-OCM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="eJb-BM-Gzt"/>
-                <constraint firstItem="gu9-t6-hIf" firstAttribute="top" secondItem="EGw-B7-OCM" secondAttribute="bottom" constant="5" id="hak-Sc-nM8"/>
-                <constraint firstItem="Wb2-OU-bOD" firstAttribute="top" secondItem="OBy-et-Z7r" secondAttribute="bottom" constant="10" id="nM9-Py-cFt"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wb2-OU-bOD" secondAttribute="bottom" id="r2d-g5-M6Q"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="OBy-et-Z7r" secondAttribute="trailing" constant="28" id="sXD-z1-1Rb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Wb2-OU-bOD" secondAttribute="trailing" id="yTa-WB-5ui"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="66.964285714285708"/>

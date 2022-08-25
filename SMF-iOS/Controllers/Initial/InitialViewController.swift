@@ -9,7 +9,6 @@ import UIKit
 import Amplify
 
 class InitialViewController: BaseViewController {
-    @IBOutlet weak var lblEventPlanner: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var getStarted: UIButton!
     
@@ -33,17 +32,19 @@ class InitialViewController: BaseViewController {
     }
     
     func styleUI() {
-        let eventAttributed = NSMutableAttributedString(string: "Event", attributes: [NSAttributedString.Key.font: _theme.playballFont(size: 30), NSAttributedString.Key.foregroundColor: _theme.primaryColor])
-        let plannerAttributed = NSMutableAttributedString(string: " planner", attributes: [NSAttributedString.Key.font: _theme.muliFont(size: 23, style: .muli), NSAttributedString.Key.foregroundColor: _theme.textColor])
+        let eventAttributed = NSMutableAttributedString(string: "Festo", attributes: [NSAttributedString.Key.font: _theme.playballFont(size: 30), NSAttributedString.Key.foregroundColor: _theme.primaryColor])
+        let plannerAttributed = NSMutableAttributedString(string: " Cloud", attributes: [NSAttributedString.Key.font: _theme.muliFont(size: 23, style: .muli), NSAttributedString.Key.foregroundColor: _theme.textColor])
         
         let attributed = NSMutableAttributedString()
         attributed.append(eventAttributed)
         attributed.append(plannerAttributed)
-        self.lblEventPlanner.attributedText = NSAttributedString(attributedString: attributed)
+//        self.lblEventPlanner.attributedText = NSAttributedString(attributedString: attributed)
         
         self.btnGetStarted.backgroundColor = _theme.accentColor
-        self.btnGetStarted.titleLabel?.font = _theme.muliFont(size: 18, style: .muliBold)
+        self.btnGetStarted.titleLabel?.font = _theme.muliFont(size: 16, style: .muliBold)
         self.btnGetStarted.setTitleColor(UIColor.white, for: .normal)
+        
+        self.lblDescription.text = "View and act on event requests, update availability and much more...\nStep inside..."
     }
     
     func setDataToUI() {
@@ -59,36 +60,10 @@ class InitialViewController: BaseViewController {
     }
 
     @IBAction func btnGetStartedAction(_ sender: Any) {
-//        let email = "swapnildhotre09@gmail.com"
-//        let userAttributes = [AuthUserAttribute(.email, value: email)]
-//        let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
-//        Amplify.Auth.signUp(username: "swapnildhotre", password: "Swapnil_999", options: options) { result in
-//            switch result {
-//            case .success(let signUpResult):
-//                if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
-//                    print("Delivery details \(String(describing: deliveryDetails))")
-//                } else {
-//                    print("SignUp Complete")
-//                }
-//
-//                DispatchQueue.main.async {
-//                    self.navigationController?.pushViewController(LoginViewController(), animated: true)
-//                }
-//
-//            case .failure(let error):
-//                print("An error occurred while registering a user \(error)")
-//            }
-//        }
-        
-//        Amplify.Auth.confirmSignUp(for: "swapnildhotre", confirmationCode: "686658") { result in
-//                switch result {
-//                case .success:
-//                    print("Confirm signUp succeeded")
-//                case .failure(let error):
-//                    print("An error occurred while confirming sign up \(error)")
-//                }
-//            }
-        
+        UserDefault[boolValueFor: .isAlreadyLaunch] = true
+        AmplifyLoginUtility.signOut(completion: { signoutStatus in
+            print("SignOutStatus:: \(signoutStatus)")
+        })
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
 }

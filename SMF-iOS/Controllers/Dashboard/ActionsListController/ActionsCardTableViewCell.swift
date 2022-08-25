@@ -29,7 +29,7 @@ class ActionsCardTableViewCell: UITableViewCell {
     @IBOutlet weak var lblEventDate: UILabel!
     @IBOutlet weak var lblServiceDate: UILabel!
     
-    @IBOutlet weak var lblRequestType: UILabel!
+//    @IBOutlet weak var lblRequestType: UILabel!
     
     @IBOutlet weak var btnDislike: UIButton!
     @IBOutlet weak var btnLike: UIButton!
@@ -49,7 +49,7 @@ class ActionsCardTableViewCell: UITableViewCell {
         _theme = ThemeManager.currentTheme()
         
         setUpViews()
-        setUpViewShadow(cellContainerView, backgroundColor: UIColor.white, radius: 15, shadowRadius: 10, isHavingBorder: false)
+        setUpViewShadow(cellContainerView, backgroundColor: UIColor.white, radius: 10, shadowRadius: 10, isHavingBorder: false)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -60,7 +60,7 @@ class ActionsCardTableViewCell: UITableViewCell {
     
     func setUpViews() {
         lblEventName.textColor = _theme.textColor
-        lblEventID.textColor = UIColor.systemBlue
+        lblEventID.textColor = _theme.eventIDTextColor
         lblEventType.textColor = _theme.textColor
         
         lblEventDateTitle.textColor = _theme.textGreyColor
@@ -73,52 +73,68 @@ class ActionsCardTableViewCell: UITableViewCell {
         lblBidCutOffTitle.textColor = _theme.textGreyColor
         lblCutOffDate.textColor = _theme.textColor
         
-        lblRequestType.textColor = _theme.textColor
+//        lblRequestType.textColor = _theme.textColor
         
         lblEventName.font = _theme.muliFont(size: 16, style: .muliBold)
         lblQuoteTitle.font = _theme.muliFont(size: 12, style: .muli)
         lblQuotePrice.font = _theme.muliFont(size: 16, style: .muliBold)
         
-        lblEventDateTitle.font = _theme.muliFont(size: 11, style: .muli)
-        lblServiceDateTitle.font = _theme.muliFont(size: 11, style: .muli)
-        lblEventDate.font = _theme.muliFont(size: 14, style: .muli)
-        lblServiceDate.font = _theme.muliFont(size: 14, style: .muli)
+        lblEventDateTitle.font = _theme.muliFont(size: 14, style: .muli)
+        lblServiceDateTitle.font = _theme.muliFont(size: 14, style: .muli)
+        lblEventDate.font = _theme.muliFont(size: 16, style: .muli)
+        lblServiceDate.font = _theme.muliFont(size: 16, style: .muli)
         
-        lblBidCutOffTitle.font = _theme.muliFont(size: 10, style: .muli)
-        lblCutOffDate.font = _theme.muliFont(size: 12, style: .muliSemiBold)
+        lblBidCutOffTitle.font = _theme.muliFont(size: 12, style: .muli)
+        lblCutOffDate.font = _theme.muliFont(size: 16, style: .muliSemiBold)
         
-        lblRequestType.font = _theme.muliFont(size: 14, style: .muli)
+//        lblRequestType.font = _theme.muliFont(size: 14, style: .muli)
         
-        lblRemainingDate.textColor = ColorConstant.greyColor4
+        lblRemainingDate.textColor = ColorConstant.greyColor2
         lblRemainingDate.font = _theme.muliFont(size: 12, style: .muliSemiBold)
         lblRemainingDate.text = "22"
+
+        self.btnDislike.setTitleColor(ColorConstant.disLikeBtnActionColor, for: .normal)
         
-        self.btnNext.setTitleColor(ColorConstant.greyColor4, for: .normal)
-        setUpButtonView(self.btnNext, backgroundColor: ColorConstant.greyColor8, size: 34)
-        setUpButtonView(self.btnDislike, backgroundColor: _theme.errorColor, size: 30)
-        setUpButtonView(self.btnLike, backgroundColor: _theme.successColor, size: 30)
+        self.btnNext.setAttributedTitle(getNextButtonTitle(), for: .normal)
+        setUpButtonView(self.btnNext, backgroundColor: _theme.primaryColor, size: 34, setBackgroundColor: true)
+        setUpButtonView(self.btnDislike, backgroundColor: ColorConstant.disLikeBtnActionColor, size: 40, setBackgroundColor: false)
+        setUpButtonView(self.btnLike, backgroundColor: ColorConstant.likeBtnActionColor, size: 40, setBackgroundColor: true)
         
         self.btnChangeMind.backgroundColor = .clear
         self.btnChangeMind.titleLabel?.font = _theme.muliFont(size: 14, style: .muli)
         self.btnChangeMind.setTitleColor(UIColor.systemBlue, for: .normal)
         
-        bidContainerView.backgroundColor = UIColor().colorFromHex("f5f5f5")
+        bidContainerView.backgroundColor = UIColor().colorFromHex("#F0F8FF")
         bidContainerView.layer.masksToBounds = false
         bidContainerView.layer.cornerRadius = 8
         bidContainerView.layer.borderWidth = 1
-        bidContainerView.layer.borderColor = UIColor.gray.withAlphaComponent(0.3).cgColor
+        bidContainerView.layer.borderColor = UIColor().colorFromHex("#D8F2FF").cgColor
         
     }
     
-    func setUpButtonView(_ button: UIButton, backgroundColor: UIColor, size: Int) {
+    func getNextButtonTitle() -> NSAttributedString {
+        let newRequest = NSMutableAttributedString(string: "New Request  ", attributes: [NSAttributedString.Key.font: _theme.muliFont(size: 14, style: .muli), NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.baselineOffset: NSNumber(value: 3)])
+        let iconAttributed = NSMutableAttributedString(string: "a", attributes: [NSAttributedString.Key.font: _theme.smfFont(size: 16), NSAttributedString.Key.foregroundColor: UIColor.white])
         
-        button.backgroundColor = backgroundColor
+        let attributed = NSMutableAttributedString()
+        attributed.append(newRequest)
+        attributed.append(iconAttributed)
+        return NSAttributedString(attributedString: attributed)
+    }
+    
+    func setUpButtonView(_ button: UIButton, backgroundColor: UIColor, size: Int, setBackgroundColor: Bool) {
+        
+        if setBackgroundColor {
+            button.backgroundColor = backgroundColor
+        } else {
+            button.backgroundColor = .clear
+        }
         
         button.layer.masksToBounds = false
         button.layer.cornerRadius = CGFloat(size / 2)
-                
+        
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.withAlphaComponent(0.3).cgColor
+        button.layer.borderColor = setBackgroundColor ? UIColor.gray.withAlphaComponent(0.3).cgColor : backgroundColor.cgColor
         
         button.layer.shadowColor = UIColor.gray.cgColor
         //        self.cellBackgroundView.layer.shadowPath = UIBezierPath(roundedRect: self.cellBackgroundView.bounds, cornerRadius: 10).cgPath
@@ -147,14 +163,14 @@ class ActionsCardTableViewCell: UITableViewCell {
         view.layer.shadowRadius = shadowRadius
         
         self.circularProgressView.trackClr = ColorConstant.greyColor8
-        self.circularProgressView.progressClr = _theme.primaryColor
+        self.circularProgressView.progressClr = UIColor().colorFromHex("#FF9100")
     }
     
     func setData(bidInfo: BidStatusInfo) {
         self.bidInfo = bidInfo
         lblEventName.text = bidInfo.eventName
         lblEventID.text = "\(bidInfo.eventServiceDescriptionId)"
-        lblEventType.text = bidInfo.serviceName
+        lblEventType.text =  "\(bidInfo.branchName) - \(bidInfo.serviceName)"
         lblEventDate.text = bidInfo.eventDate.toSMFShortFormat()
         lblServiceDate.text = bidInfo.serviceDate.toSMFShortFormat()
 //        lblRequestType.text = bidInfo.

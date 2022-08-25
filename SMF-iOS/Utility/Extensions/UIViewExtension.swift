@@ -62,6 +62,41 @@ extension UIView {
         self.layer.cornerRadius = radius
         self.layer.borderWidth = 1
     }
+    
+    
+    // Example use: myView.addBorder(toSide: .Left, withColor: UIColor.redColor().CGColor, andThickness: 1.0)
+    
+    enum BorderSide {
+        case left, right, top, bottom
+    }
+    
+    func addBorder(toSide side: BorderSide, withColor color: CGColor, andThickness thickness: CGFloat) {
+        
+        let border = CALayer()
+        border.backgroundColor = color
+        
+        switch side {
+        case .left: border.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: thickness, height: self.frame.size.height)
+        case .right: border.frame = CGRect(x: self.frame.size.width - thickness, y: self.frame.origin.y, width: thickness, height: self.frame.size.height)
+        case .top: border.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.size.width, height: thickness)
+        case .bottom: border.frame = CGRect(x: self.frame.origin.x, y: self.frame.size.height - thickness, width: self.frame.size.width, height: thickness)
+        }
+        self.layer.addSublayer(border)
+    }
+    
+    func setShadowAndRoundedCorner(borderWidth: CGFloat = 1,
+                                   borderColor: CGColor = UIColor.gray.withAlphaComponent(0.3).cgColor,
+                                   shadowColor: CGColor = UIColor.gray.cgColor,
+                                   offset: CGSize = CGSize(width: 0.0, height: 0.0),
+                                   opacity: Float = 0.5,
+                                   radius: CGFloat = 2) {
+        self.layer.borderWidth = borderWidth
+        self.layer.borderColor = borderColor
+        self.layer.shadowColor = shadowColor
+        self.layer.shadowOffset = offset
+        self.layer.shadowOpacity = opacity
+        self.layer.shadowRadius = radius
+    }
 }
 
 class BlurLoader: UIView {

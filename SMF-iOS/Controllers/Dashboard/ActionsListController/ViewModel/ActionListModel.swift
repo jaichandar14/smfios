@@ -69,6 +69,32 @@ class BidStatusInfo: Codable {
     //                   let serviceBranchDto: null,
     //                   let preferredSlots: null
     
+    init() {
+        bidRequestId = 12345
+        serviceCategoryId = 987654
+        spRegId = 789456
+        serviceVendorOnboardingId = 78
+        eventId = 5654
+        eventDate = "05/22/2022"
+        eventName = "Birthday"
+        serviceName = "Birthday decoration"
+        serviceDate = "05/22/2022"
+        bidRequestedDate = "05/15/2022"
+        biddingCutOffDate = "05/21/2022"
+        costingType = CostingType.bidding
+        cost = "2540"
+        bidStatus = "Completed"
+        currencyType = "$"
+        isExistingUser = true
+        serviceProviderEmail = "service@gmail.com"
+        serviceAddress = "14B, My Building, Banglore"
+        eventServiceDescriptionId = 852852
+        branchName = "Banglore"
+        timeLeft = 25
+        serviceAddressDto = VenueAddress()
+        latestBidValue = 2600
+    }
+    
     enum CodingKeys: String, CodingKey {
         case bidRequestId, serviceCategoryId, spRegId, serviceVendorOnboardingId, eventId, eventDate, eventName, serviceName, serviceDate, bidRequestedDate, biddingCutOffDate, costingType, cost, bidStatus, currencyType, isExistingUser, serviceProviderEmail, serviceAddress, eventServiceDescriptionId, branchName, timeLeft, serviceAddressDto, latestBidValue
     }
@@ -142,6 +168,16 @@ class VenueAddress: Codable {
     let zipCode: String
     let knownVenue: Bool
     
+    init() {
+        addressLine1 = "Ganesham Society"
+        addressLine2 = "Baner, Pune"
+        city = "Pune"
+        state = "Maharashtra"
+        country = "India"
+        zipCode = "415654"
+        knownVenue = true
+    }
+    
     enum CodingKeys: String, CodingKey {
         case addressLine1, addressLine2, city, state, country, zipCode, knownVenue
     }
@@ -175,7 +211,7 @@ class VenueAddress: Codable {
 class ActionListModel {
     func  fetchActionList(categoryId: Int?, vendorOnboardingId: Int?, status: String, completion: @escaping ([[String: Any]]?, String?) -> Void) {
         
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         var params: [String: Any] = [APIConstant.bidStatus: status]
         if let id = categoryId {
             params[APIConstant.serviceCategoryId] = id
@@ -184,7 +220,7 @@ class ActionListModel {
             params[APIConstant.serviceVendorOnboardingId] = id
         }
         
-        let url = APIConfig.biddingStatusInfo + "/\(APIConfig.user!.spRegId)"
+        let url = APIConfig.biddingStatusInfo + "/\(AmplifyLoginUtility.user!.spRegId)"
         APIManager().executeDataRequest(id: "ServiceList", url: url, method: .GET, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { (response, result, error) in
             
             switch result {

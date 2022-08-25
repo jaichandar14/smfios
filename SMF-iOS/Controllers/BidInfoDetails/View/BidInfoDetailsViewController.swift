@@ -20,13 +20,17 @@ class BidInfoDetailsViewController: BaseViewController {
     @IBOutlet weak var bidTableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var eventDetailsHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblBranchName: UILabel!
+    @IBOutlet weak var lblEventDetails: UILabel!
     @IBOutlet weak var lblEventTitle: UILabel!
     @IBOutlet weak var lblEventId: UILabel!
     @IBOutlet weak var lblCosting: UILabel!
     @IBOutlet weak var btnViewQuote: UIButton!
+    @IBOutlet weak var lblBidAccepted: UILabel!
     
-    
-    @IBOutlet weak var arrowImageView: UIImageView!
+    @IBOutlet weak var bidContainer: UIView!
+    @IBOutlet weak var lblArrowImage: UILabel!
     @IBOutlet weak var btnExpandCollapse: UIButton!
     
     @IBOutlet weak var btnDisLike: UIButton!
@@ -66,17 +70,39 @@ class BidInfoDetailsViewController: BaseViewController {
     }
     
     func styleUI() {
-        setUpViewShadow(self.eventDetailsContainerView, backgroundColor: UIColor.white, radius: 15, shadowRadius: 10, isHavingBorder: false)
+        setUpViewShadow(self.eventDetailsContainerView, backgroundColor: UIColor.white, radius: 11, shadowRadius: 10, isHavingBorder: false)
         
-        self.btnBack.roundCorners([.allCorners], radius: 45 / 2)
+        self.btnBack.backgroundColor = .clear//roundCorners([.allCorners], radius: 45 / 2)
+        self.btnBack.setTitleColor(_theme.primaryColor, for: .normal)
+        self.btnBack.titleLabel?.font = _theme.smfFont(size: 28)
+        
+        self.lblEventId.textColor = _theme.eventIDTextColor
+        
+        self.lblArrowImage.textColor = _theme.primaryColor
+        self.lblBidAccepted.text = "Bid accepted"
+        self.lblBidAccepted.textColor = _theme.accentColor
+        self.lblBidAccepted.font = _theme.muliFont(size: 14, style: .muli)
+        
         self.btnLike.roundCorners([.allCorners], radius: 32 / 2)
         self.btnDisLike.roundCorners([.allCorners], radius: 32 / 2)
         self.btnViewQuote.setTitleColor(.systemBlue, for: .normal)
         self.btnViewQuote.backgroundColor = .clear
         self.btnExpandCollapse.backgroundColor = .clear
         
+        self.lblEventDetails.text = "EVENT DETAILS"
+        self.lblEventDetails.textColor = _theme.primaryColor
+        self.lblEventDetails.font = _theme.muliFont(size: 16, style: .muliBold)
+        
+        self.lblName.textColor = _theme.textGreyColor
+        self.lblName.font = _theme.muliFont(size: 16, style: .muliSemiBold)
+        self.lblBranchName.textColor = _theme.textColor
+        self.lblBranchName.font = _theme.muliFont(size: 16, style: .muliSemiBold)
+        
         self.bidTableView.delegate = self
         self.bidTableView.dataSource = self
+        
+        self.bidContainer.backgroundColor = ColorConstant.lightBlueColor
+        self.bidTableView.backgroundColor = .clear
         
         self.bidTableView.register(UINib.init(nibName: String.init(describing: BidDetailsTableViewCell.self), bundle: nil), forCellReuseIdentifier: "bidDetail")
         
@@ -130,24 +156,20 @@ class BidInfoDetailsViewController: BaseViewController {
             self.eventDetailsTableView.reloadData()
             self.eventDetailsHeightConstraint.constant = CGFloat(self.viewModel!.eventInfoList.value.count * 45 + 50)
         }
-        
-        
-        //
     }
     
     func toggleBidDetailsVisibility(isHidden: Bool) {
         UIView.animate(withDuration: 0.2) {
             if isHidden {
-                self.arrowImageView.transform = CGAffineTransform(rotationAngle: Double.pi);
+                self.lblArrowImage.transform = CGAffineTransform(rotationAngle: Double.pi);
                 self.eventDetailsTopConstraint.priority = UILayoutPriority(850)
                 self.view.layoutIfNeeded()
             } else {
-                self.arrowImageView.transform = CGAffineTransform(rotationAngle: 0);
+                self.lblArrowImage.transform = CGAffineTransform(rotationAngle: 0);
                 self.eventDetailsTopConstraint.priority = UILayoutPriority(650)
                 self.view.layoutIfNeeded()
             }
         }
-        
     }
     
     @IBAction func btnBidExpandCollapse(_ sender: UIButton) {

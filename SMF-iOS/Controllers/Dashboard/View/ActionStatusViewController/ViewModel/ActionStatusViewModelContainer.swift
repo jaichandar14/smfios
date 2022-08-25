@@ -33,7 +33,7 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
     func fetchBidCount(categoryId: Int?, vendorOnboardingId: Int?) {
         self.isBidCountLoading.value = true
         
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         var params: [String: Any] = [:]
         if let id = categoryId {
             params[APIConstant.serviceCategoryId] = id
@@ -42,7 +42,7 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
             params[APIConstant.serviceVendorOnboardingId] = id
         }
         
-        let url = APIConfig.serviceProviderBiddingCount + "/\(APIConfig.user!.spRegId)"
+        let url = APIConfig.serviceProviderBiddingCount + "/\(AmplifyLoginUtility.user!.spRegId)"
         APIManager().executeDataRequest(id: "ServiceList", url: url, method: .GET, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
             
             self.isBidCountLoading.value = false

@@ -20,10 +20,20 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSa-Yh-ugD" customClass="Circle" customModule="SMF_iOS" customModuleProvider="target">
                         <rect key="frame" x="15" y="17" width="30" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="l" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSr-qb-8fh">
+                                <rect key="frame" x="13" y="5" width="17" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="kSr-qb-8fh" firstAttribute="centerX" secondItem="iSa-Yh-ugD" secondAttribute="centerX" id="295-v1-1Sn"/>
                             <constraint firstAttribute="width" constant="30" id="MDe-6A-BnZ"/>
                             <constraint firstAttribute="height" constant="30" id="XIB-VL-S1l"/>
+                            <constraint firstItem="kSr-qb-8fh" firstAttribute="centerY" secondItem="iSa-Yh-ugD" secondAttribute="centerY" id="rBF-QG-WtD"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uf4-Hf-CyA">
@@ -78,6 +88,7 @@
                 <outlet property="firstLine" destination="uf4-Hf-CyA" id="nzN-Op-L7v"/>
                 <outlet property="lblBidValue" destination="dkP-pJ-lvR" id="Hm2-nL-kKa"/>
                 <outlet property="lblBitTitle" destination="z3s-49-3OD" id="Mzm-pB-Yrc"/>
+                <outlet property="lblIcon" destination="kSr-qb-8fh" id="rDv-Fp-TmK"/>
                 <outlet property="secondLine" destination="hJ2-Uz-EhI" id="Wh8-H1-HbC"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="72.991071428571431"/>

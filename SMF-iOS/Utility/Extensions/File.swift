@@ -9,16 +9,17 @@ import Foundation
 import FSCalendar
 
 extension FSCalendar {
-    func selectWeek() {
-        let date = Calendar.current.date(byAdding: .day, value: 8, to: Date())
-        let week = date?.getAllDaysInWeek()
-        week?.forEach { date in
+    func selectWeek(date: Date) {
+//        let weekDate = Calendar.current.date(byAdding: .day, value: 8, to: date)
+//        let week = weekDate?.getAllDaysInWeek()
+        let week = date.getAllDaysInWeek()
+        week.forEach { date in
             self.select(date)
         }
     }
     
-    func selectMonth() {
-        let month = Date().getAllDaysInMonth()
+    func selectMonth(date: Date) {
+        let month = date.getAllDaysInMonth()
         month.forEach { date in
             self.select(date)
         }

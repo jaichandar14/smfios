@@ -8,16 +8,29 @@
 import UIKit
 
 class Util {
-    static func setIntialController(window: UIWindow) {
-        if let textData = UserDefault[stringValueFor: .userData],
-           let data = textData.data(using: .utf8),
-           let user = try? JSONDecoder().decode(User.self, from: data) {
-            APIConfig.user = user
-            window.rootViewController = UINavigationController(rootViewController: DashboardViewController.create())
+    static func checkAndUpdateController(window: UIWindow) {
+        if UserDefault[boolValueFor: .isAlreadyLaunch] {
+            setLoadingController(window: window)
         } else {
-            window.rootViewController = UINavigationController(rootViewController: InitialViewController())
+            setInitialController(window: window)
         }
-        
+    }
+    
+    static func setDashboardController(navigationController: UINavigationController) {
+        navigationController.setViewControllers([LandingViewController.create()], animated: true)
+    }
+    
+    static func setLoginController(navigationController: UINavigationController) {
+        navigationController.setViewControllers([LoginViewController()], animated: true)
+    }
+    
+    static func setLoadingController(window: UIWindow) {
+        window.rootViewController = UINavigationController(rootViewController: LoadingSplashViewController())
+        window.makeKeyAndVisible()
+    }
+    
+    static func setInitialController(window: UIWindow) {
+        window.rootViewController = UINavigationController(rootViewController: InitialViewController())
         window.makeKeyAndVisible()
     }
     

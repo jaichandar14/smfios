@@ -168,6 +168,35 @@ enum Theme: Int {
         }
     }
     
+    // New
+    var eventIDTextColor: UIColor {
+        switch self {
+        case .defaultTheme:
+            return UIColor().colorFromHex("bca234")
+        case .darkTheme:
+            return UIColor().colorFromHex("")
+        }
+    }
+    
+    var primaryDarkColor: UIColor {
+        switch self {
+        case .defaultTheme:
+            return ColorConstant.primaryDarkColor
+        case .darkTheme:
+            
+            return UIColor().colorFromHex("")
+        }
+    }
+    var accentDisabledColor: UIColor {
+        switch self {
+        case .defaultTheme:
+            return ColorConstant.accentDisabledColor
+        case .darkTheme:
+            
+            return UIColor().colorFromHex("")
+        }
+    }
+    
     // MARK: - Navigation Bar Style
     var barStyle: UIBarStyle {
         switch self {
@@ -216,7 +245,7 @@ enum Theme: Int {
     }
     
     func smfFont(size: CGFloat) -> UIFont {
-        guard let customFont = UIFont(name: "smf_icon_2", size: size) else {
+        guard let customFont = UIFont(name: "smf_icon", size: size) else {
             fatalError("""
                     Failed to load the "smf_icon_2" font.
                     Make sure the font file is included in the project and the font name is spelled correctly.

@@ -17,7 +17,9 @@ class OTPScreenViewController: BaseViewController {
         // add Stubs
     }
     
-
+    
+    @IBOutlet weak var fieldsContainerView: UIView!
+    @IBOutlet weak var lblTimerUpdate: UILabel!
     @IBOutlet weak var lblOTPVerification: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var lblEnterOTP: UILabel!
@@ -39,6 +41,8 @@ class OTPScreenViewController: BaseViewController {
         
         scheduleTimer()
         
+        self.view.backgroundColor = _theme.primaryColor
+        
         self._otpStackView = OTPStackView()
         self.otpView.addSubview(self._otpStackView)
         self.setOTPView()
@@ -57,6 +61,11 @@ class OTPScreenViewController: BaseViewController {
         self.setNavBar(hidden: false)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.fieldsContainerView.roundCorners([.topLeft, .topRight], radius: 20)
+    }
+    
     func backButtonAction(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -69,12 +78,12 @@ class OTPScreenViewController: BaseViewController {
         self.btnResend.isEnabled = false
         _timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
             if self.secondsRemaining > 0 {
-                self.lblDidntReceiveOTP.text = "Didn't receive OTP? Click Resend in 00:\(String(format: "%02d", self.secondsRemaining))"
+                self.lblTimerUpdate.text = "OTP expires in 00:\(String(format: "%02d", self.secondsRemaining))"
                 self.secondsRemaining -= 1
             } else {
                 self.secondsRemaining = 30
                 self._timer?.invalidate()
-                self.lblDidntReceiveOTP.text = "Didn't receive OTP? Click Resend in 00:00"
+                self.lblTimerUpdate.text = "OTP expires 00:00"
                 self.btnResend.isEnabled = true
             }
         }
@@ -98,8 +107,11 @@ class OTPScreenViewController: BaseViewController {
         lblDescription.textColor = _theme.textGreyColor
         lblEnterOTP.textColor = _theme.textColor
         lblDidntReceiveOTP.textColor = _theme.textColor
+        lblTimerUpdate.textColor = _theme.textColor
         
+        self.setButton(self.btnSubmit, enabled: false)
         self.btnResend.setTitleColor(UIColor.systemBlue, for: .normal)
+        self.btnResend.setTitleColor(UIColor.systemBlue.withAlphaComponent(0.5), for: .disabled)
         self.btnResend.backgroundColor = UIColor.clear
     }
     
@@ -110,27 +122,65 @@ class OTPScreenViewController: BaseViewController {
     
     @IBAction func btnSubmitTapped(_ sender: UIButton) {
         let otp = self._otpStackView.getOTP()
-//        self._otpStackView.setAllFieldColor(color: _theme.errorColor)
-        Amplify.Auth.confirmSignIn(challengeResponse: otp) { result in
-                switch result {
-                case .success(let signInResult):
-                    if signInResult.isSignedIn {
-                        print("Confirm sign in succeeded. The user is signed in.")
-                    } else {
-                        print("Confirm sign in succeeded.")
-                        print("Next step: \(signInResult.nextStep)")
-                        // Switch on the next step to take appropriate actions.
-                        // If `signInResult.isSignedIn` is true, the next step
-                        // is 'done', and the user is now signed in.
-                    }
-                    self.navigationController?.pushViewController(DashboardViewController.create(), animated: true)
-                case .failure(let error):
-                    print("Confirm sign in failed \(error)")
+        
+        CVProgressHUD.showProgressHUD(title: "Please wait...")
+        AmplifyLoginUtility.confirmSignIn(otp: otp) { [weak self] confirmation in
+            switch confirmation {
+            case .success:
+                self?.fetchAuthToken()
+                break
+            case .failure:
+                DispatchQueue.main.async {
+                    CVProgressHUD.hideProgressHUD()
+                    self?.showAlert(withTitle: "OTP failed", withMessage: "OTP verification failed!", isDefault: true, actions: [])
                 }
+                break
             }
-        
-        
-        
+        }
+    }
+    
+    func fetchAuthToken() {
+        AmplifyLoginUtility.fetchAuthToken { [weak self] status in
+            switch status {
+            case .authenticationSuccess(_):
+                AmplifyLoginUtility.updateUserData()
+                self?.fetchUserCredential()
+                break
+            case .authenticationFailed:
+                DispatchQueue.main.async {
+                    CVProgressHUD.hideProgressHUD()
+                    self?.showAlert(withTitle: "OTP failed", withMessage: "Failed to sign-in", isDefault: false, actions: [
+                        UIAlertAction(title: "OK", style: .default, handler: { action in
+                            self?.navigationController?.popViewController(animated: true)
+                        })
+                    ])
+                }
+                break
+            }
+        }
+    }
+    
+    func fetchUserCredential() {
+        AmplifyLoginUtility.fetchUserCredential { [weak self] userCreds in
+            switch userCreds {
+            case .success(_):
+                DispatchQueue.main.async {
+                    CVProgressHUD.hideProgressHUD()
+                    self?.navigationController?.setViewControllers([LandingViewController.create()], animated: true)
+                }
+                break
+            case .failure:
+                DispatchQueue.main.async {
+                    CVProgressHUD.hideProgressHUD()
+                    self?.showAlert(withTitle: "OTP failed", withMessage: "Failed to sign-in", isDefault: false, actions: [
+                        UIAlertAction(title: "OK", style: .default, handler: { action in
+                            self?.navigationController?.popViewController(animated: true)
+                        })
+                    ])
+                }
+                break
+            }
+        }
     }
 }
 
@@ -141,6 +191,6 @@ extension OTPScreenViewController: OTPDelegate {
     
     func setButton(_ button: UIButton, enabled: Bool) {
         button.isEnabled = enabled
-        button.backgroundColor = enabled ? _theme.buttonColor : _theme.buttonDisabledColor
+        button.backgroundColor = enabled ? _theme.accentColor : _theme.accentDisabledColor
     }
 }

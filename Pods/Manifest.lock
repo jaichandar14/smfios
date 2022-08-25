@@ -1,29 +1,29 @@
 PODS:
-  - Amplify (1.23.1):
-    - Amplify/Default (= 1.23.1)
-  - Amplify/Default (1.23.1)
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.23.1):
+  - Amplify (1.27.0):
+    - Amplify/Default (= 1.27.0)
+  - Amplify/Default (1.27.0)
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.27.0):
     - AWSAuthCore (~> 2.27.0)
     - AWSCognitoIdentityProvider (~> 2.27.0)
     - AWSCognitoIdentityProviderASF (~> 2.27.0)
     - AWSCore (~> 2.27.0)
     - AWSMobileClient (~> 2.27.0)
-    - AWSPluginsCore (= 1.23.1)
-  - AWSAuthCore (2.27.7):
-    - AWSCore (= 2.27.7)
-  - AWSCognitoIdentityProvider (2.27.7):
-    - AWSCognitoIdentityProviderASF (= 2.27.7)
-    - AWSCore (= 2.27.7)
-  - AWSCognitoIdentityProviderASF (2.27.7):
-    - AWSCore (= 2.27.7)
-  - AWSCore (2.27.7)
-  - AWSMobileClient (2.27.7):
-    - AWSAuthCore (= 2.27.7)
-    - AWSCognitoIdentityProvider (= 2.27.7)
-    - AWSCognitoIdentityProviderASF (= 2.27.7)
-    - AWSCore (= 2.27.7)
-  - AWSPluginsCore (1.23.1):
-    - Amplify (= 1.23.1)
+    - AWSPluginsCore (= 1.27.0)
+  - AWSAuthCore (2.27.12):
+    - AWSCore (= 2.27.12)
+  - AWSCognitoIdentityProvider (2.27.12):
+    - AWSCognitoIdentityProviderASF (= 2.27.12)
+    - AWSCore (= 2.27.12)
+  - AWSCognitoIdentityProviderASF (2.27.12):
+    - AWSCore (= 2.27.12)
+  - AWSCore (2.27.12)
+  - AWSMobileClient (2.27.12):
+    - AWSAuthCore (= 2.27.12)
+    - AWSCognitoIdentityProvider (= 2.27.12)
+    - AWSCognitoIdentityProviderASF (= 2.27.12)
+    - AWSCore (= 2.27.12)
+  - AWSPluginsCore (1.27.0):
+    - Amplify (= 1.27.0)
     - AWSCore (~> 2.27.0)
   - DropDown (2.3.13)
   - FSCalendar (2.8.4)
@@ -54,19 +54,19 @@ SPEC REPOS:
     - ReachabilitySwift
 
 SPEC CHECKSUMS:
-  Amplify: e420feae21071215f3170ead85745a658b75ae41
-  AmplifyPlugins: b2bd45a64ef2f8c842272c85bf7775a3974f34aa
-  AWSAuthCore: 039a730c4608a862e114a7eabcf09e1451335a75
-  AWSCognitoIdentityProvider: b8d5b7a15d1b418658e591fce2aec82091254f0e
-  AWSCognitoIdentityProviderASF: 70269c1a788f3705d98e31dc8c8cebfa32535103
-  AWSCore: 9b302330a83a8c0ea1a22b1f115d6af14f4429e3
-  AWSMobileClient: c9063df967681d42522c2e19804d6cfca45361e4
-  AWSPluginsCore: e2c7787adb9c716c871b39ee1f64806d987a92c0
+  Amplify: 52fa4a094cdbc3415de99c757fdd7c2805172308
+  AmplifyPlugins: acbabb7d28a883fae021b2c843566a5160999ccd
+  AWSAuthCore: d26bd130b49dc27373aa32c84c9de8f16c2f13e0
+  AWSCognitoIdentityProvider: 069cce018cd50df8139ea2ee9bf17f2aa84953fb
+  AWSCognitoIdentityProviderASF: 7f0612bfc44205e4371f89794ffb7a550319f57e
+  AWSCore: ac89c3ea1bb884823ff02907be828e38044ac4c0
+  AWSMobileClient: f1670732dcd613abe3badb35c91d8980e7bb1f08
+  AWSPluginsCore: 9728836ca5c68de4ffc773f3123035f5973e804e
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
 
-PODFILE CHECKSUM: 350f436cd3ce7813698ac5aaa2bfd74999e69cbd
+PODFILE CHECKSUM: 2d5fa372cd9b9dba637410b62e4dda458b218f42
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

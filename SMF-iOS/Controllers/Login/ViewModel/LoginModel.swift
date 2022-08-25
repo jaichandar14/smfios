@@ -44,7 +44,7 @@ final class LoginModel {
     }
     
     func callAppAuthenticatedUser(id: String, method: HTTPMethod, parameters: [String: Any]?, priority: Operation.QueuePriority?, completionHandler: @escaping ServerCallCompletionHandler) {
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
         APIManager().executeDataRequest(id: id, url: APIConfig.appAuthenticationURL, method: method, parameters: parameters, header: headers, cookieRequired: false, priority: priority ?? .normal, queueType: .data) { response, result, error in
             switch result {

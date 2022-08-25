@@ -58,14 +58,17 @@ final class LoginViewModel {
         return (_loginModel.mobileNo ?? "").isValidMobileNo()
     }
     
-    func getAppAuthenticatedUser(completion: @escaping (User) -> Void) {
+    func getAppAuthenticatedUser(completion: @escaping (User?) -> Void) {
         _loginModel.callAppAuthenticatedUser(id: "Auth", method: .GET, parameters: nil, priority: .high) { response, result, error in
             print("ASDs")
             if let responseData = response?["data"] as? [String: Any], let data = try? JSONSerialization.data(withJSONObject: responseData, options: []) {
                 if let user = try? JSONDecoder().decode(User.self, from: data) {
                     completion(user)
+                    return
                 }
             }
+            
+            completion(nil)
         }
     }
 }

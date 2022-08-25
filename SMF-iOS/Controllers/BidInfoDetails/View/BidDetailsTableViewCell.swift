@@ -16,6 +16,7 @@ class BidDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var lblBitTitle: UILabel!
     @IBOutlet weak var lblBidValue: UILabel!
     
+    @IBOutlet weak var lblIcon: UILabel!
     private var _theme: Theme!
     
     override func awakeFromNib() {
@@ -38,14 +39,27 @@ class BidDetailsTableViewCell: UITableViewCell {
         self.lblBidValue.textColor = ColorConstant.greyColor5
         self.lblBidValue.font = _theme.muliFont(size: 12, style: .muli)
         
-        self.circleView.trackClr = UIColor.black
+        self.circleView.trackClr = UIColor.gray
+        self.circleView.lineWidth = 0.5
         self.firstLine.backgroundColor = UIColor.black
         self.secondLine.backgroundColor = UIColor.black
+        
+        self.backgroundColor = .clear
     }
     
     func setData(bidStatus: BidStatus, isFirst: Bool, isLast: Bool) {
         self.lblBitTitle.text = bidStatus.title
         self.lblBidValue.text = bidStatus.subTitle
+        
+        if bidStatus.isCompleted {
+            circleView.backgroundColor = _theme.primaryColor
+            self.lblIcon.text = "g"
+            self.lblIcon.textColor = UIColor.white
+            self.lblIcon.font = _theme.smfFont(size: 18)
+        } else {
+            circleView.backgroundColor = .clear
+            self.lblIcon.text = ""
+        }
         
         if isFirst {
             firstLine.isHidden = true

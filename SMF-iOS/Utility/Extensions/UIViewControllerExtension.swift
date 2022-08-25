@@ -31,5 +31,23 @@ extension UIViewController {
     func hideLoader() {
         ProgressHUD.dismiss()
     }
+    
+    func showAlert(withTitle title: String, withMessage message: String, isDefault: Bool?, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        if (isDefault ?? false) {
+            let ok = UIAlertAction(title: "OK", style: .default, handler: { action in
+                alert.dismiss(animated: true, completion: nil)
+            })
+            alert.addAction(ok)
+        } else {
+            actions.forEach { action in
+                alert.addAction(action)
+            }
+        }
+        DispatchQueue.main.async(execute: {
+            self.present(alert, animated: true)
+        })
+    }
 }
 

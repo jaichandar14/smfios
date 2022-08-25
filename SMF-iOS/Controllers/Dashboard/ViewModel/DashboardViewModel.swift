@@ -10,7 +10,8 @@ import Foundation
 protocol DashboardViewModel {
     /// Out properties and methods
     // Service Count
-    var servicesTitle: String { get }
+    var eventsOverviewTitle: String { get }
+    var calendarTitle: String { get }
     var serviceCountList: Observable<[ServiceCount]> { get }
     var isServiceCountLoading: Observable<Bool> { get }
     var serviceCountFetchError: Observable<String> { get }

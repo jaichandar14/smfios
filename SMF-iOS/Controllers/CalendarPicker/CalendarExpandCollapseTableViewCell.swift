@@ -9,6 +9,7 @@ import UIKit
 
 class CalendarExpandCollapseTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lblLeadingIcon: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblExpandCollapseIcon: UILabel!
     @IBOutlet weak var containerView: UIView!
@@ -31,32 +32,27 @@ class CalendarExpandCollapseTableViewCell: UITableViewCell {
     }
  
     func setData(title: String, isEnabled: Bool, isExpanded: Bool) {
-        var textColor: UIColor = .clear
         if isEnabled {
-            textColor = _theme.textColor
             self.containerView.backgroundColor = .clear
         } else {
-            textColor = ColorConstant.greyColor4
             self.containerView.backgroundColor = ColorConstant.greyColor9
         }
         
-        let attributes: [NSAttributedString.Key: Any]  = [
-            .foregroundColor: textColor,
-            .font: _theme.muliFont(size: 14, style: .muli),
-            
-        ]
-        let iconAttributes: [NSAttributedString.Key: Any]  = [
-            .foregroundColor: textColor,
-            .font: _theme.smfFont(size: 18),
-            .baselineOffset: -2
-        ]
-        
-        let attributedString = NSMutableAttributedString(string: "\(isEnabled ? "f" : "e") \(title)", attributes: attributes)
-        attributedString.addAttributes(iconAttributes, range: NSRange(location: 0, length: 2))
-        self.lblTitle.attributedText = attributedString
+        self.lblTitle.text = title
+        self.lblTitle.textColor = UIColor.white
+        self.lblTitle.font = _theme.muliFont(size: 16, style: .muliSemiBold)
         
         self.lblExpandCollapseIcon.text = isExpanded ? "m" : "p"
-        self.lblExpandCollapseIcon.font = _theme.smfFont(size: 16)
-        self.lblExpandCollapseIcon.textColor = textColor
+        self.lblExpandCollapseIcon.font = _theme.smfFont(size: 20)
+        self.lblExpandCollapseIcon.textColor = UIColor.white
+        
+        self.lblLeadingIcon.layer.masksToBounds = true
+        self.lblLeadingIcon.layer.cornerRadius = 12
+        self.lblLeadingIcon.backgroundColor = .white
+        self.lblLeadingIcon.text = "g"
+        self.lblLeadingIcon.textColor = _theme.primaryColor
+        
+        self.containerView.backgroundColor = ColorConstant.currentDateBackgroundColor
+        self.containerView.layer.cornerRadius = 8
     }
 }

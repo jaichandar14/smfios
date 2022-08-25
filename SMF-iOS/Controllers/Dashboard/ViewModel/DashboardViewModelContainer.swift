@@ -9,7 +9,8 @@ import Foundation
 
 
 class DashboardViewModelContainer: DashboardViewModel {
-    var servicesTitle: String
+    var eventsOverviewTitle: String
+    var calendarTitle: String
     var serviceCountList: Observable<[ServiceCount]>
     var isServiceCountLoading: Observable<Bool>
     var serviceCountFetchError: Observable<String>
@@ -29,7 +30,8 @@ class DashboardViewModelContainer: DashboardViewModel {
     init(model: DashboardModel) {
         self.model = model
         
-        self.servicesTitle = "Services"
+        self.eventsOverviewTitle = "Events Overview"
+        self.calendarTitle = "Calendar"
         self.serviceCountList = Observable<[ServiceCount]>([])
         self.isServiceCountLoading = Observable<Bool>(false)
         self.serviceCountFetchError = Observable<String>("")
@@ -49,9 +51,9 @@ class DashboardViewModelContainer: DashboardViewModel {
     func fetchServiceCount() {
         self.isServiceCountLoading.value = true
         
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
-        let url = APIConfig.serviceCountURL + "/\(APIConfig.user!.spRegId)"
+        let url = APIConfig.serviceCountURL + "/\(AmplifyLoginUtility.user!.spRegId)"
         APIManager().executeDataRequest(id: "ServiceCount", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .high, queueType: .data) { response, result, error in
             
             self.isServiceCountLoading.value = false
@@ -77,9 +79,9 @@ class DashboardViewModelContainer: DashboardViewModel {
     func fetchServices() {
         self.isServicesLoading.value = true
         
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
-        let url = APIConfig.servicesListURL + "/\(APIConfig.user!.spRegId)"
+        let url = APIConfig.servicesListURL + "/\(AmplifyLoginUtility.user!.spRegId)"
         APIManager().executeDataRequest(id: "ServicesList", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
             
             self.isServicesLoading.value = false
@@ -103,7 +105,7 @@ class DashboardViewModelContainer: DashboardViewModel {
         self.isBranchesLoading.value = true
         self.selectedBranch.value = nil
         
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
         var params: [String: Any]?
         if let serviceId = self.selectedService.value?.serviceCategoryId {
@@ -112,7 +114,7 @@ class DashboardViewModelContainer: DashboardViewModel {
             self.branches.value = []
         }
         
-        let url = APIConfig.branchesListURL + "/\(APIConfig.user!.spRegId)"
+        let url = APIConfig.branchesListURL + "/\(AmplifyLoginUtility.user!.spRegId)"
         APIManager().executeDataRequest(id: "BranchList", url: url, method: .GET, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
             
             self.isBranchesLoading.value = false
@@ -133,7 +135,7 @@ class DashboardViewModelContainer: DashboardViewModel {
     }
     
     func rejectBid(requestId: Int, reason: String?, comment: String?, completion: @escaping () -> Void) {
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
         var params: [String: Any] = [APIConstant.bidRequestId: requestId]
         if let reason = reason {
@@ -159,7 +161,7 @@ class DashboardViewModelContainer: DashboardViewModel {
     }
     
     func acceptBid(requestId: Int, params: [String: Any], completion: @escaping () -> ()) {
-        let headers = [APIConstant.auth: APIConstant.auth_token]
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
         let url = APIConfig.acceptBidRequest + "/\(requestId)"
         APIManager().executeDataRequest(id: "Accept Bid", url: url, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
