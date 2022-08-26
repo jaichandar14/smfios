@@ -116,6 +116,7 @@ class LoginViewController: BaseViewController {
         txtMobileNo.setRightPaddingPoints(10)
         txtMobileNo.keyboardType = .phonePad
         txtMobileNo.delegate = self
+        self.addDoneButtonOnKeyboard(textField: self.txtMobileNo)
         
         setTextField(txtEmail, isValid: true)
         txtEmail.setLeftPaddingPoints(10)
@@ -191,7 +192,9 @@ class LoginViewController: BaseViewController {
                     case .signedInSuccess:
                         DispatchQueue.main.async {
                             CVProgressHUD.hideProgressHUD()
-                            self?.navigationController?.pushViewController(OTPScreenViewController(), animated: true)
+                            let otpController = OTPScreenViewController()
+                            otpController.userName = userName
+                            self?.navigationController?.pushViewController(otpController, animated: true)
                         }
                         break
                     case .signedInFailed(_):

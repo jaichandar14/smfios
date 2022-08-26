@@ -11,7 +11,8 @@ class LandingViewController: UIViewController {
     
     private var sideMenuViewController: SideMenuViewController!
     private var sideMenuShadowView: UIView!
-    private var sideMenuRevealWidth: CGFloat = 260
+    private var percentageWidth: Int? = 80
+    private var sideMenuRevealWidth: CGFloat = 300
     private let paddingForRotation: CGFloat = 150
     private var isExpanded: Bool = false
     private var draggingIsEnabled: Bool = false
@@ -36,15 +37,19 @@ class LandingViewController: UIViewController {
     }
 
     func setUpMenuBar() {
+        if let percent = percentageWidth {
+            sideMenuRevealWidth = (UIScreen.main.bounds.width * CGFloat(percent)) / 100
+        }
+        
         // Shadow Background View
         self.sideMenuShadowView = UIView(frame: self.view.bounds)
         self.sideMenuShadowView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.sideMenuShadowView.backgroundColor = .black
         self.sideMenuShadowView.alpha = 0.0
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TapGestureRecognizer))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        tapGestureRecognizer.delegate = self
-        view.addGestureRecognizer(tapGestureRecognizer)
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TapGestureRecognizer))
+//        tapGestureRecognizer.numberOfTapsRequired = 1
+//        tapGestureRecognizer.delegate = self
+//        view.addGestureRecognizer(tapGestureRecognizer)
         if self.revealSideMenuOnTop {
             view.insertSubview(self.sideMenuShadowView, at: 1)
         }
@@ -74,9 +79,9 @@ class LandingViewController: UIViewController {
         ])
         
         // Side Menu Gestures
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-        panGestureRecognizer.delegate = self
-        view.addGestureRecognizer(panGestureRecognizer)
+//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+//        panGestureRecognizer.delegate = self
+//        view.addGestureRecognizer(panGestureRecognizer)
         
         // Default Main View Controller
         showViewController(controller: UINavigationController(rootViewController: DashboardViewController.create()))

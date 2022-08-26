@@ -96,9 +96,15 @@ class DashboardViewController: BaseViewController {
         button.backgroundColor = .clear
         let barButton = UIBarButtonItem.init(customView: button)
         
+        let titleLabel = UILabel(frame: CGRect(x: 20, y: -4, width: 150, height: 40))
+        titleLabel.textColor = UIColor.white
+        titleLabel.text = "Welcome \(AmplifyLoginUtility.user?.firstName ?? "")"
+        titleLabel.font = _theme.muliFont(size: 18, style: .muliSemiBold)
+        let barButtonTitle = UIBarButtonItem.init(customView: titleLabel)
+        
         barButton.target = revealViewController()
         
-        self.navigationItem.leftBarButtonItem = barButton
+        self.navigationItem.leftBarButtonItems = [barButton, barButtonTitle]
     }
     
     @objc func buttonTapped(sender: UIButton) {
@@ -221,6 +227,58 @@ class DashboardViewController: BaseViewController {
         
         self.servicesCollectionView.register(UINib.init(nibName: String.init(describing: DashboardCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "serviceCell")
         self.servicesCollectionView.backgroundColor = .clear
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+
+            switch swipeGesture.direction {
+            case .right:
+                print("Swiped right")
+            case .down:
+                print("Swiped down")
+                self.viewModel?.fetchServiceCount()
+                self.viewModel?.fetchServices()
+                setContainer(with: getActionStatusController())
+                showLoadingSpinnerOnSwipe()
+                
+            case .left:
+                print("Swiped left")
+            case .up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
+    }
+
+    func showLoadingSpinnerOnSwipe() {
+        
+        let backDrop = UIView(frame: UIScreen.main.bounds)
+        backDrop.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backDrop.backgroundColor = .black
+        backDrop.alpha = 0.5
+        
+        let spinnerView = UIActivityIndicatorView(frame: CGRect(x: (UIScreen.main.bounds.width / 2) - 40, y: 100, width: 80, height: 80))
+        if #available(iOS 13.0, *) {
+            spinnerView.style = .large
+        }
+        spinnerView.color = UIColor.white
+        spinnerView.startAnimating()
+        
+        self.view.addSubview(backDrop)
+        self.view.addSubview(spinnerView)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            backDrop.removeFromSuperview()
+            spinnerView.removeFromSuperview()
+        }
+        
     }
     
     func setContainer(with controller: UIViewController) {

@@ -30,7 +30,7 @@ class DashboardViewModelContainer: DashboardViewModel {
     init(model: DashboardModel) {
         self.model = model
         
-        self.eventsOverviewTitle = "Events Overview"
+        self.eventsOverviewTitle = "My Services"
         self.calendarTitle = "Calendar"
         self.serviceCountList = Observable<[ServiceCount]>([])
         self.isServiceCountLoading = Observable<Bool>(false)

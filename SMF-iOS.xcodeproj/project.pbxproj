@@ -142,6 +142,7 @@
 		E6A3943F2837F37F00A258D5 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A3943E2837F37F00A258D5 /* CircularProgressView.swift */; };
 		E6ABAD0028A37F980022FAC2 /* LoadingSplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ABACFE28A37F980022FAC2 /* LoadingSplashViewController.swift */; };
 		E6ABAD0128A37F980022FAC2 /* LoadingSplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6ABACFF28A37F980022FAC2 /* LoadingSplashViewController.xib */; };
+		E6AFF00428B8D2DB00933E37 /* qa_amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = E6AFF00328B8D2DB00933E37 /* qa_amplifyconfiguration.json */; };
 		E6B727CD289A81F40065204C /* AmplifyLoginUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B727CC289A81F40065204C /* AmplifyLoginUtility.swift */; };
 		E6C24BE8286749F80044E5B5 /* ListCloseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C24BE6286749F80044E5B5 /* ListCloseTableViewCell.swift */; };
 		E6C24BE9286749F80044E5B5 /* ListCloseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C24BE7286749F80044E5B5 /* ListCloseTableViewCell.xib */; };
@@ -305,6 +306,7 @@
 		E6A3943E2837F37F00A258D5 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		E6ABACFE28A37F980022FAC2 /* LoadingSplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSplashViewController.swift; sourceTree = "<group>"; };
 		E6ABACFF28A37F980022FAC2 /* LoadingSplashViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingSplashViewController.xib; sourceTree = "<group>"; };
+		E6AFF00328B8D2DB00933E37 /* qa_amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = qa_amplifyconfiguration.json; sourceTree = "<group>"; };
 		E6B727CC289A81F40065204C /* AmplifyLoginUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyLoginUtility.swift; sourceTree = "<group>"; };
 		E6C24BE6286749F80044E5B5 /* ListCloseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCloseTableViewCell.swift; sourceTree = "<group>"; };
 		E6C24BE7286749F80044E5B5 /* ListCloseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCloseTableViewCell.xib; sourceTree = "<group>"; };
@@ -876,6 +878,7 @@
 			isa = PBXGroup;
 			children = (
 				E608717F289A48C3000135FF /* amplifyconfiguration.json */,
+				E6AFF00328B8D2DB00933E37 /* qa_amplifyconfiguration.json */,
 				E6CEC4892812F51B0046D0A3 /* SMF-iOS */,
 				E6CEC4882812F51B0046D0A3 /* Products */,
 				E921FBF39F52A7C01ED19633 /* Pods */,
@@ -1142,6 +1145,7 @@
 				E632FF922823A3C400A404E7 /* Raleway-ThinItalic.ttf in Resources */,
 				E6A2F8A628B48DC200E1C917 /* CountryPickerViewController.xib in Resources */,
 				E65CCD4F281FDC9200A49AEE /* ActionsListViewController.xib in Resources */,
+				E6AFF00428B8D2DB00933E37 /* qa_amplifyconfiguration.json in Resources */,
 				E6C24BE9286749F80044E5B5 /* ListCloseTableViewCell.xib in Resources */,
 				E6CEC4972812F51C0046D0A3 /* LaunchScreen.storyboard in Resources */,
 				E632FF9C2823A3C400A404E7 /* Raleway-Italic.ttf in Resources */,
@@ -1490,7 +1494,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smf.events;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = SMFSwapnilDeveloperProvisioningProfile;
@@ -1522,7 +1526,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smf.events;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = SMFSwapnilDeveloperProvisioningProfile;

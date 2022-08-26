@@ -33,6 +33,7 @@ class OTPScreenViewController: BaseViewController {
     private var _timer: Timer?
     
     var secondsRemaining = 30
+    var userName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,6 +119,58 @@ class OTPScreenViewController: BaseViewController {
     @IBAction func btnResendTapped(_ sender: UIButton) {
         print("Resend")
         scheduleTimer()
+        CVProgressHUD.showProgressHUD(title: "Please wait...")
+        
+        AmplifyLoginUtility.signIn(withUserId: userName) { [weak self] loginStatus in
+            switch loginStatus {
+            case .alreadyLogin:
+                self?.alreadySignIn()
+                break
+            case .signedInSuccess:
+                DispatchQueue.main.async {
+                    CVProgressHUD.hideProgressHUD()
+                }
+                break
+            case .signedInFailed(_):
+                DispatchQueue.main.async {
+                    CVProgressHUD.hideProgressHUD()
+                    self?.showAlert(withTitle: "Sign in failed", withMessage: "Something went wrong. Please try again!", isDefault: true, actions: [])
+                }
+                break
+            default:
+                print("Case not handled")
+            }
+        }
+    }
+    
+    func alreadySignIn() {
+        DispatchQueue.main.async {
+            AmplifyLoginUtility.updateUserData()
+            
+            if AmplifyLoginUtility.user != nil {
+                
+                CVProgressHUD.hideProgressHUD()
+                self.navigationController?.setViewControllers([LandingViewController.create()], animated: true)
+                
+            } else {
+                AmplifyLoginUtility.fetchUserCredential { [weak self] userCreds in
+                    switch userCreds {
+                    case .success(_):
+                        DispatchQueue.main.async {
+                            CVProgressHUD.hideProgressHUD()
+                            self?.navigationController?.setViewControllers([LandingViewController.create()], animated: true)
+                        }
+                        break
+                    case .failure:
+                        DispatchQueue.main.async {
+                            CVProgressHUD.hideProgressHUD()
+                            self?.showAlert(withTitle: "Sign in failed", withMessage: "Something went wrong. Please try again!", isDefault: true, actions: [])
+                        }
+                        break
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func btnSubmitTapped(_ sender: UIButton) {
