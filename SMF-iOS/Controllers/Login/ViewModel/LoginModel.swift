@@ -22,7 +22,7 @@ final class LoginModel {
     }
     
     func callLoginAPI(id: String, method: HTTPMethod, parameters: [String: Any]?, priority: Operation.QueuePriority?, completionHandler: @escaping ServerCallCompletionHandler) {
-        APIManager().executeDataRequest(id: id, url: "https://www.epm-dev.demo-bpmlinks.com/epm-no-auth/api/authentication/user-info", method: method, parameters: parameters, header: nil, cookieRequired: false, priority: priority ?? .normal, queueType: .data) { response, result, error in
+        APIManager().executeDataRequest(id: id, url: APIConfig.loginAPIURL, method: method, parameters: parameters, header: nil, cookieRequired: false, priority: priority ?? .normal, queueType: .data) { response, result, error in
             switch result {
             case true:
                 do {

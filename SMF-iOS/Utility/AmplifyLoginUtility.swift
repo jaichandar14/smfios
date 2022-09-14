@@ -157,14 +157,15 @@ class AmplifyLoginUtility {
             case .success(let signInResult):
                 if signInResult.isSignedIn {
                     print("Confirm sign in succeeded. The user is signed in.")
+                    completion(.success)
                 } else {
                     print("Confirm sign in succeeded.")
                     print("Next step: \(signInResult.nextStep)")
                     // Switch on the next step to take appropriate actions.
                     // If `signInResult.isSignedIn` is true, the next step
                     // is 'done', and the user is now signed in.
+                    completion(.failure)
                 }
-                completion(.success)
                 break
             case .failure(let error):
                 print("Confirm sign in failed \(error)")

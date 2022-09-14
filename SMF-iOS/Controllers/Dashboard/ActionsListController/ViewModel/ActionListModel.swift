@@ -11,6 +11,7 @@ enum BiddingStatus: String, Codable {
     case bidSubmitted = "BID SUBMITTED"
     case bidRequested = "BID REQUESTED"
     case pendingForQuote = "PENDING FOR QUOTE"
+    case serviceInProgress = "SERVICE IN PROGRESS" // NEW
     case bidRejected = "BID REJECTED"
     case none = "none"
 }

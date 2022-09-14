@@ -35,6 +35,9 @@ class OTPScreenViewController: BaseViewController {
     var secondsRemaining = 30
     var userName: String = ""
     
+    var resendCounter = 0;
+    var wrongOTPCounter = 0;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,12 +82,12 @@ class OTPScreenViewController: BaseViewController {
         self.btnResend.isEnabled = false
         _timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
             if self.secondsRemaining > 0 {
-                self.lblTimerUpdate.text = "OTP expires in 00:\(String(format: "%02d", self.secondsRemaining))"
+                self.lblTimerUpdate.text = "Click resend in 00:\(String(format: "%02d", self.secondsRemaining))"
                 self.secondsRemaining -= 1
             } else {
                 self.secondsRemaining = 30
                 self._timer?.invalidate()
-                self.lblTimerUpdate.text = "OTP expires 00:00"
+                self.lblTimerUpdate.text = "Click resend in 00:00"
                 self.btnResend.isEnabled = true
             }
         }
@@ -118,27 +121,41 @@ class OTPScreenViewController: BaseViewController {
     
     @IBAction func btnResendTapped(_ sender: UIButton) {
         print("Resend")
-        scheduleTimer()
+        
+        self.resendCounter += 1
+        if self.resendCounter > 5 {
+            self.btnResend.isEnabled = false
+            Toast.show(message: ToastConstant.resendClickMultipleTimes, controller: self)
+            return
+        } else {
+            scheduleTimer()
+            Toast.show(message: ToastConstant.resendOTP, controller: self)
+        }
+        
         CVProgressHUD.showProgressHUD(title: "Please wait...")
         
-        AmplifyLoginUtility.signIn(withUserId: userName) { [weak self] loginStatus in
-            switch loginStatus {
-            case .alreadyLogin:
-                self?.alreadySignIn()
-                break
-            case .signedInSuccess:
-                DispatchQueue.main.async {
-                    CVProgressHUD.hideProgressHUD()
+        AmplifyLoginUtility.signOut { [weak self] loginStatus in
+            print("Logout status:: \(loginStatus)")
+
+            AmplifyLoginUtility.signIn(withUserId: self?.userName ?? "") { [weak self] loginStatus in
+                switch loginStatus {
+                case .alreadyLogin:
+                    self?.alreadySignIn()
+                    break
+                case .signedInSuccess:
+                    DispatchQueue.main.async {
+                        CVProgressHUD.hideProgressHUD()
+                    }
+                    break
+                case .signedInFailed(_):
+                    DispatchQueue.main.async {
+                        CVProgressHUD.hideProgressHUD()
+                        self?.showAlert(withTitle: "Sign in failed", withMessage: "Something went wrong. Please try again!", isDefault: true, actions: [])
+                    }
+                    break
+                default:
+                    print("Case not handled")
                 }
-                break
-            case .signedInFailed(_):
-                DispatchQueue.main.async {
-                    CVProgressHUD.hideProgressHUD()
-                    self?.showAlert(withTitle: "Sign in failed", withMessage: "Something went wrong. Please try again!", isDefault: true, actions: [])
-                }
-                break
-            default:
-                print("Case not handled")
             }
         }
     }
@@ -185,7 +202,12 @@ class OTPScreenViewController: BaseViewController {
             case .failure:
                 DispatchQueue.main.async {
                     CVProgressHUD.hideProgressHUD()
-                    self?.showAlert(withTitle: "OTP failed", withMessage: "OTP verification failed!", isDefault: true, actions: [])
+                    self?.showAlert(withTitle: "OTP failed", withMessage: "OTP invalid!", isDefault: true, actions: [])
+                    self?.wrongOTPCounter += 1
+                    self?._otpStackView.textFieldsCollection.forEach({ field in
+                        field.text = ""
+                    })
+                    self?._otpStackView.textFieldsCollection.first?.becomeFirstResponder()
                 }
                 break
             }
@@ -204,7 +226,10 @@ class OTPScreenViewController: BaseViewController {
                     CVProgressHUD.hideProgressHUD()
                     self?.showAlert(withTitle: "OTP failed", withMessage: "Failed to sign-in", isDefault: false, actions: [
                         UIAlertAction(title: "OK", style: .default, handler: { action in
-                            self?.navigationController?.popViewController(animated: true)
+                            AmplifyLoginUtility.signOut { status in
+                                print("Logout Status:: \(status)")
+                            }
+//                            self?.navigationController?.popViewController(animated: true)
                         })
                     ])
                 }

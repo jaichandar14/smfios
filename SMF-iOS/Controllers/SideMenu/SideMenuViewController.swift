@@ -24,9 +24,10 @@ class SideMenuViewController: BaseViewController {
     var defaultHighlightedCell: Int = 0
 
     var menu: [SideMenuModel] = [
-        SideMenuModel(key: .dashboard, icon: UIImage(named: "dashboard")!, title: "Dashboard"),
-        SideMenuModel(key: .availability, icon: UIImage(named: "Calendar")!, title: "Availability"),
-        SideMenuModel(key: .logout, icon: UIImage(named: "Logout")!, title: "Logout"),
+        SideMenuModel(key: .dashboard, icon: UIImage(named: "dashboard"), title: "Dashboard"),
+        SideMenuModel(key: .availability, icon: UIImage(named: "Calendar"), title: "Availability"),
+        SideMenuModel(key: .divider, icon: nil, title: ""),
+        SideMenuModel(key: .logout, icon: UIImage(named: "Logout"), title: "Logout"),
     ]
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +61,7 @@ class SideMenuViewController: BaseViewController {
 
         // Register TableView Cell
         self.sideMenuTableView.register(SideMenuCell.nib, forCellReuseIdentifier: SideMenuCell.identifier)
+        self.sideMenuTableView.register(DividerTableViewCell.nib, forCellReuseIdentifier: DividerTableViewCell.identifier)
 
         // Update TableView with the data
         self.sideMenuTableView.reloadData()
@@ -86,6 +88,9 @@ class SideMenuViewController: BaseViewController {
 
 extension SideMenuViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.menu[indexPath.row].key == .divider {
+            return UITableView.automaticDimension
+        }
         return 44
     }
 }
@@ -97,6 +102,12 @@ extension SideMenuViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if self.menu[indexPath.row].key == .divider {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DividerTableViewCell.identifier, for: indexPath) as? DividerTableViewCell else { fatalError("xib doesn't exist") }
+            cell.selectionStyle = .none
+            return cell
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SideMenuCell.identifier, for: indexPath) as? SideMenuCell else { fatalError("xib doesn't exist") }
 
         cell.iconImageView.image = self.menu[indexPath.row].icon
@@ -112,6 +123,9 @@ extension SideMenuViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if self.menu[indexPath.row].key == .divider {
+            return
+        }
         defaultHighlightedCell = indexPath.row
         
         self.delegate?.selectedCell(indexPath.row, key: self.menu[indexPath.row].key)

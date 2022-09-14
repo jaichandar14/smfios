@@ -107,7 +107,7 @@ class CalendarPickerViewController: BaseViewController {
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.rightBarButtonItem = closeNavigationIcon()
 //        self.customizeBackButton()
-        self.setStatusBarColor(_theme.primaryColor)
+//        self.setStatusBarColor(_theme.primaryColor)
         self.setNavigationBarColor(_theme.primaryColor, color: UIColor.white)
         
     }

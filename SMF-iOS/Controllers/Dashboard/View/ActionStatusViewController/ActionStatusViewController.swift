@@ -34,7 +34,7 @@ class ActionStatusViewController: BaseViewController {
     
     var dashboardViewModel: DashboardViewModel?
     var delegate: ActionStatusDelegate?
-        
+    
     static func create(dashboardViewModel: DashboardViewModel?) -> ActionStatusViewController {
         let view = ActionStatusViewController()
         view.dashboardViewModel = dashboardViewModel
@@ -44,7 +44,7 @@ class ActionStatusViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         styleUI()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.setCornerRadius()
@@ -66,7 +66,7 @@ class ActionStatusViewController: BaseViewController {
         self.lblStatus.text = "INACTIVE REQUESTS"
         self.lblStatus.textColor = _theme.textColor
         self.lblPendingStatus.textColor = _theme.textGreyColor
-                
+        
         self.lblAction.font = _theme.muliFont(size: 16, style: .muliBold)
         self.lblStatus.font = _theme.muliFont(size: 16, style: .muliBold)
         
@@ -76,7 +76,7 @@ class ActionStatusViewController: BaseViewController {
         self.lblUpcomingEvents.text = "Upcoming events"
         self.lblUpcomingEvents.textColor = ColorConstant.textBlueColor
         self.lblUpcomingEvents.font = _theme.muliFont(size: 16, style: .muliBold)
-
+        
         self.actionsCollectionView.backgroundColor = UIColor.white
         self.actionsCollectionView.allowsMultipleSelection = false
         
@@ -89,7 +89,7 @@ class ActionStatusViewController: BaseViewController {
         
         self.upcomingEventsCollectionView.dataSource = self
         self.upcomingEventsCollectionView.delegate = self
-                        
+        
         self.actionsCollectionView.register(UINib.init(nibName: String.init(describing: DashboardCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "serviceCell")
         self.statusCollectionView.register(UINib.init(nibName: String.init(describing: DashboardCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "serviceCell")
         self.upcomingEventsCollectionView.register(UINib.init(nibName: String.init(describing: UpcomingEventCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: "upcomingCell")
@@ -111,16 +111,16 @@ class ActionStatusViewController: BaseViewController {
             return
         }
         
-//        self.lblServices.text = viewModel.servicesTitle
+        //        self.lblServices.text = viewModel.servicesTitle
         viewModel.pendingActions.bindAndFire { count in
             DispatchQueue.main.async {
-                self.lblPendingActions.text = "\(count) pending actions"
+                self.lblPendingActions.text = "\(count) Active Services"
             }
         }
         
         viewModel.pendingStatus.bindAndFire { count in
             DispatchQueue.main.async {
-                self.lblPendingStatus.text = "\(count) status"
+                self.lblPendingStatus.text = "\(count) Inactive Services"
             }
         }
         
@@ -170,7 +170,7 @@ class ActionStatusViewController: BaseViewController {
             self.statusCollectionView.reloadData()
         }
     }
-
+    
     func updateData() {
         viewModel?.fetchBidCount(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId)
     }
@@ -206,7 +206,7 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
             }
             
             cell.eventImageView.image = imageObjects[indexPath.row].image
-                    
+            
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "serviceCell", for: indexPath) as? DashboardCollectionViewCell else {
@@ -216,8 +216,10 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
             var item: BidCount!
             if collectionView == actionsCollectionView {
                 item = viewModel!.getActionCountItem(for: indexPath.row)
+                self.setCellView(cell: cell, isActive: true)
             } else {
                 item = viewModel!.getStatusCountItem(for: indexPath.row)
+                self.setCellView(cell: cell, isActive: false)
             }
             
             cell.lblCounter.text = "\(item.count)"
@@ -225,14 +227,12 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
             
             cell.setCornerRadius()
             cell.setShadow()
-            
-            self.setCellView(cell: cell)
-            
+                        
             return cell
         }
     }
     
-    func setCellView(cell: DashboardCollectionViewCell) {
+    func setCellView(cell: DashboardCollectionViewCell, isActive: Bool) {
         cell.lblTitle.textColor = ColorConstant.textPrimary
         cell.lblCounter.textColor = ColorConstant.textPrimary
         
@@ -240,7 +240,7 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
         cell.lblCounter.font = _theme.muliFont(size: 22, style: .muliBold)
         
         cell.backgroundColor = UIColor.white
-        cell.cellBackgroundView.backgroundColor = ColorConstant.actionCardBackgroundColor
+        cell.cellBackgroundView.backgroundColor = isActive ? ColorConstant.actionCardBackgroundColor : UIColor.white
         cell.contentView.isUserInteractionEnabled = true
     }
     
@@ -251,7 +251,7 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
                 self.delegate?.actionPerformedOnCount(label: viewModel!.actionBidCountList.value[indexPath.row].apiLabel)
             }
         } else {
-//            self.delegate?.statusPerformedOnCount(label: "")
+            //            self.delegate?.statusPerformedOnCount(label: "")
         }
     }
     

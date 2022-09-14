@@ -54,15 +54,14 @@ class DashboardViewController: BaseViewController {
                 
         setDataToUI()
         styleUI()
-        addMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.clearNavigationBar()
+        self.addMenuButton();
         
-        self.setStatusBarColor(UIColor.clear)
         actionStatusController?.setDataToUI()
     }
     

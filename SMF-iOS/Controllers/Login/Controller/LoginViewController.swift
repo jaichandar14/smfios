@@ -210,7 +210,7 @@ class LoginViewController: BaseViewController {
             } else {
                 DispatchQueue.main.async {
                     CVProgressHUD.hideProgressHUD()
-                    self?.showAlert(withTitle: "Sign in failed", withMessage: "Something went wrong. Please try again!", isDefault: true, actions: [])
+                    self?.showAlert(withTitle: "Sign in failed", withMessage: "Invalid credentials. Please try again!", isDefault: true, actions: [])
                 }
             }
         }
@@ -262,6 +262,10 @@ extension LoginViewController: UITextFieldDelegate {
         }
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
+    }
+    
     func setEmailError(_ textField: UITextField, isError: Bool) {
         UIView.animate(withDuration: 0.25, animations: {
             self.setSignInButton(enabled: !isError)
@@ -280,7 +284,7 @@ extension LoginViewController: UITextFieldDelegate {
     
     func setTextField(_ view: UIView, isValid: Bool) {
         view.layer.masksToBounds = true
-        view.layer.borderWidth = 2
+        view.layer.borderWidth = 1
         view.layer.cornerRadius = 2
         view.layer.borderColor = isValid ? UIColor.lightGray.cgColor : _theme.errorColor.cgColor
     }

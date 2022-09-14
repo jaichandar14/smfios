@@ -8,11 +8,17 @@
 import UIKit
 
 enum MenuKey {
-    case dashboard, availability, logout
+    case dashboard, availability, divider, logout
 }
 
-struct SideMenuModel {
+class SideMenuModel {
     var key: MenuKey
-    var icon: UIImage
+    var icon: UIImage?
     var title: String
+    
+    init(key: MenuKey, icon: UIImage?, title: String) {
+        self.key = key
+        self.icon = icon
+        self.title = title
+    }
 }

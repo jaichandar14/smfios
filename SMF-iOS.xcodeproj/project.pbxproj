@@ -84,6 +84,10 @@
 		E64D5067281DB8CF001DB406 /* OTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64D5066281DB8CF001DB406 /* OTPViewModel.swift */; };
 		E64D5069281DBA51001DB406 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64D5068281DBA51001DB406 /* OTPTextField.swift */; };
 		E64D506B281DBB2F001DB406 /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64D506A281DBB2E001DB406 /* OTPStackView.swift */; };
+		E64FEE9728D191E600E63383 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64FEE9628D191E600E63383 /* Toast.swift */; };
+		E64FEE9928D1924600E63383 /* ToastConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64FEE9828D1924600E63383 /* ToastConstants.swift */; };
+		E64FEE9D28D202A200E63383 /* DividerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64FEE9B28D202A200E63383 /* DividerTableViewCell.swift */; };
+		E64FEE9E28D202A200E63383 /* DividerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E64FEE9C28D202A200E63383 /* DividerTableViewCell.xib */; };
 		E65CCD40281FB7D500A49AEE /* DashboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD3E281FB7D500A49AEE /* DashboardCollectionViewCell.swift */; };
 		E65CCD41281FB7D500A49AEE /* DashboardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD3F281FB7D500A49AEE /* DashboardCollectionViewCell.xib */; };
 		E65CCD44281FDB3F00A49AEE /* ActionStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD42281FDB3F00A49AEE /* ActionStatusViewController.swift */; };
@@ -248,6 +252,10 @@
 		E64D5066281DB8CF001DB406 /* OTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPViewModel.swift; sourceTree = "<group>"; };
 		E64D5068281DBA51001DB406 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		E64D506A281DBB2E001DB406 /* OTPStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
+		E64FEE9628D191E600E63383 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		E64FEE9828D1924600E63383 /* ToastConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastConstants.swift; sourceTree = "<group>"; };
+		E64FEE9B28D202A200E63383 /* DividerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerTableViewCell.swift; sourceTree = "<group>"; };
+		E64FEE9C28D202A200E63383 /* DividerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DividerTableViewCell.xib; sourceTree = "<group>"; };
 		E65CCD3E281FB7D500A49AEE /* DashboardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCollectionViewCell.swift; sourceTree = "<group>"; };
 		E65CCD3F281FB7D500A49AEE /* DashboardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCollectionViewCell.xib; sourceTree = "<group>"; };
 		E65CCD42281FDB3F00A49AEE /* ActionStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStatusViewController.swift; sourceTree = "<group>"; };
@@ -557,6 +565,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E64FEE9A28D1947500E63383 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				E64FEE9628D191E600E63383 /* Toast.swift */,
+				E64FEE9828D1924600E63383 /* ToastConstants.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		E65CCD46281FDC4B00A49AEE /* ActionsListController */ = {
 			isa = PBXGroup;
 			children = (
@@ -749,6 +766,8 @@
 			children = (
 				E68CCF2728A60D7200EF24FC /* SideMenuCell.xib */,
 				E68CCF2828A60D7200EF24FC /* SideMenuCell.swift */,
+				E64FEE9C28D202A200E63383 /* DividerTableViewCell.xib */,
+				E64FEE9B28D202A200E63383 /* DividerTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -839,6 +858,7 @@
 		E6C7B7CE281460C300E5C889 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				E64FEE9A28D1947500E63383 /* Toast */,
 				E6F2EEFA28A680810064DF61 /* CVProgress */,
 				E6A3943D2837F33F00A258D5 /* Progress */,
 				E6F4840C28353640006AF21D /* Model */,
@@ -1144,6 +1164,7 @@
 				E634F84A2839FC94006323C0 /* BidInfoDetailsViewController.xib in Resources */,
 				E632FF922823A3C400A404E7 /* Raleway-ThinItalic.ttf in Resources */,
 				E6A2F8A628B48DC200E1C917 /* CountryPickerViewController.xib in Resources */,
+				E64FEE9E28D202A200E63383 /* DividerTableViewCell.xib in Resources */,
 				E65CCD4F281FDC9200A49AEE /* ActionsListViewController.xib in Resources */,
 				E6AFF00428B8D2DB00933E37 /* qa_amplifyconfiguration.json in Resources */,
 				E6C24BE9286749F80044E5B5 /* ListCloseTableViewCell.xib in Resources */,
@@ -1267,6 +1288,8 @@
 				E6B727CD289A81F40065204C /* AmplifyLoginUtility.swift in Sources */,
 				E68CCF2428A60C6100EF24FC /* SideMenuViewController.swift in Sources */,
 				E6F731C928155E150062318F /* UIViewControllerExtension.swift in Sources */,
+				E64FEE9728D191E600E63383 /* Toast.swift in Sources */,
+				E64FEE9928D1924600E63383 /* ToastConstants.swift in Sources */,
 				0FB9F2F628465F2A00843C8F /* CalendarDateCollectionViewCell.swift in Sources */,
 				E6A3943F2837F37F00A258D5 /* CircularProgressView.swift in Sources */,
 				E67753EF283756350068D59D /* ActionStatusViewModel.swift in Sources */,
@@ -1280,6 +1303,7 @@
 				E65CCD4A281FDC8100A49AEE /* StatusListViewController.swift in Sources */,
 				E6ABAD0028A37F980022FAC2 /* LoadingSplashViewController.swift in Sources */,
 				E6CEC48B2812F51B0046D0A3 /* AppDelegate.swift in Sources */,
+				E64FEE9D28D202A200E63383 /* DividerTableViewCell.swift in Sources */,
 				E64D5067281DB8CF001DB406 /* OTPViewModel.swift in Sources */,
 				E64D506B281DBB2F001DB406 /* OTPStackView.swift in Sources */,
 				E6F731BD28154EF30062318F /* LoginViewModel.swift in Sources */,

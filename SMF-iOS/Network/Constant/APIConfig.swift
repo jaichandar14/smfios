@@ -14,6 +14,8 @@ class APIConfig {
     
 //    static let baseURL: String = "https://qa1.festocloud.com/"
 //    static let envIdentifier = "festo-"
+
+    static let loginAPIURL = baseURL + "\(envIdentifier)no-auth/api/authentication/user-info"
     
     static let appAuthenticationURL        = baseURL + "\(envIdentifier)user/api/app-authentication/login"
     static let serviceCountURL             = baseURL + "\(envIdentifier)service/api/app-services/service-counts"

@@ -256,9 +256,12 @@ extension LandingViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int, key: MenuKey) {
         switch (key) {
         case .dashboard:
-            self.showViewController(controller: DashboardViewController.create())
+            self.showViewController(controller: UINavigationController(rootViewController: DashboardViewController.create()))
             break
         case .availability:
+            //
+            break
+        case .divider:
             //
             break
         case .logout:

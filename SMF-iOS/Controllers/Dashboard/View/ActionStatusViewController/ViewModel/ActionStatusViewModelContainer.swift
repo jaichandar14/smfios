@@ -51,14 +51,15 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
                 var pendingActions: [BidCount] = []
                 var statusItems: [BidCount] = []
                 if let respData = response?["data"] as? [String: Any] {
+                    print("Bidding count:: \(respData)")
                     respData.forEach { (key, value) in
-                        if let intData = value as? Int {
-                            if key == "actionCount" {
-                                self.pendingActions.value = intData
-                            } else if key == "statusCount" {
-                                self.pendingStatus.value = intData
-                            } else {
-                                let (status, title, apiLabel) = self.getItemStatus(key: key)
+                        let intData = value as? Int ?? 0
+                        if key == "actionCount" {
+                            self.pendingActions.value = intData
+                        } else if key == "statusCount" {
+                            self.pendingStatus.value = intData
+                        } else {
+                            if let (status, title, apiLabel) = self.getItemStatus(key: key) {
                                 if status == .isAction {
                                     pendingActions.append(BidCount(key: key, title: title, count: intData, apiLabel: apiLabel))
                                 } else {
@@ -69,6 +70,19 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
                     }
                     self.actionBidCountList.value = pendingActions
                     self.statusBidCountList.value = statusItems
+                    
+                    var activeServices = 0
+                    pendingActions.forEach { bidCount in
+                        activeServices += bidCount.count
+                    }
+                    
+                    var inactiveServices = 0
+                    statusItems.forEach { status in
+                        inactiveServices += status.count
+                    }
+                    self.pendingActions.value = activeServices
+                    self.pendingStatus.value = inactiveServices
+                    
                 } else {
                     self.bidCountFetchError.value = "Data could not be parsed"
                 }
@@ -83,16 +97,18 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
         case isStatus
     }
     
-    func getItemStatus(key: String) -> (ActionStatusCheck, String, BiddingStatus) {
+    func getItemStatus(key: String) -> (ActionStatusCheck, String, BiddingStatus)? {
         switch key {
         case "bidRequestedCount":
             return (.isAction, "New request", .bidRequested)
         case "bidSubmittedCount":
-            return (.isAction, "Bid Submitted", .bidSubmitted)
+            return (.isAction, "Quote Sent", .bidSubmitted)
         case "pendingForQuoteCount":
             return (.isAction, "Pending Quote", .pendingForQuote)
         case "wonBidCount":
             return (.isAction, "Won Bid", .none)
+        case "serviceInProgressCount":
+            return (.isAction, "Service Progress", .serviceInProgress)
             
         case "bidRejectedCount":
             return (.isStatus, "Bid Rejected", .bidRejected)
@@ -101,9 +117,9 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
         case "bidTimedOutCount":
             return (.isStatus, "Timed Out", .none)
         case "serviceDoneCount":
-            return (.isStatus, "Request closed", .none)
+            return (.isStatus, "Service closed", .none)
         default:
-            return (.isStatus, "", .none)
+            return nil
         }
     }
     

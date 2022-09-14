@@ -46,6 +46,21 @@ class BaseController: UIViewController {
     }
     
     func clearNavigationBar() {
+        if #available(iOS 13.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationController?.navigationBar.standardAppearance.backgroundColor = .clear
+            navigationController?.navigationBar.standardAppearance.backgroundEffect = nil
+            navigationController?.navigationBar.standardAppearance.shadowImage = UIImage()
+            navigationController?.navigationBar.standardAppearance.shadowColor = .clear
+            navigationController?.navigationBar.standardAppearance.backgroundImage = UIImage()
+            navigationController?.navigationBar.scrollEdgeAppearance = nil
+            
+        } else {
+            // Fallback on earlier versions
+            navigationController?.navigationBar.barTintColor = UIColor.clear
+            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        }
+        
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
@@ -84,13 +99,14 @@ class BaseController: UIViewController {
             appearance.backgroundColor = backgroundColor
             appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
             appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-            //            let naviFont = UIFont(name: "Chalkduster", size: 30) ?? .systemFont(ofSize: 30)
-            //            appearance.titleTextAttributes = [NSAttributedString.Key.font: naviFont]
             
+            navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+            navigationController?.navigationBar.shadowImage = nil
             navigationController?.navigationBar.prefersLargeTitles = false
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
-            //navigationController?.navigationBar.compactAppearance = appearance
+            
+            
         } else {
             // Fallback on earlier versions
             navigationController?.navigationBar.barTintColor = backgroundColor
@@ -115,12 +131,12 @@ class BaseController: UIViewController {
     }
     
     func setUpViewShadow(_ view: UIView, backgroundColor: UIColor, radius: CGFloat, shadowRadius: CGFloat, isHavingBorder: Bool) {
-                
+        
         view.backgroundColor = backgroundColor
         
         view.layer.masksToBounds = false
         view.layer.cornerRadius = radius
-                
+        
         if isHavingBorder {
             view.layer.borderWidth = 1
             view.layer.borderColor = UIColor.gray.withAlphaComponent(0.3).cgColor
