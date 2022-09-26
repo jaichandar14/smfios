@@ -8,8 +8,8 @@
 import UIKit
 
 protocol ActionStatusDelegate {
-    func actionPerformedOnCount(label: BiddingStatus)
-    func statusPerformedOnCount(label: BiddingStatus)
+    func actionPerformedOnCount(bidCount: BidCount)
+    func statusPerformedOnCount(bidCount: BidCount)
 }
 
 class ActionStatusViewController: BaseViewController {
@@ -248,10 +248,12 @@ extension ActionStatusViewController: UICollectionViewDataSource, UICollectionVi
         print("Collection view did select")
         if collectionView == self.actionsCollectionView {
             if viewModel!.actionBidCountList.value[indexPath.row].apiLabel != .none {
-                self.delegate?.actionPerformedOnCount(label: viewModel!.actionBidCountList.value[indexPath.row].apiLabel)
+                self.delegate?.actionPerformedOnCount(bidCount: viewModel!.actionBidCountList.value[indexPath.row])
             }
         } else {
-            //            self.delegate?.statusPerformedOnCount(label: "")
+            if viewModel!.actionBidCountList.value[indexPath.row].apiLabel != .none {
+                self.delegate?.statusPerformedOnCount(bidCount: viewModel!.statusBidCountList.value[indexPath.row])
+            }
         }
     }
     

@@ -92,12 +92,8 @@
 		E65CCD41281FB7D500A49AEE /* DashboardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD3F281FB7D500A49AEE /* DashboardCollectionViewCell.xib */; };
 		E65CCD44281FDB3F00A49AEE /* ActionStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD42281FDB3F00A49AEE /* ActionStatusViewController.swift */; };
 		E65CCD45281FDB3F00A49AEE /* ActionStatusViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD43281FDB3F00A49AEE /* ActionStatusViewController.xib */; };
-		E65CCD4A281FDC8100A49AEE /* StatusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD48281FDC8100A49AEE /* StatusListViewController.swift */; };
-		E65CCD4B281FDC8100A49AEE /* StatusListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD49281FDC8100A49AEE /* StatusListViewController.xib */; };
 		E65CCD4E281FDC9200A49AEE /* ActionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD4C281FDC9200A49AEE /* ActionsListViewController.swift */; };
 		E65CCD4F281FDC9200A49AEE /* ActionsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD4D281FDC9200A49AEE /* ActionsListViewController.xib */; };
-		E65CCD52281FE00C00A49AEE /* StatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD50281FE00C00A49AEE /* StatusTableViewCell.swift */; };
-		E65CCD53281FE00C00A49AEE /* StatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD51281FE00C00A49AEE /* StatusTableViewCell.xib */; };
 		E65CCD5A2820262600A49AEE /* ActionsCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65CCD582820262600A49AEE /* ActionsCardTableViewCell.swift */; };
 		E65CCD5B2820262600A49AEE /* ActionsCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E65CCD592820262600A49AEE /* ActionsCardTableViewCell.xib */; };
 		E6659A47283B92C8008650C1 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6659A45283B92C8008650C1 /* OrderDetailViewController.swift */; };
@@ -260,12 +256,8 @@
 		E65CCD3F281FB7D500A49AEE /* DashboardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardCollectionViewCell.xib; sourceTree = "<group>"; };
 		E65CCD42281FDB3F00A49AEE /* ActionStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionStatusViewController.swift; sourceTree = "<group>"; };
 		E65CCD43281FDB3F00A49AEE /* ActionStatusViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionStatusViewController.xib; sourceTree = "<group>"; };
-		E65CCD48281FDC8100A49AEE /* StatusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusListViewController.swift; sourceTree = "<group>"; };
-		E65CCD49281FDC8100A49AEE /* StatusListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusListViewController.xib; sourceTree = "<group>"; };
 		E65CCD4C281FDC9200A49AEE /* ActionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsListViewController.swift; sourceTree = "<group>"; };
 		E65CCD4D281FDC9200A49AEE /* ActionsListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionsListViewController.xib; sourceTree = "<group>"; };
-		E65CCD50281FE00C00A49AEE /* StatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewCell.swift; sourceTree = "<group>"; };
-		E65CCD51281FE00C00A49AEE /* StatusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatusTableViewCell.xib; sourceTree = "<group>"; };
 		E65CCD582820262600A49AEE /* ActionsCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsCardTableViewCell.swift; sourceTree = "<group>"; };
 		E65CCD592820262600A49AEE /* ActionsCardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionsCardTableViewCell.xib; sourceTree = "<group>"; };
 		E6659A45283B92C8008650C1 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
@@ -588,17 +580,6 @@
 			path = ActionsListController;
 			sourceTree = "<group>";
 		};
-		E65CCD47281FDC6500A49AEE /* StatusListController */ = {
-			isa = PBXGroup;
-			children = (
-				E65CCD48281FDC8100A49AEE /* StatusListViewController.swift */,
-				E65CCD49281FDC8100A49AEE /* StatusListViewController.xib */,
-				E65CCD50281FE00C00A49AEE /* StatusTableViewCell.swift */,
-				E65CCD51281FE00C00A49AEE /* StatusTableViewCell.xib */,
-			);
-			path = StatusListController;
-			sourceTree = "<group>";
-		};
 		E676F251281AA5C4000DD648 /* Operation */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,7 +693,6 @@
 			children = (
 				0FCA8711283CCF6500EE6907 /* ChangeInMind */,
 				E63269DA2822A21F008306B7 /* QuoteDetailsPopUp */,
-				E65CCD47281FDC6500A49AEE /* StatusListController */,
 				E65CCD46281FDC4B00A49AEE /* ActionsListController */,
 				E67CC641281E4E1A00BB6D53 /* ViewModel */,
 				E67CC640281E4E0B00BB6D53 /* Controller */,
@@ -1145,9 +1125,7 @@
 				E632FFA02823A3C400A404E7 /* Raleway-LightItalic.ttf in Resources */,
 				E632FF992823A3C400A404E7 /* Raleway-BoldItalic.ttf in Resources */,
 				E632FF962823A3C400A404E7 /* Raleway-Regular.ttf in Resources */,
-				E65CCD4B281FDC8100A49AEE /* StatusListViewController.xib in Resources */,
 				0FA426BE284B848C00F56A38 /* CalendarExpandCollapseTableViewCell.xib in Resources */,
-				E65CCD53281FE00C00A49AEE /* StatusTableViewCell.xib in Resources */,
 				E632FF7A2823A26F00A404E7 /* Muli-ExtraLight.ttf in Resources */,
 				0F474679284DBC10003059F5 /* CalendarEmptyDataTableViewCell.xib in Resources */,
 				E632FF9D2823A3C400A404E7 /* Raleway-ExtraBoldItalic.ttf in Resources */,
@@ -1294,13 +1272,11 @@
 				E6A3943F2837F37F00A258D5 /* CircularProgressView.swift in Sources */,
 				E67753EF283756350068D59D /* ActionStatusViewModel.swift in Sources */,
 				E602F401282291670017C346 /* DictionaryExtension.swift in Sources */,
-				E65CCD52281FE00C00A49AEE /* StatusTableViewCell.swift in Sources */,
 				E676F250281A9A90000DD648 /* APIRequestExecutor.swift in Sources */,
 				E676F25B281AACD3000DD648 /* Cookie.swift in Sources */,
 				E6F731BF2815505C0062318F /* LoginModel.swift in Sources */,
 				E67C380F2816A39E00EF5353 /* Connectivity.swift in Sources */,
 				0F474678284DBC10003059F5 /* CalendarEmptyDataTableViewCell.swift in Sources */,
-				E65CCD4A281FDC8100A49AEE /* StatusListViewController.swift in Sources */,
 				E6ABAD0028A37F980022FAC2 /* LoadingSplashViewController.swift in Sources */,
 				E6CEC48B2812F51B0046D0A3 /* AppDelegate.swift in Sources */,
 				E64FEE9D28D202A200E63383 /* DividerTableViewCell.swift in Sources */,

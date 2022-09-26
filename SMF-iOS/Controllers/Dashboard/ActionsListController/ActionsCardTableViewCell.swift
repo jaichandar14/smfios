@@ -29,16 +29,18 @@ class ActionsCardTableViewCell: UITableViewCell {
     @IBOutlet weak var lblEventDate: UILabel!
     @IBOutlet weak var lblServiceDate: UILabel!
     
-//    @IBOutlet weak var lblRequestType: UILabel!
+    //    @IBOutlet weak var lblRequestType: UILabel!
     
     @IBOutlet weak var btnDislike: UIButton!
     @IBOutlet weak var btnLike: UIButton!
     
+    @IBOutlet weak var lblNextStatus: UILabel!
     @IBOutlet weak var btnNext: UIButton!
     
     @IBOutlet weak var btnChangeMind: UIButton!
     @IBOutlet weak var bidContainerView: UIView!
     @IBOutlet weak var cellContainerView: UIView!
+    @IBOutlet weak var btnServiceWorkFlow: UIButton!
     
     private var _theme: Theme!
     private var bidInfo: BidStatusInfo!
@@ -51,14 +53,16 @@ class ActionsCardTableViewCell: UITableViewCell {
         setUpViews()
         setUpViewShadow(cellContainerView, backgroundColor: UIColor.white, radius: 10, shadowRadius: 10, isHavingBorder: false)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
     func setUpViews() {
+        self.selectionStyle = .none
+        
         lblEventName.textColor = _theme.textColor
         lblEventID.textColor = _theme.eventIDTextColor
         lblEventType.textColor = _theme.textColor
@@ -73,7 +77,7 @@ class ActionsCardTableViewCell: UITableViewCell {
         lblBidCutOffTitle.textColor = _theme.textGreyColor
         lblCutOffDate.textColor = _theme.textColor
         
-//        lblRequestType.textColor = _theme.textColor
+        //        lblRequestType.textColor = _theme.textColor
         
         lblEventName.font = _theme.muliFont(size: 16, style: .muliBold)
         lblQuoteTitle.font = _theme.muliFont(size: 12, style: .muli)
@@ -87,16 +91,17 @@ class ActionsCardTableViewCell: UITableViewCell {
         lblBidCutOffTitle.font = _theme.muliFont(size: 12, style: .muli)
         lblCutOffDate.font = _theme.muliFont(size: 16, style: .muliSemiBold)
         
-//        lblRequestType.font = _theme.muliFont(size: 14, style: .muli)
+        //        lblRequestType.font = _theme.muliFont(size: 14, style: .muli)
         
         lblRemainingDate.textColor = ColorConstant.greyColor2
         lblRemainingDate.font = _theme.muliFont(size: 12, style: .muliSemiBold)
         lblRemainingDate.text = "22"
-
+        
         self.btnDislike.setTitleColor(ColorConstant.disLikeBtnActionColor, for: .normal)
         
-        self.btnNext.setAttributedTitle(getNextButtonTitle(), for: .normal)
-        setUpButtonView(self.btnNext, backgroundColor: _theme.primaryColor, size: 34, setBackgroundColor: true)
+        self.btnNext.backgroundColor = .clear
+        //        self.btnNext.setAttributedTitle(getNextButtonTitle(), for: .normal)
+        //        setUpButtonView(self.btnNext, backgroundColor: _theme.primaryColor, size: 34, setBackgroundColor: true)
         setUpButtonView(self.btnDislike, backgroundColor: ColorConstant.disLikeBtnActionColor, size: 40, setBackgroundColor: false)
         setUpButtonView(self.btnLike, backgroundColor: ColorConstant.likeBtnActionColor, size: 40, setBackgroundColor: true)
         
@@ -109,6 +114,9 @@ class ActionsCardTableViewCell: UITableViewCell {
         bidContainerView.layer.cornerRadius = 8
         bidContainerView.layer.borderWidth = 1
         bidContainerView.layer.borderColor = UIColor().colorFromHex("#D8F2FF").cgColor
+        
+        self.lblNextStatus.textColor = ColorConstant.textColor
+        self.lblNextStatus.font = _theme.muliFont(size: 12, style: .muliSemiBold)
         
     }
     
@@ -145,12 +153,12 @@ class ActionsCardTableViewCell: UITableViewCell {
     }
     
     func setUpViewShadow(_ view: UIView, backgroundColor: UIColor, radius: CGFloat, shadowRadius: CGFloat, isHavingBorder: Bool) {
-                
+        
         view.backgroundColor = backgroundColor
         
         view.layer.masksToBounds = false
         view.layer.cornerRadius = radius
-                
+        
         if isHavingBorder {
             view.layer.borderWidth = 1
             view.layer.borderColor = UIColor.gray.withAlphaComponent(0.3).cgColor
@@ -171,21 +179,97 @@ class ActionsCardTableViewCell: UITableViewCell {
         lblEventName.text = bidInfo.eventName
         lblEventID.text = "\(bidInfo.eventServiceDescriptionId)"
         lblEventType.text =  "\(bidInfo.branchName) - \(bidInfo.serviceName)"
-        lblEventDate.text = bidInfo.eventDate.toSMFShortFormat()
-        lblServiceDate.text = bidInfo.serviceDate.toSMFShortFormat()
-//        lblRequestType.text = bidInfo.
-        if status != .bidRequested {
-            if bidInfo.costingType == .fixed {
-                lblQuotePrice.text = bidInfo.cost == "" ? "" : "$\(bidInfo.cost)"
-            } else {
-                lblQuotePrice.text = bidInfo.latestBidValue == nil ? "" : "$\(bidInfo.latestBidValue!)"
-            }
+        lblEventDate.text = bidInfo.eventDate.toSMFFullFormatDate()
+        lblServiceDate.text = bidInfo.serviceDate.toSMFFullFormatDate()
+        
+        if bidInfo.costingType == .bidding {
+            lblQuotePrice.text = bidInfo.latestBidValue == nil ? "" : "\(bidInfo.currencyType?.currency ?? "$")\(bidInfo.latestBidValue!)"            
         } else {
-            lblQuotePrice.text = bidInfo.cost == "" ? "" : "$\(bidInfo.cost)"
+            lblQuotePrice.text = bidInfo.cost == "" ? "" : "\(bidInfo.currencyType?.currency ?? "$")\(bidInfo.cost)"
         }
+        
+        
         lblRemainingDate.text = bidInfo.biddingCutOffDate.formatDateStringTo(format: "dd")
         lblCutOffDate.text = bidInfo.biddingCutOffDate.formatDateStringTo(format: "MMM")
         self.circularProgressView.setProgressWithAnimation(duration: 1.0, value: Float(bidInfo.timeLeft) / 100)
+        
+        self.btnServiceWorkFlow.setTitleColor(.white, for: .normal)
+        self.btnServiceWorkFlow.backgroundColor = _theme.accentColor
+        self.btnServiceWorkFlow.layer.cornerRadius = 6
+        
+        switch self.status {
+        case .bidRequested:
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .pendingForQuote:
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .bidSubmitted:
+            self.btnChangeMind.isHidden = false
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .wonBid:
+            self.btnChangeMind.isHidden = true
+            self.btnServiceWorkFlow.isHidden = false
+            self.btnServiceWorkFlow.setTitle("Start Service", for: .normal)
+            
+            break
+        case .serviceInProgress:
+            self.btnChangeMind.isHidden = true
+            self.btnServiceWorkFlow.isHidden = false
+            self.btnServiceWorkFlow.setTitle("Initiate Closer", for: .normal)
+            break
+        case .pendingReview:
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .serviceClosed:
+            self.btnChangeMind.isHidden = true
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .bidRejected:
+            self.btnChangeMind.isHidden = false
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .bidTimedOut:
+            self.btnChangeMind.isHidden = true
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        case .lostBid:
+            self.btnChangeMind.isHidden = true
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        default:
+            self.btnChangeMind.isHidden = true
+            self.btnServiceWorkFlow.isHidden = true
+            break
+        }
+        
+        
+        switch self.status {
+        case .bidRequested, .pendingForQuote:
+            self.lblNextStatus.text = "Order Details"
+            break
+        case .bidSubmitted:
+            self.lblNextStatus.text = "Bidding in Progress"
+            break
+        case .wonBid:
+            self.lblNextStatus.text = "Won bid"
+            break
+        case .serviceInProgress:
+            self.lblNextStatus.text = "Service in Progress"
+            break
+            
+            /// Status items
+        case .serviceClosed:
+            self.lblNextStatus.text = "Service completed"
+            break
+        case  .bidRejected, .bidTimedOut, .lostBid:
+        
+            self.lblNextStatus.text = "Order Details"
+            break
+        default:
+            self.lblNextStatus.text = ""
+        }
     }
     
     
@@ -202,7 +286,11 @@ class ActionsCardTableViewCell: UITableViewCell {
     }
     
     @IBAction func btnNextAction(_ sender: UIButton) {
-        delegate?.eventDetailsView(bidInfo: self.bidInfo)
+        delegate?.eventDetailsView(bidInfo: self.bidInfo, status: self.status)
+    }
+    
+    @IBAction func btnServiceWorkFlowTapped(_ sender: UIButton) {
+        self.delegate?.serviceWorkFlow(bidInfo: self.bidInfo, status: self.status)
     }
     
     @IBAction func btnChangeInMindAction(_ sender: UIButton) {

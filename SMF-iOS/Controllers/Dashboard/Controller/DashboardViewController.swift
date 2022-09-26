@@ -12,7 +12,6 @@ import Amplify
 class DashboardViewController: BaseViewController {
     
     var actionStatusController: ActionStatusViewController?
-    var statusListController: StatusListViewController?
     var actionsListController: ActionsListViewController?
     
     @IBOutlet weak var cornerRadiusView: UIView!
@@ -29,9 +28,6 @@ class DashboardViewController: BaseViewController {
     @IBOutlet weak var arrowDown1: UILabel!
     @IBOutlet weak var arrowDown2: UILabel!
     @IBOutlet weak var servicesCollectionView: UICollectionView!
-    
-    var bottomSemiCirleLayer: CAShapeLayer = CAShapeLayer()
-    var rightSemiCirleLayer: CAShapeLayer = CAShapeLayer()
     
     var viewModel: DashboardViewModel? {
         didSet {
@@ -73,17 +69,6 @@ class DashboardViewController: BaseViewController {
         self.btnBranch.setBorderedButton(textColor: _theme.textColor, borderSide: .bottom)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        let width = self.serviceContainerView.bounds.size.width
-//        let height = self.serviceContainerView.bounds.size.height
-//        let radius: CGFloat = width + 20
-//        let rightRadius: CGFloat = 260
-//        self.addSemiCircle(rect: CGRect(x: width - (rightRadius / 2), y: -(height / 2), width: rightRadius, height: rightRadius), view: self.serviceContainerView, shape: self.rightSemiCirleLayer, name: "RightSemiCircle", radius: 130)
-//        self.addSemiCircle(rect: CGRect(x: -40, y: height / 2, width: radius, height: radius), view: self.serviceContainerView, shape: self.bottomSemiCirleLayer, name: "BottomSemiCircle", radius: radius)
-    }
-    
     func addMenuButton() {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "dashboard_menu"), for: .normal)
@@ -112,24 +97,6 @@ class DashboardViewController: BaseViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    func addSemiCircle(rect: CGRect, view: UIView, shape: CAShapeLayer, name: String, radius: CGFloat) {
-        let circlePath = UIBezierPath(roundedRect: rect, cornerRadius: radius)
-        
-        shape.path = circlePath.cgPath
-        shape.fillColor = ColorConstant.dashboardCircleColor.cgColor
-        
-        shape.name = name
-        
-        if !(view.layer.sublayers?.contains(where: {$0.name == name}) ?? false) {
-            view.layer.addSublayer(shape)
-        }
-        
-        self.serviceContainerView.bringSubviewToFront(self.servicesCollectionView)
-        self.serviceContainerView.bringSubviewToFront(self.lblCalendar)
-        self.serviceContainerView.bringSubviewToFront(self.btnCalendar)
-        self.serviceContainerView.bringSubviewToFront(self.btnRight)
     }
     
     func backButtonAction(_ sender: UIBarButtonItem) {
@@ -185,17 +152,11 @@ class DashboardViewController: BaseViewController {
         return actionsListController!
     }
     
-    func getStatusListController() -> StatusListViewController {
-        statusListController = StatusListViewController.create(dashboardViewModel: viewModel)
-        statusListController?.delegate = self
-        return statusListController!
-    }
-    
     func styleUI() {
         self.title = ""
         
         self.actionsListController?.delegate = self
-        self.statusListController?.delegate = self
+//        self.statusListController?.delegate = self
         
         self.lblEventOverview.textColor = UIColor.white
         self.lblCalendar.textColor = UIColor.white
@@ -331,6 +292,10 @@ class DashboardViewController: BaseViewController {
     }
     
     @IBAction func btnCalendarAction(_ sender: UIButton) {
+        self.navigateToCalendar()
+    }
+    
+    func navigateToCalendar() {
         let view = CalendarPickerViewController.create()
         view.dashboardViewModel = self.viewModel
         self.navigationController?.pushViewController(view, animated: true)
@@ -405,8 +370,38 @@ extension DashboardViewController: UICollectionViewDataSource, UICollectionViewD
     }
 }
 
-extension DashboardViewController: ActionListDelegate, StatusListDelegate, ChangeInMindDelegate {
-    func eventDetailsView(bidInfo: BidStatusInfo) {
+extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
+    func eventDetailsView(bidInfo: BidStatusInfo, status: BiddingStatus?) {
+        if let status = status {
+            switch status {
+            case .bidRequested, .pendingForQuote, .pendingReview:
+                self.navigateToOrderDetails(bidInfo: bidInfo)
+                break
+            case .bidSubmitted, .wonBid, .serviceInProgress, .serviceClosed:
+                self.navigateToBiddingStatus(bidInfo: bidInfo, status: status)
+                break
+            case .bidRejected, .bidTimedOut, .lostBid, .none:
+                self.navigateToOrderDetails(bidInfo: bidInfo)
+                break
+            }
+        } else {
+            self.navigateToOrderDetails(bidInfo: bidInfo)
+        }
+    }
+    
+    func serviceWorkFlow(bidInfo: BidStatusInfo, status: BiddingStatus?) {
+        print("Service work flow")
+    }
+    
+    func navigateToBiddingStatus(bidInfo: BidStatusInfo, status: BiddingStatus) {
+        let controller = BidInfoDetailsViewController()
+        controller.bidInfo = bidInfo
+        controller.bidStatus = status
+        controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func navigateToOrderDetails(bidInfo: BidStatusInfo) {
         let controller = OrderDetailViewController()
         controller.eventId = bidInfo.eventId
         controller.eventServiceDescId = bidInfo.eventServiceDescriptionId
@@ -458,7 +453,7 @@ extension DashboardViewController: ActionListDelegate, StatusListDelegate, Chang
             params: params,
             completion: {
                 let controller = BidInfoDetailsViewController()
-                controller.bidRequestId = bidInfo.bidRequestId
+                controller.bidInfo = bidInfo
                 controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
                 self.navigationController?.pushViewController(controller, animated: true)
             })
@@ -503,7 +498,7 @@ extension DashboardViewController: QuoteDetailsPopUpDelegate {
         viewModel?.acceptBid(requestId: bidInfo.bidRequestId, params: params, completion: {
             DispatchQueue.main.async {
                 let controller = BidInfoDetailsViewController()
-                controller.bidRequestId = bidInfo.bidRequestId
+                controller.bidInfo = bidInfo
                 controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -516,17 +511,23 @@ extension DashboardViewController: QuoteDetailsPopUpDelegate {
 }
 
 extension DashboardViewController: ActionStatusDelegate {
-    func actionPerformedOnCount(label: BiddingStatus) {
+    func actionPerformedOnCount(bidCount: BidCount) {
         let controller = actionsListController ?? getActionListController()
-        controller.status = label
+        controller.bidCount = bidCount
         controller.updateData()
         setContainer(with: controller)
     }
     
-    func statusPerformedOnCount(label: BiddingStatus) {
-        let controller = statusListController ?? getStatusListController()
-        controller.status = label
-        controller.updateData()
-        setContainer(with: controller)
+    func statusPerformedOnCount(bidCount: BidCount) {
+        switch bidCount.apiLabel {
+        case .serviceClosed, .bidRejected, .bidTimedOut, .lostBid:
+            let controller = actionsListController ?? getActionListController()
+            controller.bidCount = bidCount
+            controller.updateData()
+            setContainer(with: controller)
+            break
+        default:
+            print("Status not found: \(bidCount.apiLabel)")
+        }
     }
 }

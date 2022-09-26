@@ -194,6 +194,10 @@ class LoginViewController: BaseViewController {
                             CVProgressHUD.hideProgressHUD()
                             let otpController = OTPScreenViewController()
                             otpController.userName = userName
+                            otpController.clearFields = {
+                                self?.txtEmail.text = ""
+                                self?.txtMobileNo.text = ""
+                            }
                             self?.navigationController?.pushViewController(otpController, animated: true)
                         }
                         break
@@ -210,7 +214,11 @@ class LoginViewController: BaseViewController {
             } else {
                 DispatchQueue.main.async {
                     CVProgressHUD.hideProgressHUD()
-                    self?.showAlert(withTitle: "Sign in failed", withMessage: "Invalid credentials. Please try again!", isDefault: true, actions: [])
+                    if let error = response?["errorMessage"] as? String {
+                        self?.showAlert(withTitle: "Sign in failed", withMessage: error, isDefault: true, actions: [])
+                    } else {
+                        self?.showAlert(withTitle: "Sign in failed", withMessage: "Invalid credentials. Please try again!", isDefault: true, actions: [])
+                    }
                 }
             }
         }

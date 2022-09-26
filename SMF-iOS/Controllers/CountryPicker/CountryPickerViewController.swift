@@ -19,7 +19,7 @@ class CountryPickerViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self._countries = LoginViewModel(loginModel: LoginModel()).countries;
         self._searchedCountries = self._countries
     }
@@ -29,6 +29,7 @@ class CountryPickerViewController: BaseViewController {
         self.tableViewCountryPicker.dataSource = self
         self.tableViewCountryPicker.register(UINib(nibName: "CountryFlagTableViewCell", bundle: nil), forCellReuseIdentifier: "country_flag_cell")
         
+        self.textFieldSearch.delegate = self
         self.textFieldSearch.addTarget(self, action: #selector(self.searchTextDidChanged(_:)), for: .editingChanged)
     }
     
@@ -39,8 +40,12 @@ class CountryPickerViewController: BaseViewController {
     
     @objc func delayedSearchText() {
         let currentText = (self.textFieldSearch.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-        self._searchedCountries = self._countries.filter { country in
-            return country.title.containsIgnoringCase(find: currentText)
+        if currentText.isEmpty {
+            self._searchedCountries = self._countries
+        } else {
+            self._searchedCountries = self._countries.filter { country in
+                return country.title.containsIgnoringCase(find: currentText)
+            }
         }
         
         self.tableViewCountryPicker.reloadData()
@@ -57,7 +62,13 @@ class CountryPickerViewController: BaseViewController {
     func backButtonAction(_ sender: UIBarButtonItem) {
         //
     }
+    
+}
 
+extension CountryPickerViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
+    }
 }
 
 extension CountryPickerViewController: UITableViewDelegate, UITableViewDataSource {

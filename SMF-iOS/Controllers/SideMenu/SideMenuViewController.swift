@@ -126,7 +126,7 @@ extension SideMenuViewController: UITableViewDataSource {
         if self.menu[indexPath.row].key == .divider {
             return
         }
-        defaultHighlightedCell = indexPath.row
+        defaultHighlightedCell = 0//indexPath.row
         
         self.delegate?.selectedCell(indexPath.row, key: self.menu[indexPath.row].key)
         tableView.reloadData()

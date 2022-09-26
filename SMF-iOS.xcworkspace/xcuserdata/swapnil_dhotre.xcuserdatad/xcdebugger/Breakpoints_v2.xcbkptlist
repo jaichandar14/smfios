@@ -7,70 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F3CA2A88-8E65-4C00-BEF1-1F84F935B8CF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Dashboard/View/ActionStatusViewController/ViewModel/ActionStatusViewModelContainer.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "fetchBidCount(categoryId:vendorOnboardingId:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9FFB3FC0-CE8E-4DE3-8FED-08F7D584FF58"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Login/Controller/LoginViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "needAuthentication()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "286282E3-805A-4781-8712-317601A225D2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Login/Controller/LoginViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
-            landmarkName = "needAuthentication()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1F476423-672A-44EF-9BC3-390E400CC02F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Utility/AmplifyLoginUtility.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "confirmSignIn(otp:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "42EAA3E1-5ADD-4E47-BAA9-A6CA68B9EC79"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -78,8 +14,8 @@
             filePath = "SMF-iOS/Controllers/OTP/Controller/OTPScreenViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "fetchAuthToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +30,8 @@
             filePath = "SMF-iOS/Controllers/OTP/Controller/OTPScreenViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "fetchAuthToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -103,112 +39,201 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "043F28DE-A03B-43B9-9EF3-F892BCEA0E05"
+            uuid = "04190DDD-0231-48D6-9F9F-DE6AF0CFAD28"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/OTP/Controller/OTPScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "btnSubmitTapped(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "70BC0B24-AC46-4742-8CC6-F473D71A8785"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/LandingController/LandingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
+            landmarkName = "selectedCell(_:key:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6888DAA0-092D-474F-AE95-D8B578D64915"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/LandingController/LandingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "selectedCell(_:key:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "89334F34-F588-4F1D-AA13-AED1DCF1352C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/BidInfoDetails/ViewModel/BidInfoDetailsViewModelContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "fetchBidDetailsList(bidRequestId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "523BFDEE-9BA6-429A-8B53-90DF11408876"
+            shouldBeEnabled = "Yes"
+            nameForDebugger = "CheckbasisonbidrequestId"
+            condition = "bidRequestId == 1735"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/Dashboard/ActionsListController/ViewModel/ActionListModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "init(from:)"
+            landmarkType = "7">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent>
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D321067-C0FD-4FD0-A949-014A20501116"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMF-iOS/Controllers/Dashboard/Controller/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "addMenuButton()"
+            startingLineNumber = "397"
+            endingLineNumber = "397"
+            landmarkName = "navigateToBiddingStatus(bidInfo:status:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6C3898E9-4927-47D9-AC85-4D49CA73AB91"
+            uuid = "ACEB2522-84D4-4EDA-82F9-E76DE88B0A96"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Dashboard/View/ActionStatusViewController/ViewModel/ActionStatusViewModelContainer.swift"
+            filePath = "SMF-iOS/Controllers/BidInfoDetails/ViewModel/BidInfoDetailsViewModelContainer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "fetchBidCount(categoryId:vendorOnboardingId:)"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "fetchBidDetailsList(bidRequestId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DE0F2950-A99E-47ED-8E59-4C5B8DDCB9BA"
+            uuid = "EA898C80-AB98-41EF-A517-D9E9D3544DD1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Utility/Base/BaseController.swift"
+            filePath = "SMF-iOS/Controllers/BidInfoDetails/ViewModel/BidInfoDetailsViewModelContainer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "setNavigationBarColor(_:color:)"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "fetchBidDetailsList(bidRequestId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3A74FCAA-5A17-4EDE-8E5E-A04B69B9EC3A"
+            uuid = "643E93F3-BC46-4241-BB84-1270044FAAC1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            filePath = "SMF-iOS/Controllers/BidInfoDetails/ViewModel/BidInfoDetailsViewModelContainer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "fetchServices()"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "fetchBidDetailsList(bidRequestId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "58B2A049-EB4E-4996-A920-3F70C8C01F44"
+            uuid = "BB4BF27C-F61D-4EC5-B0EF-A42726C717AE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            filePath = "SMF-iOS/Controllers/BidInfoDetails/ViewModel/BidInfoDetailsViewModelContainer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "fetchServices()"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "prepareEventInfo(info:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "07B419AB-56B5-42EF-963D-6DA0D00BC665"
+            uuid = "FEBD22A8-49F9-4FFD-8103-3FC972BB6AF8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            filePath = "SMF-iOS/Controllers/Dashboard/ActionsListController/ViewModel/ActionListViewModelContainer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "fetchServices()"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "fetchActionList(categoryId:vendorOnboardingId:status:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C2703B9A-2980-4E2E-AB45-01B957D78F23"
+            uuid = "EA1A5963-A64B-4922-9878-A12461410AD7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/Dashboard/View/ActionStatusViewController/ViewModel/ActionStatusViewModelContainer.swift"
+            filePath = "SMF-iOS/Controllers/OTP/Controller/OTPScreenViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "fetchBidCount(categoryId:vendorOnboardingId:)"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "btnResendTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

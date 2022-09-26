@@ -43,15 +43,17 @@ class ColorConstant {
     static var arrowBtnActionColor = UIColor().colorFromHex("#772149")
     static var actionCardBackgroundColor = UIColor().colorFromHex("#F0F8FF")
     
-    static var disLikeBtnActionColor = UIColor().colorFromHex("544cab")
-    static var likeBtnActionColor = UIColor().colorFromHex("b2c72c")
+    static var disLikeBtnActionColor = UIColor().colorFromHex("#FF0000")
+    static var likeBtnActionColor = UIColor().colorFromHex("#94DA4E")
     
     static var calendarSelectionBackgroundColor = UIColor().colorFromHex("#F0F8FF")
     static var selectionBorderColor = UIColor().colorFromHex("#D8F2FF")
     
-    static var lightBlueColor = UIColor().colorFromHex("b34caa")
+    static var lightBlueColor = UIColor().colorFromHex("#ECF4FA")
     static var dashboardCircleColor = UIColor().colorFromHex("23cabc")
     static var arrowDownBtnColor = UIColor().colorFromHex("#297EDF")
+    
+    static var eventIdColor = UIColor().colorFromHex("#4484DA")
     
     static var greyColor1 = UIColor().colorFromHex("#252525")
     static var greyColor2 = UIColor().colorFromHex("#454545")

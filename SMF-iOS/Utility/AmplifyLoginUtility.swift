@@ -19,7 +19,7 @@ enum LoginStatus {
 
 enum AuthenticationStatus {
     case authenticationFailed
-    case authenticationSuccess(token: String)
+    case authenticationSuccess(session: AuthSession, token: String)
 }
 
 enum OTPConfirmation {
@@ -36,6 +36,9 @@ class AmplifyLoginUtility {
     static var amplifyToken: String = ""
     static var user: User?;
     
+    static private let kTimeoutInSeconds: TimeInterval = 60
+    static private var timer: Timer?
+    
     static func signIn(withUserId userId: String, completion: @escaping ((LoginStatus) -> Void)) {
         
         Amplify.Auth.signIn(username: userId, password: nil) { result in
@@ -44,25 +47,25 @@ class AmplifyLoginUtility {
                 switch signinResult.nextStep {
                 case .confirmSignInWithSMSMFACode(let deliveryDetails, let info):
                     print("SMS code send to \(deliveryDetails.destination)")
-                    print("Additional info \(info)")
+                    print("Additional info \(String(describing: info))")
                     completion(LoginStatus.signedInSuccess)
                     // Prompt the user to enter the SMSMFA code they received
                     // Then invoke `confirmSignIn` api with the code
                     
                 case .confirmSignInWithCustomChallenge(let info):
-                    print("Custom challenge, additional info \(info)")
+                    print("Custom challenge, additional info \(String(describing: info))")
                     completion(LoginStatus.signedInSuccess)
                     // Prompt the user to enter custom challenge answer
                     // Then invoke `confirmSignIn` api with the answer
                     
                 case .confirmSignInWithNewPassword(let info):
-                    print("New password additional info \(info)")
+                    print("New password additional info \(String(describing: info))")
                     
                     // Prompt the user to enter a new password
                     // Then invoke `confirmSignIn` api with new password
                     
                 case .resetPassword(let info):
-                    print("Reset password additional info \(info)")
+                    print("Reset password additional info \(String(describing: info))")
                     
                     // User needs to reset their password.
                     // Invoke `resetPassword` api to start the reset password
@@ -70,7 +73,7 @@ class AmplifyLoginUtility {
                     // `signIn` api to trigger signin flow again.
                     
                 case .confirmSignUp(let info):
-                    print("Confirm signup additional info \(info)")
+                    print("Confirm signup additional info \(String(describing: info))")
                     
                     // User was not confirmed during the signup process.
                     // Invoke `confirmSignUp` api to confirm the user if
@@ -142,7 +145,7 @@ class AmplifyLoginUtility {
                     UserDefault[stringValueFor: .awsToken] = tokens.idToken
                 }
                 
-                completion(.authenticationSuccess(token: UserDefault[stringValueFor: .awsToken]!))
+                completion(.authenticationSuccess(session: session, token: UserDefault[stringValueFor: .awsToken]!))
                 
             } catch {
                 print("Fetch auth session failed with error - \(error)")
@@ -205,6 +208,36 @@ class AmplifyLoginUtility {
                 completion(.success(user: user!))
             } else {
                 completion(.failure)
+            }
+        }
+    }
+    
+    static func startTokenUpdateService() {
+        self.fetchUpdatedToken()
+        self.timer = Timer.scheduledTimer(timeInterval: kTimeoutInSeconds, target: self, selector: #selector(self.fetchUpdatedToken), userInfo: nil, repeats: true)
+    }
+    
+    static func stopTokenUpdateService() {
+        self.timer?.invalidate()
+        self.timer = nil
+    }
+    
+    @objc static func fetchUpdatedToken() {
+        AmplifyLoginUtility.fetchAuthToken { authStatus in
+            switch authStatus {
+            case .authenticationFailed:
+                DispatchQueue.main.async {
+                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                        DispatchQueue.main.async {
+                            appDelegate.showAlertAndLogOut()
+                        }
+                    }
+                }
+                break
+            case .authenticationSuccess:
+                //                        self?.alreadySignIn()
+                // Do not do anything just new token is fetched
+                break
             }
         }
     }

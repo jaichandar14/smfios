@@ -24,6 +24,9 @@ class LandingViewController: UIViewController {
     private var revealSideMenuOnTop: Bool = true
     
     var gestureEnabled: Bool = true
+    var dashboardModel: DashboardViewModel?
+    
+    var currentController: UIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +87,9 @@ class LandingViewController: UIViewController {
 //        view.addGestureRecognizer(panGestureRecognizer)
         
         // Default Main View Controller
-        showViewController(controller: UINavigationController(rootViewController: DashboardViewController.create()))
+        let controller = DashboardViewController.create()
+        self.dashboardModel = controller.viewModel
+        showViewController(controller: UINavigationController(rootViewController: controller))
     }
     
     // Keep the state of the side menu (expanded or collapse) in rotation
@@ -136,9 +141,6 @@ class LandingViewController: UIViewController {
             self.sideMenuShadowView.alpha = (targetPosition == 0) ? 0.6 : 0.0
         }
     }
-    
-
-    
 }
 
 extension LandingViewController: UIGestureRecognizerDelegate {
@@ -256,10 +258,12 @@ extension LandingViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int, key: MenuKey) {
         switch (key) {
         case .dashboard:
-            self.showViewController(controller: UINavigationController(rootViewController: DashboardViewController.create()))
+            let controller = DashboardViewController.create()
+            self.dashboardModel = controller.viewModel
+            self.showViewController(controller: UINavigationController(rootViewController: controller))
             break
         case .availability:
-            //
+            self.navigateToCalendar()
             break
         case .divider:
             //
@@ -326,8 +330,7 @@ extension LandingViewController: SideMenuViewControllerDelegate {
                 subview.removeFromSuperview()
             }
         }
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: storyboardId) as! T
+
         let vc = controller
         vc.view.tag = 99
         view.insertSubview(vc.view, at: self.revealSideMenuOnTop ? 0 : 1)
@@ -348,6 +351,16 @@ extension LandingViewController: SideMenuViewControllerDelegate {
             }
         }
         vc.didMove(toParent: self)
+        
+        self.currentController = controller
+    }
+    
+    func navigateToCalendar() {
+        if let navigationController = self.currentController as? UINavigationController, let dashboardController = navigationController.rootViewController as? DashboardViewController {
+            dashboardController.navigateToCalendar()
+        } else if let dashboardController = self.currentController as? DashboardViewController {
+            dashboardController.navigateToCalendar()
+        }
     }
 }
 

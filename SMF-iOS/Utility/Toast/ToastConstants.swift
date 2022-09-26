@@ -9,5 +9,5 @@ import Foundation
 
 class ToastConstant {
     static var resendOTP = "OTP has been sent to your registered Email ID & Mobile number."
-    static var resendClickMultipleTimes = "Clicked multiple time Resend otp. Try after some time."
+    static var resendClickMultipleTimes = "Clicked multiple times. Please try after some time."
 }

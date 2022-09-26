@@ -10,10 +10,8 @@ import ProgressHUD
 
 class OrderDetailViewController: BaseViewController {
 
-    @IBOutlet weak var lblControllerTitle: UILabel!
     @IBOutlet weak var lblEventTitle: UILabel!
     @IBOutlet weak var lblServiceID: UILabel!
-    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblEventDateTitle: UILabel!
     @IBOutlet weak var lblEventValue: UILabel!
     @IBOutlet weak var lblVenueZipTitle: UILabel!
@@ -67,13 +65,8 @@ class OrderDetailViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setNavBar(hidden: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
         setNavBar(hidden: false)
+        self.setNavigationBarColor(_theme.primaryColor, color: .white)
     }
     
     func backButtonAction(_ sender: UIBarButtonItem) {
@@ -81,12 +74,15 @@ class OrderDetailViewController: BaseViewController {
     }
     
     func styleUI() {
-        setUpViewShadow(self.orderDetailsView, backgroundColor: UIColor.white, radius: 11, shadowRadius: 10, isHavingBorder: false)
+        self.title = "Order Details"
+        self.setUpViewShadow(self.orderDetailsView, backgroundColor: UIColor.white, radius: 11, shadowRadius: 10, isHavingBorder: false)
+        self.customizeBackButton()
         
-        self.lblControllerTitle.textColor = _theme.primaryColor
-        self.btnBack.backgroundColor = .clear//roundCorners([.allCorners], radius: 45 / 2)
-        self.btnBack.setTitleColor(_theme.primaryColor, for: .normal)
-        self.btnBack.titleLabel?.font = _theme.smfFont(size: 28)
+        
+//        self.lblControllerTitle.textColor = _theme.primaryColor
+//        self.btnBack.backgroundColor = .clear//roundCorners([.allCorners], radius: 45 / 2)
+//        self.btnBack.setTitleColor(_theme.primaryColor, for: .normal)
+//        self.btnBack.titleLabel?.font = _theme.smfFont(size: 28)
         
         self.serviceInfoTableView.delegate = self
         self.serviceInfoTableView.dataSource = self
@@ -154,9 +150,11 @@ class OrderDetailViewController: BaseViewController {
         DispatchQueue.main.async {
             self.lblEventTitle.text = self.eventName
             self.lblServiceID.text = model?.eventServiceDescriptionId.description ?? ""
-            self.lblEventValue.text = self.eventDate?.toSMFDateFormat()
+            self.lblEventValue.text = self.eventDate?.toSMFFullFormatDate()
             self.lblVenueZipValue.text = model?.venueAddress?.zipCode
             self.questionAnsTableView.reloadData()
+            
+            self.lblQuestions.isHidden = self.viewModel?.getQuestionDTO()?.count ?? 0 == 0
         }
     }
     
@@ -173,6 +171,7 @@ class OrderDetailViewController: BaseViewController {
     func updateQAList() {
         DispatchQueue.main.async {
             self.questionAnsTableView.reloadData()
+            self.lblQuestions.isHidden = self.viewModel?.getQuestionDTO()?.count ?? 0 == 0
         }
     }
     

@@ -36,7 +36,7 @@ class OTPScreenViewController: BaseViewController {
     var userName: String = ""
     
     var resendCounter = 0;
-    var wrongOTPCounter = 0;
+    var clearFields: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +113,8 @@ class OTPScreenViewController: BaseViewController {
         lblDidntReceiveOTP.textColor = _theme.textColor
         lblTimerUpdate.textColor = _theme.textColor
         
+        self.lblTimerUpdate.text = ""
+        
         self.setButton(self.btnSubmit, enabled: false)
         self.btnResend.setTitleColor(UIColor.systemBlue, for: .normal)
         self.btnResend.setTitleColor(UIColor.systemBlue.withAlphaComponent(0.5), for: .disabled)
@@ -125,18 +127,26 @@ class OTPScreenViewController: BaseViewController {
         self.resendCounter += 1
         if self.resendCounter > 5 {
             self.btnResend.isEnabled = false
-            Toast.show(message: ToastConstant.resendClickMultipleTimes, controller: self)
+            if let view = UIApplication.shared.windows.last {
+                view.makeToast(ToastConstant.resendClickMultipleTimes, duration: 3.0)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.clearFields?()
+                self.navigationController?.popViewController(animated: true)
+            }
             return
         } else {
             scheduleTimer()
-            Toast.show(message: ToastConstant.resendOTP, controller: self)
+            if let view = UIApplication.shared.windows.last {
+                view.makeToast(ToastConstant.resendOTP)
+            }
         }
         
         CVProgressHUD.showProgressHUD(title: "Please wait...")
         
         AmplifyLoginUtility.signOut { [weak self] loginStatus in
             print("Logout status:: \(loginStatus)")
-
+            
             AmplifyLoginUtility.signIn(withUserId: self?.userName ?? "") { [weak self] loginStatus in
                 switch loginStatus {
                 case .alreadyLogin:
@@ -197,19 +207,47 @@ class OTPScreenViewController: BaseViewController {
         AmplifyLoginUtility.confirmSignIn(otp: otp) { [weak self] confirmation in
             switch confirmation {
             case .success:
+                self?.updateOTPStatus(status: true)
                 self?.fetchAuthToken()
                 break
             case .failure:
                 DispatchQueue.main.async {
                     CVProgressHUD.hideProgressHUD()
-                    self?.showAlert(withTitle: "OTP failed", withMessage: "OTP invalid!", isDefault: true, actions: [])
-                    self?.wrongOTPCounter += 1
+                    
+                    self?.updateOTPStatus(status: false)
                     self?._otpStackView.textFieldsCollection.forEach({ field in
                         field.text = ""
                     })
                     self?._otpStackView.textFieldsCollection.first?.becomeFirstResponder()
                 }
                 break
+            }
+        }
+    }
+    
+    func updateOTPStatus(status: Bool) {
+        let param: [String: Any] = [
+            "isSuccessful": "\(status)",
+            "userName": self.userName
+        ]
+        OTPViewModel().loginAPIFailed(id: "OTP failure", method: .GET, parameters: param, priority: .high) { [weak self] response, result, error in
+            
+            print("Response:: \(response)")
+            if let error = response?["errorMessage"] as? String {
+                self?.showAlert(withTitle: "OTP Failure", withMessage: error, isDefault: false, actions: [
+                    UIAlertAction(title: "OK", style: .default, handler: { action in
+                        AmplifyLoginUtility.signOut { status in
+                            print("Logout Status:: \(status)")
+                            DispatchQueue.main.async {
+                                self?.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                    })
+                ])
+            } else {
+                if (!status) {
+                    self?.showAlert(withTitle: "OTP failed", withMessage: "OTP invalid!", isDefault: true, actions: [])
+                }
             }
         }
     }
@@ -229,7 +267,7 @@ class OTPScreenViewController: BaseViewController {
                             AmplifyLoginUtility.signOut { status in
                                 print("Logout Status:: \(status)")
                             }
-//                            self?.navigationController?.popViewController(animated: true)
+                            //                            self?.navigationController?.popViewController(animated: true)
                         })
                     ])
                 }

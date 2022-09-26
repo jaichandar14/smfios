@@ -8,9 +8,6 @@
 import UIKit
 
 class BidInfoDetailsViewController: BaseViewController {
-    @IBOutlet weak var eventTitle: UILabel!
-    @IBOutlet weak var btnBack: UIButton!
-    
     @IBOutlet weak var eventDetailsContainerView: UIView!
     
     @IBOutlet weak var bidTableView: UITableView!
@@ -20,25 +17,27 @@ class BidInfoDetailsViewController: BaseViewController {
     @IBOutlet weak var bidTableViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var eventDetailsHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblServiceName: UILabel!
     @IBOutlet weak var lblBranchName: UILabel!
     @IBOutlet weak var lblEventDetails: UILabel!
     @IBOutlet weak var lblEventTitle: UILabel!
     @IBOutlet weak var lblEventId: UILabel!
     @IBOutlet weak var lblCosting: UILabel!
     @IBOutlet weak var btnViewQuote: UIButton!
-    @IBOutlet weak var lblBidAccepted: UILabel!
+    @IBOutlet weak var lblBidStatus: UILabel!
     
     @IBOutlet weak var bidContainer: UIView!
-    @IBOutlet weak var lblArrowImage: UILabel!
     @IBOutlet weak var btnExpandCollapse: UIButton!
     
     @IBOutlet weak var btnDisLike: UIButton!
     @IBOutlet weak var btnLike: UIButton!
     
-    var bidRequestId: Int?
+    var bidStatus: BiddingStatus?
+    var bidInfo: BidStatusInfo?
     var isBidVisible = true
     @IBOutlet weak var eventDetailsTopConstraint: NSLayoutConstraint!
+    
+    var eventDetails: [(eventKey: String, eventValue: String)] = []
     
     var viewModel: BidInfoDetailViewModel? {
         didSet {
@@ -56,12 +55,6 @@ class BidInfoDetailsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setNavBar(hidden: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
         setNavBar(hidden: false)
     }
     
@@ -70,18 +63,32 @@ class BidInfoDetailsViewController: BaseViewController {
     }
     
     func styleUI() {
-        setUpViewShadow(self.eventDetailsContainerView, backgroundColor: UIColor.white, radius: 11, shadowRadius: 10, isHavingBorder: false)
+        if let bidInfo = self.bidInfo {
+            self.title = "\(bidInfo.serviceName) - \(bidInfo.branchName)"
+            self.lblBidStatus.text = self.getStatusTitle(status: self.bidStatus)
+            
+            self.lblEventTitle.text = bidInfo.eventName
+            self.lblEventId.text = "\(bidInfo.eventServiceDescriptionId )"
+            
+            self.lblServiceName.text = bidInfo.serviceName
+            self.lblBranchName.text = bidInfo.branchName
+            
+            if bidInfo.costingType == .bidding {
+                self.lblCosting.text = bidInfo.latestBidValue == nil ? "" : "\(bidInfo.currencyType?.currency ?? "$")\(bidInfo.latestBidValue!)"
+            } else {
+                self.lblCosting.text = bidInfo.cost == "" ? "" : "\(bidInfo.currencyType?.currency ?? "$")\(bidInfo.cost)"
+            }
+        }
+        self.setNavigationBarColor(_theme.primaryColor, color: .white)
+        self.customizeBackButton()
         
-        self.btnBack.backgroundColor = .clear//roundCorners([.allCorners], radius: 45 / 2)
-        self.btnBack.setTitleColor(_theme.primaryColor, for: .normal)
-        self.btnBack.titleLabel?.font = _theme.smfFont(size: 28)
+        setUpViewShadow(self.eventDetailsContainerView, backgroundColor: UIColor.white, radius: 11, shadowRadius: 10, isHavingBorder: false)
         
         self.lblEventId.textColor = _theme.eventIDTextColor
         
-        self.lblArrowImage.textColor = _theme.primaryColor
-        self.lblBidAccepted.text = "Bid accepted"
-        self.lblBidAccepted.textColor = _theme.accentColor
-        self.lblBidAccepted.font = _theme.muliFont(size: 14, style: .muli)
+        
+        self.lblBidStatus.textColor = _theme.accentColor
+        self.lblBidStatus.font = _theme.muliFont(size: 14, style: .muli)
         
         self.btnLike.roundCorners([.allCorners], radius: 32 / 2)
         self.btnDisLike.roundCorners([.allCorners], radius: 32 / 2)
@@ -90,11 +97,11 @@ class BidInfoDetailsViewController: BaseViewController {
         self.btnExpandCollapse.backgroundColor = .clear
         
         self.lblEventDetails.text = "EVENT DETAILS"
-        self.lblEventDetails.textColor = _theme.primaryColor
+        self.lblEventDetails.textColor = _theme.primaryDarkColor
         self.lblEventDetails.font = _theme.muliFont(size: 16, style: .muliBold)
         
-        self.lblName.textColor = _theme.textGreyColor
-        self.lblName.font = _theme.muliFont(size: 16, style: .muliSemiBold)
+        self.lblServiceName.textColor = _theme.textGreyColor
+        self.lblServiceName.font = _theme.muliFont(size: 16, style: .muliSemiBold)
         self.lblBranchName.textColor = _theme.textColor
         self.lblBranchName.font = _theme.muliFont(size: 16, style: .muliSemiBold)
         
@@ -111,6 +118,21 @@ class BidInfoDetailsViewController: BaseViewController {
         self.eventDetailsTableView.rowHeight = UITableView.automaticDimension
         self.eventDetailsTableView.estimatedRowHeight = 50
         self.eventDetailsTableView.register(UINib.init(nibName: String.init(describing: EventDetailsTableViewCell.self), bundle: nil), forCellReuseIdentifier: "eventDetail")
+    }
+    
+    func getStatusTitle(status: BiddingStatus?) -> String {
+        switch status {
+        case .bidSubmitted:
+            return "Bidding in progress"
+        case .wonBid:
+            return "Won Bid"
+        case .serviceInProgress:
+            return "Service in progress"
+        case .serviceClosed:
+            return "Service completed"
+        default:
+            return ""
+        }
     }
     
     func setDataToUI() {
@@ -134,6 +156,13 @@ class BidInfoDetailsViewController: BaseViewController {
         viewModel.eventInfoList.bindAndFire { [weak self] infoList in
             self?.updateEventList()
         }
+        
+        if let bidInfo = self.bidInfo {
+            viewModel.prepareEventInfo(info: bidInfo)
+        }
+        if let status = self.bidStatus {
+            viewModel.prepareStatus(with: status)
+        }
                 
         updateData()
     }
@@ -143,7 +172,7 @@ class BidInfoDetailsViewController: BaseViewController {
     }
     
     func updateData() {
-        viewModel?.fetchBidDetailsList(bidRequestId: self.bidRequestId!)
+        viewModel?.fetchBidDetailsList(bidRequestId: self.bidInfo!.bidRequestId)
     }
     
     func updateBidList() {
@@ -159,17 +188,17 @@ class BidInfoDetailsViewController: BaseViewController {
     }
     
     func toggleBidDetailsVisibility(isHidden: Bool) {
-        UIView.animate(withDuration: 0.2) {
-            if isHidden {
-                self.lblArrowImage.transform = CGAffineTransform(rotationAngle: Double.pi);
-                self.eventDetailsTopConstraint.priority = UILayoutPriority(850)
-                self.view.layoutIfNeeded()
-            } else {
-                self.lblArrowImage.transform = CGAffineTransform(rotationAngle: 0);
-                self.eventDetailsTopConstraint.priority = UILayoutPriority(650)
-                self.view.layoutIfNeeded()
-            }
-        }
+//        UIView.animate(withDuration: 0.2) {
+//            if isHidden {
+//                self.lblArrowImage.transform = CGAffineTransform(rotationAngle: Double.pi);
+//                self.eventDetailsTopConstraint.priority = UILayoutPriority(850)
+//                self.view.layoutIfNeeded()
+//            } else {
+//                self.lblArrowImage.transform = CGAffineTransform(rotationAngle: 0);
+//                self.eventDetailsTopConstraint.priority = UILayoutPriority(650)
+//                self.view.layoutIfNeeded()
+//            }
+//        }
     }
     
     @IBAction func btnBidExpandCollapse(_ sender: UIButton) {

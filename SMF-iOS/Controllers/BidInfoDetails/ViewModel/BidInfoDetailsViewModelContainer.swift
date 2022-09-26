@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
+
+    
     var bidStatus: Observable<BidStatusInfo?>
     var bidStatusList: Observable<[BidStatus]>
     var eventInfoList: Observable<[EventDetail]>
@@ -142,10 +144,59 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
         ]
     }
     
+    func prepareStatus(with status: BiddingStatus) {
+        var array = [
+            BidStatus(title: "Quote Sent", subTitle: nil, status: .bidRequested, progressStatus: .isPending),
+            BidStatus(title: "Bidding in progress", subTitle: nil, status: .bidSubmitted, progressStatus: .isPending),
+            BidStatus(title: "Won Bid", subTitle: nil, status: .wonBid, progressStatus: .isPending),
+            BidStatus(title: "Service in Progress", subTitle: nil, status: .serviceInProgress, progressStatus: .isPending),
+            BidStatus(title: "Service Completed", subTitle: nil, status: .serviceClosed, progressStatus: .isPending)
+        ]
+        
+        for i in 0..<array.count {
+            if array[i].status == status {
+                array[i].progressStatus = .isInProgress
+                if array[i].status == .serviceClosed {
+                    array[i].progressStatus = .isCompleted
+                }
+                break
+            } else {
+                array[i].progressStatus = .isCompleted
+            }
+        }
+        self.bidStatusList.value = array
+    }
+    
+    func prepareEventInfo(info: BidStatusInfo) {
+        self.eventInfoList.value = [
+            EventDetail(title: "Event date", value: info.eventDate.toSMFFullFormatDate()),
+            EventDetail(title: "Bid proposal date", value: info.bidRequestedDate.toSMFFullFormatDate()),
+            EventDetail(title: "Cut off date", value: info.biddingCutOffDate.toSMFFullFormatDate()),
+            EventDetail(title: "Service date", value: info.serviceDate.toSMFFullFormatDate()),
+            EventDetail(title: "Payment status", value: "NA"),
+            EventDetail(title: "Serviced by", value: "NA"),
+            EventDetail(title: "Address", value: self.getAddress(venueAddress: info.serviceAddressDto)),
+            EventDetail(title: "Customer Rating", value: "NA"),
+            EventDetail(title: "Review Comment", value: "NA")
+        ]
+    }
+    
+    func getAddress(venueAddress: VenueAddress) -> String {
+        var values: [String] = []
+        values.append(venueAddress.addressLine1 ?? "")
+        values.append(venueAddress.addressLine2 ?? "")
+        values.append(venueAddress.city ?? "")
+        values.append(venueAddress.state ?? "")
+        values.append(venueAddress.country ?? "")
+        values.append(venueAddress.zipCode ?? "")
+        
+        return (values.filter { $0 != "" }).joined(separator: ", ")
+    }
+    
     func updateServiceList(with model: QuestionareWrapperDTO) {
         self.serviceList.value.append(contentsOf: [
-            ServiceDetail(title: "Service Date", subTitle: model.eventServiceDescriptionDto.serviceDate.toSMFDateFormat(), isCompleted: false),
-            ServiceDetail(title: "Bid Cut Off Date", subTitle: model.eventServiceDescriptionDto.biddingCutOffDate.toSMFDateFormat(), isCompleted: false),
+            ServiceDetail(title: "Service Date", subTitle: model.eventServiceDescriptionDto.serviceDate.toSMFFullFormatDate(), isCompleted: false),
+            ServiceDetail(title: "Bid Cut Off Date", subTitle: model.eventServiceDescriptionDto.biddingCutOffDate.toSMFFullFormatDate(), isCompleted: false),
             ServiceDetail(title: "Estimation Budget", subTitle: "\(model.eventServiceDescriptionDto.currencyType ?? "") \(model.eventServiceDescriptionDto.estimatedBudget)", isCompleted: false),
             ServiceDetail(title: "Service Radius", subTitle: model.eventServiceDescriptionDto.radius, isCompleted: false),
             ServiceDetail(title: "Preferred Time Slot", subTitle: model.eventServiceDescriptionDto.preferredSlots.joined(separator: ","), isCompleted: false),

@@ -68,8 +68,9 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
                             }
                         }
                     }
-                    self.actionBidCountList.value = pendingActions
-                    self.statusBidCountList.value = statusItems
+                    
+                    self.actionBidCountList.value = self.getOrderedActiveRequest(array: pendingActions)
+                    self.statusBidCountList.value = self.getOrderedStatusRequest(array: statusItems)
                     
                     var activeServices = 0
                     pendingActions.forEach { bidCount in
@@ -92,6 +93,48 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
         }
     }
     
+    func getOrderedActiveRequest(array: [BidCount]) -> [BidCount] {
+        var orderedArray: [BidCount] = []
+        if let obj = array.first(where: { $0.apiLabel == .bidRequested }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .pendingForQuote }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .bidSubmitted }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .wonBid }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .serviceInProgress }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .pendingReview }) {
+            orderedArray.append(obj)
+        }
+        
+        return orderedArray
+    }
+    
+    func getOrderedStatusRequest(array: [BidCount]) -> [BidCount] {
+        var orderedArray: [BidCount] = []
+        if let obj = array.first(where: { $0.apiLabel == .serviceClosed }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .bidRejected }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .bidTimedOut }) {
+            orderedArray.append(obj)
+        }
+        if let obj = array.first(where: { $0.apiLabel == .lostBid }) {
+            orderedArray.append(obj)
+        }
+        
+        return orderedArray
+    }
+    
     enum ActionStatusCheck {
         case isAction
         case isStatus
@@ -106,18 +149,18 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
         case "pendingForQuoteCount":
             return (.isAction, "Pending Quote", .pendingForQuote)
         case "wonBidCount":
-            return (.isAction, "Won Bid", .none)
+            return (.isAction, "Won Bid", .wonBid)
         case "serviceInProgressCount":
             return (.isAction, "Service Progress", .serviceInProgress)
             
         case "bidRejectedCount":
             return (.isStatus, "Bid Rejected", .bidRejected)
         case "lostBidCount":
-            return (.isStatus, "Lost Bid", .none)
+            return (.isStatus, "Lost Bid", .lostBid)
         case "bidTimedOutCount":
-            return (.isStatus, "Timed Out", .none)
+            return (.isStatus, "Timed Out", .bidTimedOut)
         case "serviceDoneCount":
-            return (.isStatus, "Service closed", .none)
+            return (.isStatus, "Service closed", .serviceClosed)
         default:
             return nil
         }

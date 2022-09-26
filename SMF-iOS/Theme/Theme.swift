@@ -172,7 +172,7 @@ enum Theme: Int {
     var eventIDTextColor: UIColor {
         switch self {
         case .defaultTheme:
-            return UIColor().colorFromHex("bca234")
+            return ColorConstant.eventIdColor
         case .darkTheme:
             return UIColor().colorFromHex("")
         }

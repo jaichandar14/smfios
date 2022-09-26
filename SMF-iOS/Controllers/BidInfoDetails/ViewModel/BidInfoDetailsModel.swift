@@ -11,10 +11,16 @@ class BidInfoDetailsModel {
     
 }
 
+enum BidProgressStatus {
+    case isPending
+    case isInProgress
+    case isCompleted
+}
 struct BidStatus {
     var title: String
-    var subTitle: String
-    var isCompleted: Bool
+    var subTitle: String?
+    var status: BiddingStatus
+    var progressStatus: BidProgressStatus
 }
 
 struct ServiceDetail {

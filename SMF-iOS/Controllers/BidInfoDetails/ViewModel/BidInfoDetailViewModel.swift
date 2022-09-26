@@ -23,4 +23,7 @@ protocol BidInfoDetailViewModel {
     func fetchOrderDescription(eventId: Int, eventServiceDescId: Int)
     
     func getQuestionDTO() -> [QuestionAns]?
+    
+    func prepareStatus(with status: BiddingStatus)
+    func prepareEventInfo(info: BidStatusInfo)
 }

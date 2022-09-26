@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Muli-SemiBold.ttf">
+            <string>Muli-SemiBold</string>
+        </array>
         <array key="smf_icon.ttf">
             <string>smf_icon</string>
         </array>
@@ -27,7 +30,7 @@
                         <rect key="frame" x="20" y="20" width="363" height="223"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saras Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDE-HQ-cBt">
-                                <rect key="frame" x="12" y="12" width="114.5" height="19.5"/>
+                                <rect key="frame" x="12" y="12" width="114" height="19.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -106,7 +109,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="0H5-Gg-y9T">
-                                <rect key="frame" x="12" y="114.5" width="144" height="32.5"/>
+                                <rect key="frame" x="12" y="119.5" width="144" height="32.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="5D6-ld-oCU">
                                         <rect key="frame" x="0.0" y="0.0" width="57" height="32.5"/>
@@ -144,7 +147,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HI-C6-XTO">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HI-C6-XTO">
                                 <rect key="frame" x="232" y="112" width="119" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -155,17 +158,27 @@
                                     <action selector="btnChangeInMindAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KXI-bN-nqr"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_circular_angle" translatesAutoresizingMaskIntoConstraints="NO" id="g3Y-7F-Reu">
+                                <rect key="frame" x="12" y="181" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="9H8-oU-8GF"/>
+                                    <constraint firstAttribute="height" constant="24" id="vNY-Gg-Egj"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2A2-1X-abw">
+                                <rect key="frame" x="36" y="182" width="32" height="18"/>
+                                <fontDescription key="fontDescription" name="Muli-SemiBold" family="Muli" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sYc-X3-WFk">
-                                <rect key="frame" x="12" y="169" width="150" height="34"/>
-                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="12" y="174" width="56" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="Pie-vO-NfS"/>
-                                    <constraint firstAttribute="width" constant="150" id="zzu-Q9-dby"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="smf_icon" family="smf_icon" pointSize="18"/>
                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="a"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="15"/>
@@ -176,7 +189,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="g0h-3O-oTY">
-                                <rect key="frame" x="256" y="167" width="95" height="40"/>
+                                <rect key="frame" x="256" y="173" width="95" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ojs-zU-U1Y">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -218,10 +231,20 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSz-Lp-EJL">
+                                <rect key="frame" x="323" y="175" width="24" height="38"/>
+                                <inset key="contentEdgeInsets" minX="12" minY="8" maxX="12" maxY="8"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <connections>
+                                    <action selector="btnServiceWorkFlowTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="1iC-qp-HVj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="SSz-Lp-EJL" secondAttribute="bottom" constant="10" id="1TD-hG-qvY"/>
                             <constraint firstItem="4HI-C6-XTO" firstAttribute="trailing" secondItem="x5q-wt-kx1" secondAttribute="trailing" id="5BJ-8v-RdT"/>
+                            <constraint firstItem="sYc-X3-WFk" firstAttribute="trailing" secondItem="2A2-1X-abw" secondAttribute="trailing" id="5II-c3-OFq"/>
                             <constraint firstItem="x5q-wt-kx1" firstAttribute="top" secondItem="Xga-ZO-K3Z" secondAttribute="bottom" constant="16" id="85t-iz-som"/>
                             <constraint firstItem="MFY-bS-buJ" firstAttribute="top" secondItem="KDE-HQ-cBt" secondAttribute="bottom" constant="5" id="ANk-iU-h3E"/>
                             <constraint firstItem="Xga-ZO-K3Z" firstAttribute="centerY" secondItem="KDE-HQ-cBt" secondAttribute="centerY" id="Az9-vK-veL"/>
@@ -229,13 +252,18 @@
                             <constraint firstItem="MFY-bS-buJ" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="leading" id="Me6-rH-tXv"/>
                             <constraint firstItem="4HI-C6-XTO" firstAttribute="top" secondItem="x5q-wt-kx1" secondAttribute="bottom" constant="25" id="MlY-2b-Oz7"/>
                             <constraint firstItem="KDE-HQ-cBt" firstAttribute="top" secondItem="FMW-bu-Iay" secondAttribute="top" constant="12" id="NNr-ZI-i60"/>
-                            <constraint firstAttribute="bottom" secondItem="sYc-X3-WFk" secondAttribute="bottom" constant="20" id="OE7-A2-dQT"/>
+                            <constraint firstAttribute="bottom" secondItem="sYc-X3-WFk" secondAttribute="bottom" constant="15" id="OE7-A2-dQT"/>
+                            <constraint firstItem="2A2-1X-abw" firstAttribute="centerY" secondItem="sYc-X3-WFk" secondAttribute="centerY" id="OyH-en-1l3"/>
                             <constraint firstAttribute="trailing" secondItem="Xga-ZO-K3Z" secondAttribute="trailing" constant="12" id="SMm-xT-CTY"/>
                             <constraint firstAttribute="trailing" secondItem="x5q-wt-kx1" secondAttribute="trailing" constant="12" id="Sv3-8o-nv0"/>
-                            <constraint firstAttribute="bottom" secondItem="g0h-3O-oTY" secondAttribute="bottom" constant="16" id="XhL-6y-4zi"/>
+                            <constraint firstAttribute="bottom" secondItem="g0h-3O-oTY" secondAttribute="bottom" constant="10" id="XhL-6y-4zi"/>
+                            <constraint firstItem="g3Y-7F-Reu" firstAttribute="centerY" secondItem="sYc-X3-WFk" secondAttribute="centerY" constant="2" id="bF6-A0-gS4"/>
+                            <constraint firstItem="2A2-1X-abw" firstAttribute="leading" secondItem="g3Y-7F-Reu" secondAttribute="trailing" id="cDG-hW-lsh"/>
+                            <constraint firstAttribute="trailing" secondItem="SSz-Lp-EJL" secondAttribute="trailing" constant="16" id="ddc-PB-jBz"/>
                             <constraint firstItem="fSO-sZ-XID" firstAttribute="top" secondItem="MFY-bS-buJ" secondAttribute="bottom" constant="3" id="eCL-rw-Q4i"/>
                             <constraint firstItem="fSO-sZ-XID" firstAttribute="leading" secondItem="MFY-bS-buJ" secondAttribute="leading" id="fWv-Y6-Ekn"/>
                             <constraint firstItem="KDE-HQ-cBt" firstAttribute="leading" secondItem="FMW-bu-Iay" secondAttribute="leading" constant="12" id="gib-1b-BXb"/>
+                            <constraint firstItem="g3Y-7F-Reu" firstAttribute="leading" secondItem="sYc-X3-WFk" secondAttribute="leading" id="jxS-MY-I5Z"/>
                             <constraint firstAttribute="trailing" secondItem="g0h-3O-oTY" secondAttribute="trailing" constant="12" id="mNm-DV-POz"/>
                             <constraint firstItem="sYc-X3-WFk" firstAttribute="leading" secondItem="5D6-ld-oCU" secondAttribute="leading" id="pOY-KB-VP8"/>
                             <constraint firstItem="0H5-Gg-y9T" firstAttribute="leading" secondItem="FMW-bu-Iay" secondAttribute="leading" constant="12" id="ugE-5m-Mvc"/>
@@ -257,6 +285,7 @@
                 <outlet property="btnDislike" destination="Ojs-zU-U1Y" id="RXF-0v-hGx"/>
                 <outlet property="btnLike" destination="8XH-VE-oyL" id="pNN-qz-fqs"/>
                 <outlet property="btnNext" destination="sYc-X3-WFk" id="6gJ-xe-Ci4"/>
+                <outlet property="btnServiceWorkFlow" destination="SSz-Lp-EJL" id="8yM-ey-0eJ"/>
                 <outlet property="cellContainerView" destination="FMW-bu-Iay" id="dGQ-sb-ziY"/>
                 <outlet property="circularProgressView" destination="6MO-lB-SXR" id="OVk-hg-I4Y"/>
                 <outlet property="lblBidCutOffTitle" destination="gKU-Jf-hKA" id="IoI-0e-abB"/>
@@ -266,16 +295,18 @@
                 <outlet property="lblEventID" destination="MFY-bS-buJ" id="hU9-dR-0b0"/>
                 <outlet property="lblEventName" destination="KDE-HQ-cBt" id="kJo-8l-ZNW"/>
                 <outlet property="lblEventType" destination="fSO-sZ-XID" id="57d-fh-l38"/>
+                <outlet property="lblNextStatus" destination="2A2-1X-abw" id="8LM-8l-E1J"/>
                 <outlet property="lblQuotePrice" destination="y6L-L0-Ij9" id="LhF-vv-5I9"/>
                 <outlet property="lblQuoteTitle" destination="O2d-rc-wSz" id="lza-P2-S58"/>
                 <outlet property="lblRemainingDate" destination="r4P-FE-D1L" id="ayh-iT-iXV"/>
                 <outlet property="lblServiceDate" destination="Cjm-r6-dLK" id="Qzw-ey-E71"/>
                 <outlet property="lblServiceDateTitle" destination="Fim-VO-9cH" id="grX-3A-4Gd"/>
             </connections>
-            <point key="canvasLocation" x="190.57971014492756" y="139.62053571428569"/>
+            <point key="canvasLocation" x="190.57971014492756" y="138.95089285714286"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="right_circular_angle" width="30" height="30"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

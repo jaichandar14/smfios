@@ -35,7 +35,7 @@ class BaseController: UIViewController {
         if let controller = self as? BaseViewController {
             let button = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
             button.setTitle("l", for: .normal)
-            button.setTitleColor(_theme.textColor, for: .normal)
+            button.setTitleColor(.white, for: .normal)
             button.titleLabel?.font = _theme.smfFont(size: 18)
             button.backgroundColor = .clear
             button.addTarget(self, action: #selector(controller.backButtonAction(_:)), for: .touchUpInside)

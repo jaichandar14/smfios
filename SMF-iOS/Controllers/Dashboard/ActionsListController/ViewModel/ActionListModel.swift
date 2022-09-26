@@ -8,11 +8,18 @@
 import Foundation
 
 enum BiddingStatus: String, Codable {
-    case bidSubmitted = "BID SUBMITTED"
     case bidRequested = "BID REQUESTED"
     case pendingForQuote = "PENDING FOR QUOTE"
+    case bidSubmitted = "BID SUBMITTED"
+    case wonBid = "WON BID"
     case serviceInProgress = "SERVICE IN PROGRESS" // NEW
+    case pendingReview = "Pending review not known"
+    
+    case serviceClosed = "SERVICE COMPLETED"
     case bidRejected = "BID REJECTED"
+    case bidTimedOut = "BID TIMED OUT"
+    case lostBid = "LOST BID"
+    
     case none = "none"
 }
 
@@ -20,6 +27,20 @@ enum CostingType: String, Codable {
     case bidding = "Bidding"
     case fixed = "Fixed Cost"
     case variable = "Variable Cost"
+}
+
+enum CurrencyType: String, Codable {
+    case inr = "INR(₹)"
+    case pound = "GBP(£)"
+    
+    var currency: String {
+        switch self {
+        case .inr:
+            return "₹"
+        case .pound:
+            return "£"
+        }
+    }
 }
 
 
@@ -39,7 +60,7 @@ class BidStatusInfo: Codable {
     let costingType: CostingType
     var cost: String
     let bidStatus: String
-    let currencyType: String?
+    let currencyType: CurrencyType?
     let isExistingUser: Bool
     let serviceProviderEmail: String?
     let serviceAddress: String
@@ -85,7 +106,7 @@ class BidStatusInfo: Codable {
         costingType = CostingType.bidding
         cost = "2540"
         bidStatus = "Completed"
-        currencyType = "$"
+        currencyType = CurrencyType.inr
         isExistingUser = true
         serviceProviderEmail = "service@gmail.com"
         serviceAddress = "14B, My Building, Banglore"
@@ -120,7 +141,13 @@ class BidStatusInfo: Codable {
             cost = ""
         }
         bidStatus = try container.decode(String.self, forKey: .bidStatus)
-        currencyType = try? container.decode(String.self, forKey: .currencyType)
+        let currencyString = try? container.decode(String.self, forKey: .currencyType)
+        if let currency = currencyString {
+            currencyType = CurrencyType(rawValue: currency)
+        } else {
+            currencyType = nil
+        }
+        
         isExistingUser = try container.decode(Bool.self, forKey: .isExistingUser)
         serviceProviderEmail = try? container.decode(String.self, forKey: .serviceProviderEmail)
         serviceAddress = try container.decode(String.self, forKey: .serviceAddress)
@@ -161,12 +188,12 @@ class BidStatusInfo: Codable {
 }
 
 class VenueAddress: Codable {
-    let addressLine1: String
-    let addressLine2: String
-    let city: String
-    let state: String
-    let country: String
-    let zipCode: String
+    let addressLine1: String?
+    let addressLine2: String?
+    let city: String?
+    let state: String?
+    let country: String?
+    let zipCode: String?
     let knownVenue: Bool
     
     init() {
@@ -186,24 +213,24 @@ class VenueAddress: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        addressLine1 = try container.decode(String.self, forKey: .addressLine1)
-        addressLine2 = try container.decode(String.self, forKey: .addressLine2)
-        city = try container.decode(String.self, forKey: .city)
-        state = try container.decode(String.self, forKey: .state)
-        country = try container.decode(String.self, forKey: .country)
-        zipCode = try container.decode(String.self, forKey: .zipCode)
+        addressLine1 = try? container.decode(String.self, forKey: .addressLine1)
+        addressLine2 = try? container.decode(String.self, forKey: .addressLine2)
+        city = try? container.decode(String.self, forKey: .city)
+        state = try? container.decode(String.self, forKey: .state)
+        country = try? container.decode(String.self, forKey: .country)
+        zipCode = try? container.decode(String.self, forKey: .zipCode)
         knownVenue = try container.decode(Bool.self, forKey: .knownVenue)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(addressLine1, forKey: .addressLine1)
-        try container.encode(addressLine2, forKey: .addressLine2)
-        try container.encode(city, forKey: .city)
-        try container.encode(state, forKey: .state)
-        try container.encode(country, forKey: .country)
-        try container.encode(zipCode, forKey: .zipCode)
+        try? container.encode(addressLine1, forKey: .addressLine1)
+        try? container.encode(addressLine2, forKey: .addressLine2)
+        try? container.encode(city, forKey: .city)
+        try? container.encode(state, forKey: .state)
+        try? container.encode(country, forKey: .country)
+        try? container.encode(zipCode, forKey: .zipCode)
         try container.encode(knownVenue, forKey: .knownVenue)
     }
 }

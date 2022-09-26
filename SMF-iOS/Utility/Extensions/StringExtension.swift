@@ -54,6 +54,10 @@ extension String {
         return resultString
     }
     
+    func toSMFFullFormatDate() -> String {
+        return self.formatDateStringTo(format: "MM/dd/yyyy")
+    }
+    
     func toSMFDateFormat() -> String {
         return self.formatDateStringTo(format: "dd MMM yyyy")
     }

@@ -11,15 +11,16 @@ protocol ActionListDelegate {
     func btnCloseAction()
     func rejectBidAction(requestId: Int)
     func acceptBidAction(bidInfo: BidStatusInfo)
-    func eventDetailsView(bidInfo: BidStatusInfo)
+    func eventDetailsView(bidInfo: BidStatusInfo, status: BiddingStatus?)
     func changeInMind(requestId: Int)
     func showQuoteDetailsPopUp(bidInfo: BidStatusInfo)
+    func serviceWorkFlow(bidInfo: BidStatusInfo, status: BiddingStatus?)
 }
 
 class ActionsListViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var status: BiddingStatus = .none
+    var bidCount: BidCount?
     var delegate: ActionListDelegate?
     
     var dashboardViewModel: DashboardViewModel?
@@ -90,7 +91,9 @@ class ActionsListViewController: BaseViewController {
     
     func updateData() {
         viewModel?.bidStatusInfoList.value.removeAll()
-        viewModel?.fetchActionList(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId, status: status)
+        if let count = self.bidCount {
+            viewModel?.fetchActionList(categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId, vendorOnboardingId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId, status: count.apiLabel)
+        }
     }
     
     func updateList(list: [BidStatusInfo]) {
@@ -115,7 +118,7 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
                 return UITableViewCell()
             }
             cell.delegate = self.delegate
-            cell.lblNewRequestCount.text = "\(viewModel?.bidStatusInfoList.value.count ?? 0) \(self.status.rawValue)"
+            cell.lblNewRequestCount.text = "\(viewModel?.bidStatusInfoList.value.count ?? 0) \(self.bidCount?.title ?? "")"
             
             return cell
         } else {
@@ -124,18 +127,15 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
                 return UITableViewCell()
             }
             cell.delegate = self.delegate
-            cell.status = self.status
-            
+            cell.status = self.bidCount?.apiLabel
             
             let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row - 1)
             cell.setData(bidInfo: bidInfo)
             
-            if status == .bidRequested {
-                cell.btnChangeMind.isHidden = true
+            if self.bidCount?.apiLabel == .bidRequested {
                 cell.btnLike.isHidden = false
                 cell.btnDislike.isHidden = false
             } else {
-                cell.btnChangeMind.isHidden = false
                 cell.btnLike.isHidden = true
                 cell.btnDislike.isHidden = true
             }

@@ -16,7 +16,7 @@ class BidDetailsTableViewCell: UITableViewCell {
     @IBOutlet weak var lblBitTitle: UILabel!
     @IBOutlet weak var lblBidValue: UILabel!
     
-    @IBOutlet weak var lblIcon: UILabel!
+    @IBOutlet weak var bidStatusImage: UIImageView!
     private var _theme: Theme!
     
     override func awakeFromNib() {
@@ -51,14 +51,16 @@ class BidDetailsTableViewCell: UITableViewCell {
         self.lblBitTitle.text = bidStatus.title
         self.lblBidValue.text = bidStatus.subTitle
         
-        if bidStatus.isCompleted {
-            circleView.backgroundColor = _theme.primaryColor
-            self.lblIcon.text = "g"
-            self.lblIcon.textColor = UIColor.white
-            self.lblIcon.font = _theme.smfFont(size: 18)
-        } else {
-            circleView.backgroundColor = .clear
-            self.lblIcon.text = ""
+        switch bidStatus.progressStatus {
+        case .isPending:
+            bidStatusImage.image = UIImage(named: "pending")
+            break
+        case .isInProgress:
+            bidStatusImage.image = UIImage(named: "in_progress")
+            break
+        case .isCompleted:
+            bidStatusImage.image = UIImage(named: "completed")
+            break
         }
         
         if isFirst {
