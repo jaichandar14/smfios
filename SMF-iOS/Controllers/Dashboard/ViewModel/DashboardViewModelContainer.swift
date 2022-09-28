@@ -160,6 +160,26 @@ class DashboardViewModelContainer: DashboardViewModel {
         }
     }
     
+    func afterServiceClosedInitiateBid(requestId: Int, reason: String?, comment: String?, completion: @escaping () -> Void) {
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
+        
+        let params: [String: Any] = [APIConstant.bidRequestId: requestId]
+        
+        APIManager().executeDataRequest(id: "Accept Bid", url: APIConfig.rejectBidRequest, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+            
+            switch result {
+            case true:
+                if let respData = response?["data"] as? [String: Any] {
+                   completion()
+                } else {
+                    self.branchesFetchError.value = "Data could not be parsed"
+                }
+            case false:
+                self.branchesFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
+            }
+        }
+    }
+    
     func acceptBid(requestId: Int, params: [String: Any], completion: @escaping () -> ()) {
         let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
@@ -189,5 +209,30 @@ class DashboardViewModelContainer: DashboardViewModel {
     
     func getServiceCountItem(for index: Int) -> ServiceCount {
         return self.serviceCountList.value[index]
+    }
+    
+    func updateServiceProgress(requestId: Int, eventId: Int, serviceDescId: Int, status: String, completion: @escaping () -> Void) {
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
+        
+        let params: [String: Any] = [
+            APIConstant.eventId: eventId,
+            APIConstant.eventServiceDescriptionId: serviceDescId,
+            APIConstant.status: status
+        ]
+        
+        let url = APIConfig.serviceProgress + "/\(requestId)"
+        APIManager().executeDataRequest(id: "Accept Bid", url: url, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+            
+            switch result {
+            case true:
+                if let respData = response?["data"] as? [String: Any] {
+                   completion()
+                } else {
+                    self.branchesFetchError.value = "Data could not be parsed"
+                }
+            case false:
+                self.branchesFetchError.value = error?.localizedDescription ?? "Error in updateServiceProgress"
+            }
+        }
     }
 }

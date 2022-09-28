@@ -199,10 +199,12 @@ class ActionsCardTableViewCell: UITableViewCell {
         
         switch self.status {
         case .bidRequested:
+            self.btnChangeMind.isHidden = true
             self.btnServiceWorkFlow.isHidden = true
             break
         case .pendingForQuote:
             self.btnServiceWorkFlow.isHidden = true
+            self.btnChangeMind.isHidden = true
             break
         case .bidSubmitted:
             self.btnChangeMind.isHidden = false
@@ -294,6 +296,6 @@ class ActionsCardTableViewCell: UITableViewCell {
     }
     
     @IBAction func btnChangeInMindAction(_ sender: UIButton) {
-        delegate?.changeInMind(requestId: self.bidInfo.bidRequestId)
+        delegate?.changeInMind(bidInfo: self.bidInfo, status: self.status!)
     }
 }

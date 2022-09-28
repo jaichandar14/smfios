@@ -10,6 +10,7 @@ import DropDown
 
 protocol ChangeInMindDelegate {
     func rejectionCompleted()
+    func acceptationCompleted()
 }
 
 class ChangeInMindViewController: BaseViewController {
@@ -25,7 +26,7 @@ class ChangeInMindViewController: BaseViewController {
     @IBOutlet weak var btnOK: UIButton!
     
     var reasonToReject: String?
-    var rejectBidId: Int?
+    var rejectBid: BidStatusInfo?
     var viewModel: DashboardViewModel?
     
     var delegate: ChangeInMindDelegate?
@@ -37,7 +38,9 @@ class ChangeInMindViewController: BaseViewController {
     }
 
     func styleUI() {
+        self.lblRejectedBidTitle.text = "You are rejecting a \(self.rejectBid?.eventName ?? "") #\(self.rejectBid?.eventServiceDescriptionId ?? 0)"
         self.lblRejectedBidTitle.textColor = _theme.textColor
+        self.lblRejectedBidTitle.font = _theme.muliFont(size: 14, style: .muliSemiBold)
         self.lblReasonForBidRejection.textColor = _theme.textGreyColor
         self.btnBidRejection.setTitle("Select rejection reason", for: .normal)
         
@@ -54,7 +57,7 @@ class ChangeInMindViewController: BaseViewController {
         self.txtCommentView.font = _theme.ralewayFont(size: 14, style: .ralewayRegular)
         
         self.setButton(self.btnCancel, backgroundColor: ColorConstant.greyColor8, textColor: _theme.textColor)
-        self.setButton(self.btnOK, backgroundColor: ColorConstant.greyColor4, textColor: UIColor.white)
+        self.setButton(self.btnOK, backgroundColor: ColorConstant.accentColor, textColor: UIColor.white)
     }
     
     func backButtonAction(_ sender: UIBarButtonItem) {
@@ -73,7 +76,7 @@ class ChangeInMindViewController: BaseViewController {
     func setButton(_ button: UIButton, backgroundColor: UIColor, textColor: UIColor) {
         button.backgroundColor = backgroundColor
         button.setTitleColor(textColor, for: .normal)
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 12
     }
     
     override func showDropDown(on view: UIView, items: [String], selection: SelectionClosure?) {
@@ -109,7 +112,7 @@ class ChangeInMindViewController: BaseViewController {
     }
     
     @IBAction func btnOKAction(_ sender: UIButton) {
-        viewModel?.rejectBid(requestId: self.rejectBidId!, reason: self.reasonToReject, comment: self.txtCommentView.text) { [weak self] in
+        viewModel?.rejectBid(requestId: self.rejectBid!.bidRequestId, reason: self.reasonToReject, comment: self.txtCommentView.text) { [weak self] in
             DispatchQueue.main.async {
                 self?.dismiss(animated: false, completion: nil)
                 self?.delegate?.rejectionCompleted()

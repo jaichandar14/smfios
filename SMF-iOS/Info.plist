@@ -16,8 +16,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-    <key>UIUserInterfaceStyle</key>
-      <string>Light</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Muli</string>

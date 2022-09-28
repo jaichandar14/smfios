@@ -39,22 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "04190DDD-0231-48D6-9F9F-DE6AF0CFAD28"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMF-iOS/Controllers/OTP/Controller/OTPScreenViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "btnSubmitTapped(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "70BC0B24-AC46-4742-8CC6-F473D71A8785"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -135,8 +119,8 @@
             filePath = "SMF-iOS/Controllers/Dashboard/Controller/DashboardViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
             landmarkName = "navigateToBiddingStatus(bidInfo:status:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -235,6 +219,134 @@
             endingLineNumber = "130"
             landmarkName = "btnResendTapped(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F98A827E-83FF-4414-A32F-08138B6F233D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "fetchServiceCount()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28E5703D-5572-4F2A-8E29-6FB2463ED30B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/Dashboard/Controller/DashboardViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "448"
+            endingLineNumber = "448"
+            landmarkName = "changeInMind(bidInfo:status:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DBA69034-45BB-4D0A-9889-C27AE6FE1938"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "updateServiceProgress(requestId:eventId:serviceDescId:status:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5203A218-D8BF-457F-A873-0F897040F621"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "updateServiceProgress(requestId:eventId:serviceDescId:status:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A873D14-7E4B-4673-8867-857D8C033BF5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Controllers/Dashboard/ViewModel/DashboardViewModelContainer.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "updateServiceProgress(requestId:eventId:serviceDescId:status:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1219CDD-7BC3-46FC-900D-454D80E2E01E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMF-iOS/Network/Operation/DataOperation.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "task(_:didCompleteWithError:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F1219CDD-7BC3-46FC-900D-454D80E2E01E - 327a3d0ca0399fdd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SMF_iOS.DataOperation.task(_: __C.NSURLSessionTask, didCompleteWithError: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "SMF-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/swapnil_dhotre/SwapnilDhotre/personal/git/SMF-iOS/SMF-iOS/Network/Operation/DataOperation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "209">
+               </Location>
+               <Location
+                  uuid = "F1219CDD-7BC3-46FC-900D-454D80E2E01E - 327a3d0ca0399fdd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SMF_iOS.DataOperation.task(_: __C.NSURLSessionTask, didCompleteWithError: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
+                  moduleName = "SMF-iOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/swapnil_dhotre/SwapnilDhotre/personal/git/SMF-iOS/SMF-iOS/Network/Operation/DataOperation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "270">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

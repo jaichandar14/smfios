@@ -146,6 +146,8 @@
 		E6B727CD289A81F40065204C /* AmplifyLoginUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B727CC289A81F40065204C /* AmplifyLoginUtility.swift */; };
 		E6C24BE8286749F80044E5B5 /* ListCloseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C24BE6286749F80044E5B5 /* ListCloseTableViewCell.swift */; };
 		E6C24BE9286749F80044E5B5 /* ListCloseTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C24BE7286749F80044E5B5 /* ListCloseTableViewCell.xib */; };
+		E6C2684F28E47E9600D787EE /* ViewQuoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C2684D28E47E9600D787EE /* ViewQuoteViewController.swift */; };
+		E6C2685028E47E9600D787EE /* ViewQuoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6C2684E28E47E9600D787EE /* ViewQuoteViewController.xib */; };
 		E6C7B7D0281460D500E5C889 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C7B7CF281460D500E5C889 /* Util.swift */; };
 		E6C7B7D82814632C00E5C889 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C7B7D72814632C00E5C889 /* SceneDelegate.swift */; };
 		E6C7B7DB2814638B00E5C889 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C7B7D92814638B00E5C889 /* InitialViewController.swift */; };
@@ -153,6 +155,8 @@
 		E6CEC48B2812F51B0046D0A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CEC48A2812F51B0046D0A3 /* AppDelegate.swift */; };
 		E6CEC4942812F51C0046D0A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6CEC4932812F51C0046D0A3 /* Assets.xcassets */; };
 		E6CEC4972812F51C0046D0A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CEC4952812F51C0046D0A3 /* LaunchScreen.storyboard */; };
+		E6DBD09A28E2AD960058C698 /* ConfirmationPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBD09828E2AD960058C698 /* ConfirmationPopUpViewController.swift */; };
+		E6DBD09B28E2AD960058C698 /* ConfirmationPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6DBD09928E2AD960058C698 /* ConfirmationPopUpViewController.xib */; };
 		E6E7F192286C14060072CF8B /* CalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E7F191286C14060072CF8B /* CalendarModel.swift */; };
 		E6F2EEFD28A680810064DF61 /* CVProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F2EEFB28A680810064DF61 /* CVProgressHUD.swift */; };
 		E6F2EEFE28A680810064DF61 /* CVProgressHUD.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6F2EEFC28A680810064DF61 /* CVProgressHUD.xib */; };
@@ -310,6 +314,8 @@
 		E6B727CC289A81F40065204C /* AmplifyLoginUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmplifyLoginUtility.swift; sourceTree = "<group>"; };
 		E6C24BE6286749F80044E5B5 /* ListCloseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCloseTableViewCell.swift; sourceTree = "<group>"; };
 		E6C24BE7286749F80044E5B5 /* ListCloseTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCloseTableViewCell.xib; sourceTree = "<group>"; };
+		E6C2684D28E47E9600D787EE /* ViewQuoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewQuoteViewController.swift; sourceTree = "<group>"; };
+		E6C2684E28E47E9600D787EE /* ViewQuoteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewQuoteViewController.xib; sourceTree = "<group>"; };
 		E6C7B7CF281460D500E5C889 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		E6C7B7D72814632C00E5C889 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E6C7B7D92814638B00E5C889 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -319,6 +325,8 @@
 		E6CEC4932812F51C0046D0A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6CEC4962812F51C0046D0A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E6CEC4982812F51C0046D0A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6DBD09828E2AD960058C698 /* ConfirmationPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPopUpViewController.swift; sourceTree = "<group>"; };
+		E6DBD09928E2AD960058C698 /* ConfirmationPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmationPopUpViewController.xib; sourceTree = "<group>"; };
 		E6E7F191286C14060072CF8B /* CalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarModel.swift; sourceTree = "<group>"; };
 		E6F2EEFB28A680810064DF61 /* CVProgressHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVProgressHUD.swift; sourceTree = "<group>"; };
 		E6F2EEFC28A680810064DF61 /* CVProgressHUD.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CVProgressHUD.xib; sourceTree = "<group>"; };
@@ -371,6 +379,8 @@
 			children = (
 				0FCA8713283CCF8700EE6907 /* ChangeInMindViewController.swift */,
 				0FCA8714283CCF8700EE6907 /* ChangeInMindViewController.xib */,
+				E6DBD09828E2AD960058C698 /* ConfirmationPopUpViewController.swift */,
+				E6DBD09928E2AD960058C698 /* ConfirmationPopUpViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -517,6 +527,8 @@
 				E634F851283A1829006323C0 /* EventDetailsTableViewCell.swift */,
 				E634F852283A1829006323C0 /* EventDetailsTableViewCell.xib */,
 				E634F855283A1B24006323C0 /* Circle.swift */,
+				E6C2684D28E47E9600D787EE /* ViewQuoteViewController.swift */,
+				E6C2684E28E47E9600D787EE /* ViewQuoteViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1115,9 +1127,11 @@
 				E6659A48283B92C8008650C1 /* OrderDetailViewController.xib in Resources */,
 				E65CCD5B2820262600A49AEE /* ActionsCardTableViewCell.xib in Resources */,
 				0FCA8716283CCF8700EE6907 /* ChangeInMindViewController.xib in Resources */,
+				E6DBD09B28E2AD960058C698 /* ConfirmationPopUpViewController.xib in Resources */,
 				E6F731BA28154CFA0062318F /* LoginViewController.xib in Resources */,
 				E63269DE2822A255008306B7 /* QuoteDetailsPopUpViewController.xib in Resources */,
 				E65CCD41281FB7D500A49AEE /* DashboardCollectionViewCell.xib in Resources */,
+				E6C2685028E47E9600D787EE /* ViewQuoteViewController.xib in Resources */,
 				E632FF752823A26F00A404E7 /* Muli.ttf in Resources */,
 				E6F2EEFE28A680810064DF61 /* CVProgressHUD.xib in Resources */,
 				E632FF952823A3C400A404E7 /* Raleway-ExtraBold.ttf in Resources */,
@@ -1266,6 +1280,7 @@
 				E6B727CD289A81F40065204C /* AmplifyLoginUtility.swift in Sources */,
 				E68CCF2428A60C6100EF24FC /* SideMenuViewController.swift in Sources */,
 				E6F731C928155E150062318F /* UIViewControllerExtension.swift in Sources */,
+				E6DBD09A28E2AD960058C698 /* ConfirmationPopUpViewController.swift in Sources */,
 				E64FEE9728D191E600E63383 /* Toast.swift in Sources */,
 				E64FEE9928D1924600E63383 /* ToastConstants.swift in Sources */,
 				0FB9F2F628465F2A00843C8F /* CalendarDateCollectionViewCell.swift in Sources */,
@@ -1296,6 +1311,7 @@
 				E69E3D88285F592500E8230A /* ImageCache.swift in Sources */,
 				E60AAFCB283618F6006000C2 /* Observable.swift in Sources */,
 				E68CCF2F28A61F0E00EF24FC /* LandingViewController.swift in Sources */,
+				E6C2684F28E47E9600D787EE /* ViewQuoteViewController.swift in Sources */,
 				E6F48410283555A1006AF21D /* UserDefault.swift in Sources */,
 				E634F853283A1829006323C0 /* EventDetailsTableViewCell.swift in Sources */,
 				E634F85E283A3932006323C0 /* UIViewExtension.swift in Sources */,
@@ -1487,8 +1503,10 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "SMF-iOS";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1500,7 +1518,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = SMFSwapnilDeveloperProvisioningProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1519,8 +1537,10 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "SMF-iOS";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1532,7 +1552,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = SMFSwapnilDeveloperProvisioningProfile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

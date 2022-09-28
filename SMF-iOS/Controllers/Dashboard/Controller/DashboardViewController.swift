@@ -390,7 +390,40 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
     }
     
     func serviceWorkFlow(bidInfo: BidStatusInfo, status: BiddingStatus?) {
-        print("Service work flow")
+        let controller = ConfirmationPopUpViewController()
+        controller.rejectBid = bidInfo
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        switch status {
+        case .wonBid:
+            controller.message = "I hereby confirm the service has been successfully started."
+            controller.okTappedAction = {
+                self.viewModel?.updateServiceProgress(requestId: bidInfo.bidRequestId, eventId: bidInfo.eventId, serviceDescId: bidInfo.eventServiceDescriptionId, status: BiddingStatus.serviceInProgress.rawValue, completion: {
+                    
+                    DispatchQueue.main.async {
+                        self.actionsListController?.updateData()
+                    }
+                })
+            }
+            print("Start service")
+            break
+        case .serviceInProgress:
+            print("Initiate closer")
+            controller.message = "I hereby confirm the service request has been successfully completed. Proceed with Service Closer."
+            controller.okTappedAction = {
+                self.viewModel?.updateServiceProgress(requestId: bidInfo.bidRequestId, eventId: bidInfo.eventId, serviceDescId: bidInfo.eventServiceDescriptionId, status: BiddingStatus.serviceClosed.rawValue, completion: {
+                    
+                    DispatchQueue.main.async {
+                        self.actionsListController?.updateData()
+                    }
+                })
+            }
+            break
+        default:
+            print("Out of scope for service flow")
+        }
+        
+        self.present(controller, animated: false, completion: nil)
     }
     
     func navigateToBiddingStatus(bidInfo: BidStatusInfo, status: BiddingStatus) {
@@ -411,13 +444,30 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func changeInMind(requestId: Int) {
-        let controller = ChangeInMindViewController()
-        controller.viewModel = self.viewModel
-        controller.rejectBidId = requestId
-        controller.delegate = self
-        controller.modalPresentationStyle = .overCurrentContext
-        self.present(controller, animated: false, completion: nil)
+    func changeInMind(bidInfo: BidStatusInfo, status: BiddingStatus) {
+        if (status == .bidRejected) {
+            let controller = ConfirmationPopUpViewController()
+            controller.message = "Do you want to accept the Bid?"
+            controller.rejectBid = bidInfo
+            controller.okTappedAction = {
+                
+            }
+            
+            controller.modalPresentationStyle = .overCurrentContext
+            self.present(controller, animated: false, completion: nil)
+        } else {
+            let controller = ChangeInMindViewController()
+            controller.viewModel = self.viewModel
+            controller.rejectBid = bidInfo
+            controller.delegate = self
+            controller.modalPresentationStyle = .overCurrentContext
+            self.present(controller, animated: false, completion: nil)
+        }
+    }
+    
+    // After service closed and tap on change in mind
+    func acceptationCompleted() {
+        actionsListController?.updateData()
     }
     
     func rejectionCompleted() {

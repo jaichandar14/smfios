@@ -40,4 +40,6 @@ protocol DashboardViewModel {
     func fetchBranches()
     func rejectBid(requestId: Int, reason: String?, comment: String?, completion: @escaping () -> ())
     func acceptBid(requestId: Int, params: [String: Any], completion: @escaping () -> ())
+    
+    func updateServiceProgress(requestId: Int, eventId: Int, serviceDescId: Int, status: String, completion: @escaping () -> Void) 
 }

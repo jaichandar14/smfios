@@ -12,7 +12,7 @@ protocol ActionListDelegate {
     func rejectBidAction(requestId: Int)
     func acceptBidAction(bidInfo: BidStatusInfo)
     func eventDetailsView(bidInfo: BidStatusInfo, status: BiddingStatus?)
-    func changeInMind(requestId: Int)
+    func changeInMind(bidInfo: BidStatusInfo, status: BiddingStatus)
     func showQuoteDetailsPopUp(bidInfo: BidStatusInfo)
     func serviceWorkFlow(bidInfo: BidStatusInfo, status: BiddingStatus?)
 }

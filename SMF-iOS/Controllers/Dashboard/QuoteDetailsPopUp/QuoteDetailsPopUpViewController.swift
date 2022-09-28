@@ -109,6 +109,9 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         
         self.btnOK.titleLabel?.font = _theme.muliFont(size: 14, style: .muli)
         self.btnCancel.titleLabel?.font = _theme.muliFont(size: 14, style: .muli)
+        
+        self.addDoneButtonOnKeyboard(textField: self.txtQuotePrice)
+        self.addDoneButtonOnKeyboard(textView: self.txtAreaComment)
     }
     
     func updateQuoteSelection() {
@@ -188,3 +191,9 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     
     
 }
+
+//extension QuoteDetailsPopUpViewController: UITextFieldDelegate, UITextViewDelegate {
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        return self.txtQuotePrice.resignFirstResponder()
+//    }
+//}

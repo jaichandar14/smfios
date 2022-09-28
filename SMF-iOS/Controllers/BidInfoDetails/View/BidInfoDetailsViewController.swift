@@ -211,6 +211,7 @@ class BidInfoDetailsViewController: BaseViewController {
     }
     
     @IBAction func btnViewQuoteAction(_ sender: UIButton) {
+        
     }
     
     @IBAction func btnDisLikeAction(_ sender: UIButton) {
