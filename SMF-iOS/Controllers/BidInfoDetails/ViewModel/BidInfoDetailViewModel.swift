@@ -26,4 +26,8 @@ protocol BidInfoDetailViewModel {
     
     func prepareStatus(with status: BiddingStatus)
     func prepareEventInfo(info: BidStatusInfo)
+    
+    var viewQuoteLoading: Observable<Bool> { get }
+    var viewQuoteFetchError: Observable<String?> { get }
+    func fetchViewQuote(bidRequestId: Int)
 }

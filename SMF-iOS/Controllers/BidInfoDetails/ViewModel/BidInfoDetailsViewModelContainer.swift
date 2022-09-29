@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
+    
+    var viewQuoteLoading: Observable<Bool>
+    var viewQuoteFetchError: Observable<String?>
 
     
     var bidStatus: Observable<BidStatusInfo?>
@@ -33,6 +36,9 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
         self.serviceList = Observable<[ServiceDetail]>([])
         self.bidStatusInfoLoading = Observable<Bool>(false)
         self.bidStatusInfoFetchError = Observable<String>("")
+        
+        self.viewQuoteLoading = Observable<Bool>(false)
+        self.viewQuoteFetchError = Observable<String?>(nil)
     }
     
     func getBidInfoItem(for index: Int) -> BidStatus {
@@ -205,5 +211,34 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
     
     func getEventInfoItem(for index: Int) -> EventDetail {
         return self.eventInfoList.value[index]
+    }
+    
+    func fetchViewQuote(bidRequestId: Int) {
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
+        
+        let url = APIConfig.orderInfo + "/\(bidRequestId)"
+        APIManager().executeDataRequest(id: "ViewQuote", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+            
+            self.bidStatusInfoLoading.value = false
+            switch result {
+            case true:
+                
+                if let respData = response?["data"] as? [String: Any] {
+                    do {
+                        let data = try JSONSerialization.data(withJSONObject: respData, options: [])
+                        let obj = try JSONDecoder().decode(BidStatusInfo.self, from: data)
+
+                        self.bidStatus.value = obj
+                    } catch let error {
+                        print("Error :: \(error)")
+                        self.bidStatusInfoFetchError.value = "Data could not be parsed"
+                    }
+                } else {
+                    self.bidStatusInfoFetchError.value = "Data could not be parsed"
+                }
+            case false:
+                self.bidStatusInfoFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
+            }
+        }
     }
 }

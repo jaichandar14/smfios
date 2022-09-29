@@ -211,7 +211,10 @@ class BidInfoDetailsViewController: BaseViewController {
     }
     
     @IBAction func btnViewQuoteAction(_ sender: UIButton) {
-        
+        let controller = ViewQuoteViewController()
+        controller.viewModel = self.viewModel
+        controller.bidInfo = self.bidInfo
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     @IBAction func btnDisLikeAction(_ sender: UIButton) {
