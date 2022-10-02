@@ -29,5 +29,6 @@ protocol BidInfoDetailViewModel {
     
     var viewQuoteLoading: Observable<Bool> { get }
     var viewQuoteFetchError: Observable<String?> { get }
+    var viewQuoteData: Observable<ViewQuote?> { get }
     func fetchViewQuote(bidRequestId: Int)
 }

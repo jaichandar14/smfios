@@ -31,6 +31,7 @@
 		E60AAFCB283618F6006000C2 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AAFCA283618F6006000C2 /* Observable.swift */; };
 		E60AAFCD28362CB2006000C2 /* DashboardViewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AAFCC28362CB2006000C2 /* DashboardViewModelContainer.swift */; };
 		E60AAFCF28362CFF006000C2 /* DashboardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AAFCE28362CFF006000C2 /* DashboardModel.swift */; };
+		E60CB86A28E9B88500776AE3 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E60CB86928E9B88500776AE3 /* CloudKit.framework */; };
 		E61E78DF281C0ACC0039CD99 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61E78DE281C0ACB0039CD99 /* APIManager.swift */; };
 		E61E78E2281C5ED90039CD99 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61E78E1281C5ED90039CD99 /* ThemeManager.swift */; };
 		E61E78E4281C5EF40039CD99 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61E78E3281C5EF40039CD99 /* UIColorExtension.swift */; };
@@ -128,6 +129,8 @@
 		E694701F283B89430017497C /* QuestionAnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E694701D283B89430017497C /* QuestionAnsTableViewCell.xib */; };
 		E698022B28601D6200FA1BF7 /* UpdateEventImageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E698022A28601D6200FA1BF7 /* UpdateEventImageObject.swift */; };
 		E698022D286020B000FA1BF7 /* ImageURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E698022C286020B000FA1BF7 /* ImageURLProtocol.swift */; };
+		E69CAD0A28E6F6BC00AA7871 /* AppFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69CAD0928E6F6BC00AA7871 /* AppFileManager.swift */; };
+		E69CAD0C28E741D900AA7871 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = E69CAD0B28E741D800AA7871 /* sample.json */; };
 		E69E3D82285F4B5B00E8230A /* UpcomingEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69E3D80285F4B5B00E8230A /* UpcomingEventCollectionViewCell.swift */; };
 		E69E3D83285F4B5B00E8230A /* UpcomingEventCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E69E3D81285F4B5B00E8230A /* UpcomingEventCollectionViewCell.xib */; };
 		E69E3D85285F55E800E8230A /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69E3D84285F55E800E8230A /* UIImageExtension.swift */; };
@@ -199,6 +202,8 @@
 		E60AAFCA283618F6006000C2 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E60AAFCC28362CB2006000C2 /* DashboardViewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModelContainer.swift; sourceTree = "<group>"; };
 		E60AAFCE28362CFF006000C2 /* DashboardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardModel.swift; sourceTree = "<group>"; };
+		E60CB86828E9B43300776AE3 /* SMF-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SMF-iOS.entitlements"; sourceTree = "<group>"; };
+		E60CB86928E9B88500776AE3 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E61E78DE281C0ACB0039CD99 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		E61E78E1281C5ED90039CD99 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		E61E78E3281C5EF40039CD99 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -296,6 +301,8 @@
 		E694701D283B89430017497C /* QuestionAnsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionAnsTableViewCell.xib; sourceTree = "<group>"; };
 		E698022A28601D6200FA1BF7 /* UpdateEventImageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEventImageObject.swift; sourceTree = "<group>"; };
 		E698022C286020B000FA1BF7 /* ImageURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageURLProtocol.swift; sourceTree = "<group>"; };
+		E69CAD0928E6F6BC00AA7871 /* AppFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFileManager.swift; sourceTree = "<group>"; };
+		E69CAD0B28E741D800AA7871 /* sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		E69E3D80285F4B5B00E8230A /* UpcomingEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		E69E3D81285F4B5B00E8230A /* UpcomingEventCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingEventCollectionViewCell.xib; sourceTree = "<group>"; };
 		E69E3D84285F55E800E8230A /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -350,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C3678B730E56987190C90DE /* Pods_SMF_iOS.framework in Frameworks */,
+				E60CB86A28E9B88500776AE3 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,6 +421,7 @@
 		C1FFBB8D214A1C1FA4AF4B74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E60CB86928E9B88500776AE3 /* CloudKit.framework */,
 				FA4224EB28E277F6ACA2B14C /* Pods_SMF_iOS.framework */,
 			);
 			name = Frameworks;
@@ -436,13 +445,13 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
-		E63269DA2822A21F008306B7 /* QuoteDetailsPopUp */ = {
+		E63269DA2822A21F008306B7 /* AcceptBidPopUp */ = {
 			isa = PBXGroup;
 			children = (
 				E63269DB2822A255008306B7 /* QuoteDetailsPopUpViewController.swift */,
 				E63269DC2822A255008306B7 /* QuoteDetailsPopUpViewController.xib */,
 			);
-			path = QuoteDetailsPopUp;
+			path = AcceptBidPopUp;
 			sourceTree = "<group>";
 		};
 		E632FF692823A1F900A404E7 /* Font */ = {
@@ -704,7 +713,7 @@
 			isa = PBXGroup;
 			children = (
 				0FCA8711283CCF6500EE6907 /* ChangeInMind */,
-				E63269DA2822A21F008306B7 /* QuoteDetailsPopUp */,
+				E63269DA2822A21F008306B7 /* AcceptBidPopUp */,
 				E65CCD46281FDC4B00A49AEE /* ActionsListController */,
 				E67CC641281E4E1A00BB6D53 /* ViewModel */,
 				E67CC640281E4E0B00BB6D53 /* Controller */,
@@ -792,6 +801,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E69CAD0828E6F6A900AA7871 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				E69CAD0928E6F6BC00AA7871 /* AppFileManager.swift */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
 		E69E3D86285F591800E8230A /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -850,6 +867,7 @@
 		E6C7B7CE281460C300E5C889 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				E69CAD0828E6F6A900AA7871 /* FileManager */,
 				E64FEE9A28D1947500E63383 /* Toast */,
 				E6F2EEFA28A680810064DF61 /* CVProgress */,
 				E6A3943D2837F33F00A258D5 /* Progress */,
@@ -889,6 +907,7 @@
 		E6CEC47E2812F51B0046D0A3 = {
 			isa = PBXGroup;
 			children = (
+				E69CAD0B28E741D800AA7871 /* sample.json */,
 				E608717F289A48C3000135FF /* amplifyconfiguration.json */,
 				E6AFF00328B8D2DB00933E37 /* qa_amplifyconfiguration.json */,
 				E6CEC4892812F51B0046D0A3 /* SMF-iOS */,
@@ -909,6 +928,7 @@
 		E6CEC4892812F51B0046D0A3 /* SMF-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				E60CB86828E9B43300776AE3 /* SMF-iOS.entitlements */,
 				E61E78E0281C5E960039CD99 /* Theme */,
 				E6F731C22815514F0062318F /* Network */,
 				E6C7B7D42814626700E5C889 /* Asset */,
@@ -1183,6 +1203,7 @@
 				E632FF792823A26F00A404E7 /* Muli-BoldItalic.ttf in Resources */,
 				E634F854283A1829006323C0 /* EventDetailsTableViewCell.xib in Resources */,
 				E6A2F8AA28B4901D00E1C917 /* CountryFlagTableViewCell.xib in Resources */,
+				E69CAD0C28E741D900AA7871 /* sample.json in Resources */,
 				E632FF9A2823A3C400A404E7 /* Raleway-Light.ttf in Resources */,
 				E64D5062281DB892001DB406 /* OTPScreenViewController.xib in Resources */,
 				E632FF9F2823A3C400A404E7 /* Raleway-MediumItalic.ttf in Resources */,
@@ -1289,6 +1310,7 @@
 				E602F401282291670017C346 /* DictionaryExtension.swift in Sources */,
 				E676F250281A9A90000DD648 /* APIRequestExecutor.swift in Sources */,
 				E676F25B281AACD3000DD648 /* Cookie.swift in Sources */,
+				E69CAD0A28E6F6BC00AA7871 /* AppFileManager.swift in Sources */,
 				E6F731BF2815505C0062318F /* LoginModel.swift in Sources */,
 				E67C380F2816A39E00EF5353 /* Connectivity.swift in Sources */,
 				0F474678284DBC10003059F5 /* CalendarEmptyDataTableViewCell.swift in Sources */,
@@ -1494,6 +1516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SMF-iOS/SMF-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1528,10 +1551,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = "SMF-iOS/SMF-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NQXFMB43XN;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SMF-iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "SMF-iOS";
@@ -1549,7 +1573,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.smf.events;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = SMFSwapnilDeveloperProvisioningProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

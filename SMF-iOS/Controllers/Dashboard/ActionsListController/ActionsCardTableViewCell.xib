@@ -29,20 +29,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMW-bu-Iay">
                         <rect key="frame" x="20" y="20" width="363" height="223"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saras Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDE-HQ-cBt">
-                                <rect key="frame" x="12" y="12" width="114" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Saras Birthday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDE-HQ-cBt">
+                                <rect key="frame" x="12" y="12" width="219" height="19.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CA484515486421" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFY-bS-buJ">
-                                <rect key="frame" x="12" y="36.5" width="149" height="21.5"/>
+                                <rect key="frame" x="12" y="36.5" width="219" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fork &amp; Spoon - Catering" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSO-sZ-XID">
-                                <rect key="frame" x="12" y="61" width="176" height="19.5"/>
+                                <rect key="frame" x="12" y="61" width="219" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -148,7 +148,7 @@
                                 </subviews>
                             </stackView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HI-C6-XTO">
-                                <rect key="frame" x="232" y="112" width="119" height="30"/>
+                                <rect key="frame" x="232" y="122" width="119" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Change in Mind? ">
@@ -250,12 +250,14 @@
                             <constraint firstItem="Xga-ZO-K3Z" firstAttribute="centerY" secondItem="KDE-HQ-cBt" secondAttribute="centerY" id="Az9-vK-veL"/>
                             <constraint firstItem="0H5-Gg-y9T" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fSO-sZ-XID" secondAttribute="bottom" constant="11" id="GaY-KY-gEY"/>
                             <constraint firstItem="MFY-bS-buJ" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="leading" id="Me6-rH-tXv"/>
-                            <constraint firstItem="4HI-C6-XTO" firstAttribute="top" secondItem="x5q-wt-kx1" secondAttribute="bottom" constant="25" id="MlY-2b-Oz7"/>
+                            <constraint firstItem="4HI-C6-XTO" firstAttribute="top" secondItem="x5q-wt-kx1" secondAttribute="bottom" constant="35" id="MlY-2b-Oz7"/>
                             <constraint firstItem="KDE-HQ-cBt" firstAttribute="top" secondItem="FMW-bu-Iay" secondAttribute="top" constant="12" id="NNr-ZI-i60"/>
                             <constraint firstAttribute="bottom" secondItem="sYc-X3-WFk" secondAttribute="bottom" constant="15" id="OE7-A2-dQT"/>
                             <constraint firstItem="2A2-1X-abw" firstAttribute="centerY" secondItem="sYc-X3-WFk" secondAttribute="centerY" id="OyH-en-1l3"/>
+                            <constraint firstItem="MFY-bS-buJ" firstAttribute="trailing" secondItem="KDE-HQ-cBt" secondAttribute="trailing" id="Qnp-FH-e9l"/>
                             <constraint firstAttribute="trailing" secondItem="Xga-ZO-K3Z" secondAttribute="trailing" constant="12" id="SMm-xT-CTY"/>
                             <constraint firstAttribute="trailing" secondItem="x5q-wt-kx1" secondAttribute="trailing" constant="12" id="Sv3-8o-nv0"/>
+                            <constraint firstItem="fSO-sZ-XID" firstAttribute="trailing" secondItem="MFY-bS-buJ" secondAttribute="trailing" id="WsW-NH-ffF"/>
                             <constraint firstAttribute="bottom" secondItem="g0h-3O-oTY" secondAttribute="bottom" constant="10" id="XhL-6y-4zi"/>
                             <constraint firstItem="g3Y-7F-Reu" firstAttribute="centerY" secondItem="sYc-X3-WFk" secondAttribute="centerY" constant="2" id="bF6-A0-gS4"/>
                             <constraint firstItem="2A2-1X-abw" firstAttribute="leading" secondItem="g3Y-7F-Reu" secondAttribute="trailing" id="cDG-hW-lsh"/>
@@ -267,6 +269,7 @@
                             <constraint firstAttribute="trailing" secondItem="g0h-3O-oTY" secondAttribute="trailing" constant="12" id="mNm-DV-POz"/>
                             <constraint firstItem="sYc-X3-WFk" firstAttribute="leading" secondItem="5D6-ld-oCU" secondAttribute="leading" id="pOY-KB-VP8"/>
                             <constraint firstItem="0H5-Gg-y9T" firstAttribute="leading" secondItem="FMW-bu-Iay" secondAttribute="leading" constant="12" id="ugE-5m-Mvc"/>
+                            <constraint firstItem="x5q-wt-kx1" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="trailing" constant="10" id="v1s-mt-Myd"/>
                             <constraint firstItem="sYc-X3-WFk" firstAttribute="top" secondItem="5D6-ld-oCU" secondAttribute="bottom" constant="22" id="yJX-Ls-lPg"/>
                         </constraints>
                     </view>

@@ -12,6 +12,12 @@ protocol QuoteDetailsPopUpDelegate {
     func chooseFileTapped()
 }
 
+enum ActiveField {
+    case none
+    case amountField
+    case commentField
+}
+
 class QuoteDetailsPopUpViewController: BaseViewController {
         
     var delegate: QuoteDetailsPopUpDelegate?
@@ -45,15 +51,51 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     @IBOutlet weak var chooseFileStackView: UIStackView!
     @IBOutlet weak var bottomButtonStackTopView: NSLayoutConstraint!
         
+    @IBOutlet weak var popUpCenterConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var forkSpoonTopConstraint: NSLayoutConstraint!
     var bidInfo: BidStatusInfo?
     var isHavingQuoteSelected = true
+    
+    var activeField: ActiveField = .none
+    
+    @IBOutlet weak var quoteLaterStack: UIStackView!
+    var quoteAlreadySubmitted: Bool = false
         
     override func viewDidLoad() {
         super.viewDidLoad()
         
         styleUI()
         setDataToUI()
-    }
+        
+        // call the 'keyboardWillShow' function when the view controller receive the notification that a keyboard is going to be shown
+         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+       
+           // call the 'keyboardWillHide' function when the view controlelr receive notification that keyboard is going to be hidden
+         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+     }
+
+     @objc func keyboardWillShow(notification: NSNotification) {
+         if self.activeField == .amountField {
+             UIView.animate(withDuration: 1.0) {
+                 self.popUpCenterConstraint.constant = -80
+             }
+         } else if self.activeField == .commentField {
+             UIView.animate(withDuration: 1.0) {
+                 self.popUpCenterConstraint.constant = -180
+             }
+         } else {
+             UIView.animate(withDuration: 1.0) {
+                 self.popUpCenterConstraint.constant = -180
+             }
+         }
+     }
+
+     @objc func keyboardWillHide(notification: NSNotification) {
+         UIView.animate(withDuration: 1.0) {
+             self.popUpCenterConstraint.constant = 0
+         }
+     }
     
     func backButtonAction(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
@@ -61,12 +103,20 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     
     func styleUI() {
         
+        if self.quoteAlreadySubmitted {
+            self.forkSpoonTopConstraint.priority = UILayoutPriority(850)
+            self.quoteLaterStack.isHidden = true
+        } else {
+            self.forkSpoonTopConstraint.priority = UILayoutPriority(950)
+            self.quoteLaterStack.isHidden = false
+        }
+        
         self.lblQuoteTitle.textColor = _theme.textColor
-        self.lblForkAndSpoon.font = _theme.ralewayFont(size: 20, style: .ralewaySemiBold)
         
         self.lblHavingQuoteDetails.textColor = _theme.textColor
         self.lblWillProvideLater.textColor = _theme.textColor
-        
+
+        self.lblForkAndSpoon.text = bidInfo?.branchName
         self.lblForkAndSpoon.textColor = _theme.textColor
         self.lblForkAndSpoon.font = _theme.ralewayFont(size: 16, style: .ralewayBold)
         
@@ -105,13 +155,16 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         self.btnChooseQuoteFile.layer.cornerRadius = 5
         
         self.setButton(self.btnCancel, backgroundColor: ColorConstant.greyColor8, textColor: _theme.textColor)
-        self.setButton(self.btnOK, backgroundColor: ColorConstant.greyColor4, textColor: UIColor.white)
+        self.setButton(self.btnOK, backgroundColor: ColorConstant.accentColor, textColor: UIColor.white)
         
         self.btnOK.titleLabel?.font = _theme.muliFont(size: 14, style: .muli)
         self.btnCancel.titleLabel?.font = _theme.muliFont(size: 14, style: .muli)
         
         self.addDoneButtonOnKeyboard(textField: self.txtQuotePrice)
         self.addDoneButtonOnKeyboard(textView: self.txtAreaComment)
+        
+        self.txtQuotePrice.delegate = self
+        self.txtAreaComment.delegate = self
     }
     
     func updateQuoteSelection() {
@@ -159,7 +212,7 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     func setButton(_ button: UIButton, backgroundColor: UIColor, textColor: UIColor) {
         button.backgroundColor = backgroundColor
         button.setTitleColor(textColor, for: .normal)
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 12
     }
     
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
@@ -176,6 +229,7 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     }
     
     @IBAction func btnOkAction(_ sender: UIButton) {
+        self.dismiss(animated: false, completion: nil)
         delegate?.okTapped(bidInfo: self.bidInfo!, cost: self.txtQuotePrice.text ?? "", comment: self.txtAreaComment.text, isQuoteSelected: self.isHavingQuoteSelected)
     }
     
@@ -188,12 +242,27 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         self.isHavingQuoteSelected = !self.isHavingQuoteSelected
         self.updateQuoteSelection()
     }
-    
-    
 }
 
-//extension QuoteDetailsPopUpViewController: UITextFieldDelegate, UITextViewDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        return self.txtQuotePrice.resignFirstResponder()
-//    }
-//}
+extension QuoteDetailsPopUpViewController: UITextFieldDelegate, UITextViewDelegate {
+    // when user select a textfield, this method will be called
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // set the activeTextField to the selected textfield
+        self.activeField = .amountField
+    }
+    
+    // when user click 'done' or dismiss the keyboard
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.activeField = .none
+    }
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        self.activeField = .commentField
+        return true
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        self.activeField = .none
+        return true
+    }
+}

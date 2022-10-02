@@ -9,11 +9,11 @@ import UIKit
 
 protocol ActionListDelegate {
     func btnCloseAction()
-    func rejectBidAction(requestId: Int)
-    func acceptBidAction(bidInfo: BidStatusInfo)
+    func rejectBidAction(bidInfo: BidStatusInfo, status: BiddingStatus)
+    func acceptBidAction(bidInfo: BidStatusInfo, status: BiddingStatus)
     func eventDetailsView(bidInfo: BidStatusInfo, status: BiddingStatus?)
     func changeInMind(bidInfo: BidStatusInfo, status: BiddingStatus)
-    func showQuoteDetailsPopUp(bidInfo: BidStatusInfo)
+    func showQuoteDetailsPopUp(bidInfo: BidStatusInfo, status: BiddingStatus)
     func serviceWorkFlow(bidInfo: BidStatusInfo, status: BiddingStatus?)
 }
 
@@ -132,7 +132,7 @@ extension ActionsListViewController: UITableViewDataSource, UITableViewDelegate 
             let bidInfo = viewModel!.getBidInfoItem(for: indexPath.row - 1)
             cell.setData(bidInfo: bidInfo)
             
-            if self.bidCount?.apiLabel == .bidRequested {
+            if self.bidCount?.apiLabel == .bidRequested || self.bidCount?.apiLabel == .pendingForQuote {
                 cell.btnLike.isHidden = false
                 cell.btnDislike.isHidden = false
             } else {

@@ -10,6 +10,7 @@ import UIKit
 
 class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
     
+    var viewQuoteData: Observable<ViewQuote?>
     var viewQuoteLoading: Observable<Bool>
     var viewQuoteFetchError: Observable<String?>
 
@@ -37,6 +38,7 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
         self.bidStatusInfoLoading = Observable<Bool>(false)
         self.bidStatusInfoFetchError = Observable<String>("")
         
+        self.viewQuoteData = Observable<ViewQuote?>(nil)
         self.viewQuoteLoading = Observable<Bool>(false)
         self.viewQuoteFetchError = Observable<String?>(nil)
     }
@@ -47,28 +49,6 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
     
     func fetchBidDetailsList(bidRequestId: Int) {
         self.bidStatusInfoLoading.value = true
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.bidStatusList.value = [
-//                BidStatus(title: "Bid accepted", subTitle: "Quote send to the customer - $2500", isCompleted: true),
-//                BidStatus(title: "Won/Reject/LostBid", subTitle: "", isCompleted: false),
-//                BidStatus(title: "Service Status", subTitle: "", isCompleted: false),
-//                BidStatus(title: "Review Feedback", subTitle: "", isCompleted: false)
-//            ]
-//
-//            self.eventInfoList.value = [
-//                EventDetail(title: "Event date", value: "06 Jul 2022"),
-//                EventDetail(title: "Bid proposal date", value: "23 Jul 2022"),
-//                EventDetail(title: "Cut off date", value: "26 Jul 2022"),
-//                EventDetail(title: "Service date", value: "06 Jul 2022"),
-//                EventDetail(title: "Payment status", value: "NA"),
-//                EventDetail(title: "Service by", value: "NA"),
-//                EventDetail(title: "Address", value: "352 Mullai new housing thanjour"),
-//                EventDetail(title: "Customer Rating", value: "NA"),
-//                EventDetail(title: "Review Comment", value: "NA"),
-//            ]
-//        }
-//
-//        return
         
         let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
@@ -214,30 +194,31 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
     }
     
     func fetchViewQuote(bidRequestId: Int) {
+        self.viewQuoteLoading.value = true
         let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
         
-        let url = APIConfig.orderInfo + "/\(bidRequestId)"
+        let url = APIConfig.viewQuote + "/\(bidRequestId)"
         APIManager().executeDataRequest(id: "ViewQuote", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
             
-            self.bidStatusInfoLoading.value = false
+            self.viewQuoteLoading.value = false
             switch result {
             case true:
                 
                 if let respData = response?["data"] as? [String: Any] {
                     do {
                         let data = try JSONSerialization.data(withJSONObject: respData, options: [])
-                        let obj = try JSONDecoder().decode(BidStatusInfo.self, from: data)
+                        let obj = try JSONDecoder().decode(ViewQuote.self, from: data)
 
-                        self.bidStatus.value = obj
+                        self.viewQuoteData.value = obj
                     } catch let error {
                         print("Error :: \(error)")
-                        self.bidStatusInfoFetchError.value = "Data could not be parsed"
+                        self.viewQuoteFetchError.value = "Data could not be parsed"
                     }
                 } else {
-                    self.bidStatusInfoFetchError.value = "Data could not be parsed"
+                    self.viewQuoteFetchError.value = "Data could not be parsed"
                 }
             case false:
-                self.bidStatusInfoFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
+                self.viewQuoteFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
             }
         }
     }

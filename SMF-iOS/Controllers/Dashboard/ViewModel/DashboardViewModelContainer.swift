@@ -221,7 +221,7 @@ class DashboardViewModelContainer: DashboardViewModel {
         ]
         
         let url = APIConfig.serviceProgress + "/\(requestId)"
-        APIManager().executeDataRequest(id: "Accept Bid", url: url, method: .PUT, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+        APIManager().executeDataRequest(id: "Accept Bid", url: url, method: .PUT_URL_PARAM, parameters: params, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
             
             switch result {
             case true:

@@ -41,8 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         listenToAuthEvents()
         
+        AmplifyLoginUtility.fetchTokenInfo()
+        
         return true
     }
+    
+    
+//    func loadJson(fileName: String) -> ViewQuote? {
+//       let decoder = JSONDecoder()
+//       guard
+//            let url = Bundle.main.url(forResource: fileName, withExtension: "json"),
+//            let data = try? Data(contentsOf: url),
+//                let obj = try? JSONDecoder().decode(ViewQuote.self, from: data)
+//       else {
+//            return nil
+//       }
+//
+//       return obj
+//    }
     
     func listenToAuthEvents() {
         _ = Amplify.Hub.listen(to: .auth) { payload in
@@ -118,12 +134,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         print("Application did become active")
-        AmplifyLoginUtility.startTokenUpdateService()
+        
+        AmplifyLoginUtility.didBecomeActive()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
         print("Application did resign active")
-        AmplifyLoginUtility.stopTokenUpdateService()
+        AmplifyLoginUtility.willResignActive()
     }
 }
 

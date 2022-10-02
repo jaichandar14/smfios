@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum APIError: Error {
     case invalidData
@@ -48,7 +49,24 @@ extension DataOperation {
                 do {
                     let json = try JSONSerialization.jsonObject(with: self.responseData!, options: []) as? [String : Any]
                     if let json = json {
-                        self.completionHandler!(json, true, nil)
+                        if let message = json["message"] as? String, message == "The incoming token has expired" {
+                            AmplifyLoginUtility.fetchAuthToken { authStatus in
+                                switch authStatus {
+                                case .authenticationFailed:
+                                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                        DispatchQueue.main.async {
+                                            appDelegate.showAlertAndLogOut()
+                                        }
+                                    }
+                                    break
+                                case .authenticationSuccess(_, _):
+                                    self.completionHandler!(json, true, nil)
+                                    break
+                                }
+                            }
+                        } else {
+                            self.completionHandler!(json, true, nil)
+                        }
                     } else {
                         print("DataTask while parsing the json")
                         self.completionHandler!(nil, false, APIError.invalidData)

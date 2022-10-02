@@ -11,6 +11,7 @@ enum HTTPMethod {
     case GET
     case POST
     case PUT
+    case PUT_URL_PARAM
     case DELETE
 }
 
@@ -50,7 +51,11 @@ class APIRequestExecutor {
         
         request = URLRequest(url: url)
         request.cachePolicy = NSURLRequest.CachePolicy.useProtocolCachePolicy
-        request.httpMethod = String(describing: method)
+        if method == .PUT_URL_PARAM {
+            request.httpMethod = String(describing: HTTPMethod.PUT)
+        } else {
+            request.httpMethod = String(describing: method)
+        }
         
         if let header = header {
             request.allHTTPHeaderFields = header
@@ -72,7 +77,12 @@ class APIRequestExecutor {
             request.url = createURLRequest(url: urlString, parameters: parameters)
             print("URL::: \(request.url)")
             
-        case .POST, .PUT, .DELETE:
+        case .PUT_URL_PARAM:
+            
+            request.url = createURLRequest(url: urlString, parameters: parameters)
+            print("URL::: \(request.url)")
+            
+        case .POST, .DELETE, .PUT:
             do {
                 if let params = parameters{
                     let data = try JSONSerialization.data(withJSONObject: params, options: [])

@@ -31,6 +31,7 @@
                 <outlet property="btnOK" destination="S8t-AL-Aam" id="QpN-P9-Itd"/>
                 <outlet property="btnWillProvideLater" destination="CCI-AC-rME" id="mJd-dg-Wbt"/>
                 <outlet property="chooseFileStackView" destination="6Ce-w5-EMk" id="LiH-Wb-gdd"/>
+                <outlet property="forkSpoonTopConstraint" destination="VaI-Ua-P3Y" id="syv-7J-ugs"/>
                 <outlet property="lblCommentTitle" destination="wd1-M1-07z" id="mGu-B0-Nxu"/>
                 <outlet property="lblCostEstimation" destination="Ne9-IA-0Bs" id="3Ws-ps-JNx"/>
                 <outlet property="lblForkAndSpoon" destination="Q13-6f-Gzq" id="D2U-EM-dcU"/>
@@ -38,7 +39,9 @@
                 <outlet property="lblQuoteDetail" destination="Zjj-Vd-me4" id="Lrj-rw-Joz"/>
                 <outlet property="lblQuoteTitle" destination="6ZM-BI-vK7" id="Idc-JD-liO"/>
                 <outlet property="lblWillProvideLater" destination="zQ5-lQ-KBA" id="lPh-08-Tff"/>
+                <outlet property="popUpCenterConstraint" destination="mvX-TG-vz2" id="gec-k9-qFc"/>
                 <outlet property="priceStackView" destination="yuk-SC-9Ka" id="TgI-WJ-Kty"/>
+                <outlet property="quoteLaterStack" destination="MKd-hQ-YKZ" id="Eml-lh-N4n"/>
                 <outlet property="txtAreaComment" destination="JRx-2r-xTK" id="JQ6-VY-6x3"/>
                 <outlet property="txtAreaContainer" destination="U90-My-NIE" id="AMx-gI-BK4"/>
                 <outlet property="txtQuotePrice" destination="mHI-dA-gqm" id="j9u-k3-nru"/>
@@ -157,7 +160,7 @@
                                         <constraint firstAttribute="height" constant="34" id="emz-9G-ivV"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                 </textField>
                             </subviews>
                         </stackView>
@@ -261,7 +264,7 @@
                         <constraint firstAttribute="trailing" secondItem="GET-t5-rVv" secondAttribute="trailing" constant="22" id="Mt9-S0-gRe"/>
                         <constraint firstItem="MKd-hQ-YKZ" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="22" id="Om6-N3-c3O"/>
                         <constraint firstItem="wd1-M1-07z" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="22" id="SmV-dE-NQc"/>
-                        <constraint firstItem="Q13-6f-Gzq" firstAttribute="top" secondItem="MKd-hQ-YKZ" secondAttribute="bottom" constant="30" id="VaI-Ua-P3Y"/>
+                        <constraint firstItem="Q13-6f-Gzq" firstAttribute="top" secondItem="MKd-hQ-YKZ" secondAttribute="bottom" priority="950" constant="30" id="VaI-Ua-P3Y"/>
                         <constraint firstItem="yuk-SC-9Ka" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="22" id="Vek-54-ujJ"/>
                         <constraint firstItem="lC6-P3-yuy" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="22" id="YQ6-oE-gdS"/>
                         <constraint firstItem="426-FI-1iK" firstAttribute="centerY" secondItem="llx-yH-ldG" secondAttribute="centerY" id="aF5-SC-5cj"/>
@@ -280,6 +283,7 @@
                         <constraint firstItem="U90-My-NIE" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="22" id="mW7-RH-Eyk"/>
                         <constraint firstAttribute="trailing" secondItem="Q13-6f-Gzq" secondAttribute="trailing" constant="22" id="prV-Xo-iMj"/>
                         <constraint firstItem="Q13-6f-Gzq" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="22" id="qUc-eY-FgK"/>
+                        <constraint firstItem="Q13-6f-Gzq" firstAttribute="top" secondItem="lC6-P3-yuy" secondAttribute="bottom" priority="900" constant="30" id="slw-ht-SQT"/>
                         <constraint firstItem="6ZM-BI-vK7" firstAttribute="leading" secondItem="lia-BR-0tD" secondAttribute="leading" constant="20" id="zIE-UX-TW5"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>

@@ -57,6 +57,7 @@ class ConfirmationPopUpViewController: BaseViewController {
     
     @IBAction func btnOKAction(_ sender: UIButton) {
         self.okTappedAction?()
+        self.dismiss(animated: false, completion: nil)
 //        viewModel?.rejectBid(requestId: self.rejectBid!.bidRequestId, reason: self.reasonToReject, comment: self.txtCommentView.text) { [weak self] in
 //            DispatchQueue.main.async {
 //                self?.dismiss(animated: false, completion: nil)

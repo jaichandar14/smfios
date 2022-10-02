@@ -276,14 +276,14 @@ class ActionsCardTableViewCell: UITableViewCell {
     
     
     @IBAction func btnDislikeAction(_ sender: UIButton) {
-        delegate?.rejectBidAction(requestId: self.bidInfo.bidRequestId)
+        delegate?.rejectBidAction(bidInfo: self.bidInfo, status: self.status!)
     }
     
     @IBAction func btnLikeAction(_ sender: UIButton) {
         if self.bidInfo.costingType == .bidding {
-            delegate?.showQuoteDetailsPopUp(bidInfo: self.bidInfo)
+            delegate?.showQuoteDetailsPopUp(bidInfo: self.bidInfo, status: self.status!)
         } else {
-            delegate?.acceptBidAction(bidInfo: self.bidInfo)
+            delegate?.acceptBidAction(bidInfo: self.bidInfo, status: self.status!)
         }
     }
     

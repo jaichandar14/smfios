@@ -8,6 +8,7 @@
 import UIKit
 import DropDown
 import Amplify
+import SwiftUI
 
 class DashboardViewController: BaseViewController {
     
@@ -446,16 +447,22 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
     
     func changeInMind(bidInfo: BidStatusInfo, status: BiddingStatus) {
         if (status == .bidRejected) {
-            let controller = ConfirmationPopUpViewController()
-            controller.message = "Do you want to accept the Bid?"
-            controller.rejectBid = bidInfo
-            controller.okTappedAction = {
+            if bidInfo.costingType == .bidding {
+                self.showQuoteDetailsPopUp(bidInfo: bidInfo, status: status)
+            } else {
+                let controller = ConfirmationPopUpViewController()
+                controller.message = "Do you want to accept the Bid?"
+                controller.rejectBid = bidInfo
+                controller.okTappedAction = {
+                    self.acceptBidAction(bidInfo: bidInfo, status: status)
+                }
                 
+                controller.modalPresentationStyle = .overCurrentContext
+                self.present(controller, animated: false, completion: nil)
             }
-            
-            controller.modalPresentationStyle = .overCurrentContext
-            self.present(controller, animated: false, completion: nil)
         } else {
+            
+            // Reject bid
             let controller = ChangeInMindViewController()
             controller.viewModel = self.viewModel
             controller.rejectBid = bidInfo
@@ -479,13 +486,17 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
         setContainer(with: actionStatusController ?? getActionStatusController())
     }
     
-    func rejectBidAction(requestId: Int) {
-        viewModel?.rejectBid(requestId: requestId, reason: nil, comment: nil) { [weak self] in
-            self?.actionsListController?.updateData()
-        }
+    func rejectBidAction(bidInfo: BidStatusInfo, status: BiddingStatus) {
+        // Reject bid
+        let controller = ChangeInMindViewController()
+        controller.viewModel = self.viewModel
+        controller.rejectBid = bidInfo
+        controller.delegate = self
+        controller.modalPresentationStyle = .overCurrentContext
+        self.present(controller, animated: false, completion: nil)
     }
     
-    func acceptBidAction(bidInfo: BidStatusInfo) {
+    func acceptBidAction(bidInfo: BidStatusInfo, status: BiddingStatus) {
         //        { "bidRequestId":2651,"bidStatus":"BID SUBMITTED","branchName":"jai1","comment":"","cost":"540","costingType":"Variable Cost","currencyType":"USD($)","latestBidValue":0}
         let params: [String: Any] = [
             APIConstant.bidRequestId: bidInfo.bidRequestId,
@@ -502,17 +513,26 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
             requestId: bidInfo.bidRequestId,
             params: params,
             completion: {
-                let controller = BidInfoDetailsViewController()
-                controller.bidInfo = bidInfo
-                controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
-                self.navigationController?.pushViewController(controller, animated: true)
+                DispatchQueue.main.async {
+                    self.actionsListController?.updateData()
+                    
+                    let controller = BidInfoDetailsViewController()
+                    controller.bidInfo = bidInfo
+                    controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
+                    controller.bidStatus = .bidSubmitted
+                    
+                    
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+                
             })
     }
     
-    func showQuoteDetailsPopUp(bidInfo: BidStatusInfo) {
+    func showQuoteDetailsPopUp(bidInfo: BidStatusInfo, status: BiddingStatus) {
         let controller = QuoteDetailsPopUpViewController()
         controller.delegate = self
         controller.bidInfo = bidInfo
+        controller.quoteAlreadySubmitted = status == .pendingForQuote
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
     }
@@ -549,6 +569,7 @@ extension DashboardViewController: QuoteDetailsPopUpDelegate {
             DispatchQueue.main.async {
                 let controller = BidInfoDetailsViewController()
                 controller.bidInfo = bidInfo
+                controller.bidStatus = .bidSubmitted
                 controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
                 self.navigationController?.pushViewController(controller, animated: true)
             }
