@@ -64,11 +64,7 @@ class CalendarPickerViewController: BaseViewController {
     
     private var calendarEventHeaders: [Event] = []
     
-    var viewModel: CalendarPickerViewModel? {
-        didSet {
-            setDataToUI()
-        }
-    }
+    var viewModel: CalendarPickerViewModel?
     
     var dashboardViewModel: DashboardViewModel?
     
@@ -215,20 +211,34 @@ class CalendarPickerViewController: BaseViewController {
         guard let viewModel = viewModel else {
             return
         }
+        
+        var date = Date()
+        date.addDays(n: 15)
+        self.viewModel?.businessValidityEndDate.value = date
+//        viewModel.fetchBusinessValidity()
+        
+        viewModel.businessValidityEndDate.bindAndFire { [weak self] endDate in
+            if let service = self?.dashboardViewModel?.serviceList.value.first {
+                // This action will make selected service fire
+                self?.dashboardViewModel?.selectedService.value = service
+                
+            } else {
+                // Will fetch services if not fetched already
+                self?.dashboardViewModel?.fetchServices()
+            }
+        }
+        
+        dashboardViewModel?.serviceList.bindAndFire({ [weak self] services in
+            self?.dashboardViewModel?.selectedService.value = services.first
+        })
                 
         // Service dropdown update listener
         dashboardViewModel?.selectedService.bindAndFire { [weak self] service in
             DispatchQueue.main.async {
                 self?.btnAllServices.setTitle((service?.serviceName ?? "All Services") + "   ", for: .normal)
                 self?.calendarTimeLineTableView.reloadData()
-            }
-        }
-        
-        // Branch dropdown update listener
-        dashboardViewModel?.selectedBranch.bindAndFire { [weak self] branch in
-            DispatchQueue.main.async {
-                self?.btnAllBranches.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
-                self?.fetchCalendarEventsFor()
+                
+                self?.dashboardViewModel?.fetchBranches()
             }
         }
         
@@ -239,15 +249,12 @@ class CalendarPickerViewController: BaseViewController {
             }
         }
         
-        dashboardViewModel?.fetchServices()
-        
-        if let dashboardViewModel = dashboardViewModel, !dashboardViewModel.serviceList.value.isEmpty {
-            dashboardViewModel.selectedService.value = dashboardViewModel.serviceList.value.first
-            self.dashboardViewModel?.fetchBranches()
-        }
-        
-        if let dashboardViewModel = dashboardViewModel, !dashboardViewModel.branches.value.isEmpty {
-            dashboardViewModel.selectedBranch.value = dashboardViewModel.branches.value.first
+        // Branch dropdown update listener
+        dashboardViewModel?.selectedBranch.bindAndFire { [weak self] branch in
+            DispatchQueue.main.async {
+                self?.btnAllBranches.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
+                self?.fetchCalendarEventsFor()
+            }
         }
         
         // Calendar events fetch update listener
@@ -513,7 +520,15 @@ class CalendarPickerViewController: BaseViewController {
                 isMonth: segmentControl.selectedSegmentIndex == 2)
         } else {
             let firstDate = manuallySelectedDate.firstDayOfTheMonth()
-            let lastDate = manuallySelectedDate.lastDayOfMonth()
+            var lastDate = manuallySelectedDate.lastDayOfMonth()
+            
+            // This will set lastDate as last event date
+            if let endDate = self.viewModel?.businessValidityEndDate.value {
+                if endDate.toString(with: "MM YYYY") == lastDate.toString(with: "MM YYYY") {
+                    lastDate = endDate
+                }
+            }
+            
             viewModel?.fetchCalendarEvents(
                 categoryId: dashboardViewModel?.selectedService.value?.serviceCategoryId,
                 onboardingVendorId: dashboardViewModel?.selectedBranch.value?.serviceVendorOnboardingId,
@@ -623,6 +638,9 @@ class CalendarPickerViewController: BaseViewController {
         default:
             break
         }
+        
+        // Check if selected dates contains last event date
+        self.checkIfDatesContainsLastEventDate(dates: self.fsCalendar.selectedDates)
         
         if self.btnSwitch.isOn {
             self.showAllDatesAvailability(dates: [])
@@ -815,6 +833,22 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         let currentDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))
         
+        let selectedDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: date))
+        
+        
+        if let validityEndDate = self.viewModel?.businessValidityEndDate.value {
+            let lastValidityDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: validityEndDate))
+            if selectedDate! > lastValidityDate! {
+                self.view.makeToast(ToastConstant.selectedDateIsAfterEvent)
+                return false
+            }
+            
+            if (selectedDate!.compare(lastValidityDate!) == .orderedSame) {
+                self.view.makeToast(ToastConstant.lastDayOfEvent)
+                return true
+            }
+        }
+        
         return (date.compare(currentDate!) != .orderedAscending) && monthPosition == .current
     }
     
@@ -826,27 +860,39 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
         print("did select date \(date.toString(with: "dd/MMM/yyyy"))")
         self.manuallySelectedDate = date
         
+        var selectedDates: [Date] = []
+        
         if segmentControl.selectedSegmentIndex == 0 {
             calendar.selectedDates.forEach { date in
                 calendar.deselect(date)
             }
-    
+            selectedDates = [date]
             self.collapseAllExpanded()
-            calendar.select(date)
         } else if segmentControl.selectedSegmentIndex == 1 {
             calendar.selectedDates.forEach { date in
                 calendar.deselect(date)
             }
             
-            let dates = date.getAllDaysInWeek()
-            dates.forEach { date in
-                calendar.select(date)
-            }
+            selectedDates.append(contentsOf: date.getAllDaysInWeek())
             self.collapseAllExpanded()
         }
         
+        selectedDates.forEach { selectedDate in
+            calendar.select(selectedDate)
+        }
+        
+        self.checkIfDatesContainsLastEventDate(dates: selectedDates)
+        
         self.fetchCalendarEventsFor()
         self.configureVisibleCells()
+    }
+    
+    // Check if dates contains Last event date
+    func checkIfDatesContainsLastEventDate(dates: [Date]) {
+        let lastValidityDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: self.viewModel!.businessValidityEndDate.value!))!
+        if dates.contains(lastValidityDate) {
+            self.view.makeToast(ToastConstant.lastDayOfEvent)
+        }
     }
     
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -866,7 +912,17 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     }
         
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        return ColorConstant.greyColor3
+        let currentDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))
+        
+        // When date is greater then last event date set lighter color as they are not selectable.
+        // Still it is available for selection to show error message
+        let lastValidityDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: self.viewModel!.businessValidityEndDate.value!))!
+        if lastValidityDate.compare(date) == .orderedAscending {
+            return ColorConstant.greyColor6
+        }
+        
+        // When date is less then current date set lighter color. Because they are disabled
+        return (date.compare(currentDate!) != .orderedAscending) ? ColorConstant.greyColor3 : ColorConstant.greyColor6
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
@@ -887,10 +943,12 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
     private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
         
         let dateCell = (cell as! CalendarDateCollectionViewCell)
+        let lastValidityDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: self.viewModel!.businessValidityEndDate.value!))!
 
-        if position == .current {            
+        if position == .current {
             if Calendar.current.isDate(Date(), inSameDayAs: date) {
                 dateCell.currentDateSelectionLayer.isHidden = false
+                dateCell.currentDateSelectionLayer.fillColor = ColorConstant.currentDateBackgroundColor.cgColor
             } else {
                 dateCell.currentDateSelectionLayer.isHidden = true
             }
@@ -898,13 +956,31 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
             let result = self.viewModel?.calendarEvents.value.contains(where: { event in
                 return event.date.isSameDay(date: date)
             })
-            dateCell.eventDateSelectionLayer.isHidden = (result ?? false) ? false : true
+            dateCell.eventDateSelectionLayer.isHidden = !(result ?? false)
             
             var selectionType = SelectionType.none
             if fsCalendar.selectedDates.contains(date) {
                 let previousDate = self.gregorian.date(byAdding: .day, value: -1, to: date)!
                 let nextDate = self.gregorian.date(byAdding: .day, value: 1, to: date)!
-                if fsCalendar.selectedDates.contains(date) {
+
+                let currentDate =  Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: Date()))!
+                
+                if fsCalendar.selectedDates.contains(lastValidityDate) && lastValidityDate.compare(date) == .orderedAscending {
+                    // When selected dates contains end event date than selection should not be visible
+                    selectionType = .none
+                } else if currentDate.compare(date) == .orderedDescending {
+                    // When selected dates contains current date or previous
+                    selectionType = .none
+                } else if currentDate.compare(date) == .orderedSame {
+                    // When selected date is same as current date
+                    // When selected date is single it means need to show rounded circle
+                    selectionType = fsCalendar.selectedDates.count == 1 ? .single : .leftBorder
+                } else if lastValidityDate.compare(date) == .orderedSame {
+                    // When selected date is same as last event date
+                    // When selected date is single it means need to show rounded circle
+                    selectionType = fsCalendar.selectedDates.count == 1 ? .single : .rightBorder
+                } else {
+                    // Show selection according date position
                     if fsCalendar.selectedDates.contains(previousDate) && fsCalendar.selectedDates.contains(nextDate) {
                         selectionType = .middle
                     } else if fsCalendar.selectedDates.contains(previousDate) && fsCalendar.selectedDates.contains(date) {
@@ -918,10 +994,25 @@ extension CalendarPickerViewController: FSCalendarDelegate, FSCalendarDataSource
             } else {
                 selectionType = .none
             }
+            
+            // Check event last date and set color as red.
+            // If current is equal to last date of event then that is set as red.
+            // If selected calendar dates contain last validity date then show selection color only.
+            if fsCalendar.selectedDates.contains(lastValidityDate) {
+                // When current date is not part selected date then it will be highlighted with blue
+                if Calendar.current.isDate(lastValidityDate, inSameDayAs: date) {
+                    dateCell.currentDateSelectionLayer.isHidden = true
+                }
+            } else if Calendar.current.isDate(lastValidityDate, inSameDayAs: date) {
+                dateCell.currentDateSelectionLayer.isHidden = false
+                dateCell.currentDateSelectionLayer.fillColor = _theme.errorColor.cgColor
+            }
+            
             if selectionType == .none {
                 dateCell.selectionLayer.isHidden = true
                 return
             }
+                        
             dateCell.selectionLayer.isHidden = false
             dateCell.selectionType = selectionType
             

@@ -84,8 +84,13 @@ class APIRequestExecutor {
             
         case .POST, .DELETE, .PUT:
             do {
-                if let params = parameters{
-                    let data = try JSONSerialization.data(withJSONObject: params, options: [])
+                if let params = parameters {
+                    var data = try JSONSerialization.data(withJSONObject: params, options: [])
+                    // When object is not needed. And parameter need Array then use like this.
+                    if let listData = params[APIConstant.noKey] as? [Int] {
+                        data = try JSONSerialization.data(withJSONObject: listData, options: [])
+                    }
+                    
 //                    let jsonString = String.init(data: data, encoding: .utf8)
 //                    let url = ["data": jsonString]
 //                    let data1 = try JSONSerialization.data(withJSONObject: url, options: [])

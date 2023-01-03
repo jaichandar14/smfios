@@ -39,6 +39,8 @@ class EventDetailsTableViewCell: UITableViewCell {
     func setData(eventDetail: EventDetail) {
         self.lblTitle.text = eventDetail.title
         self.lblValue.text = eventDetail.value
+        
+        
     }
     
 }

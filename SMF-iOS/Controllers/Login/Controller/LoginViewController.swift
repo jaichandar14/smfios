@@ -139,30 +139,13 @@ class LoginViewController: BaseViewController {
         setSignInButton(enabled: false)
     }
     
-    @IBAction func pickFile(_ sender: UIButton) {
-        if #available(iOS 14.0, *) {
-            let openingType: [UTType] = [.pdf]
-            let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: openingType, asCopy: false)
-            documentPicker.delegate = self
-            documentPicker.modalPresentationStyle = .formSheet
-
-            self.present(documentPicker, animated: true, completion: nil)
-        } else {
-            // Use this code if your are developing prior iOS 14
-            let types: [String] = []
-            let documentPicker = UIDocumentPickerViewController(documentTypes: types, in: .import)
-            documentPicker.delegate = self
-            documentPicker.modalPresentationStyle = .formSheet
-            self.present(documentPicker, animated: true, completion: nil)
-        }
-    }
-    
     @IBAction func signOut(_ sender: UIButton) {
         AmplifyLoginUtility.signOut { status in
             print("Signout Status \(status)")
         }
     }
 
+    
     @IBAction func btnSignInAction(_ sender: Any) {
         self.hideKeyboard()
         
@@ -309,15 +292,5 @@ extension LoginViewController: UITextFieldDelegate {
     func setSignInButton(enabled: Bool) {
         self.btnSignIn.isEnabled = enabled
         self.btnSignIn.backgroundColor = enabled ? _theme.accentColor : _theme.accentDisabledColor
-    }
-}
-
-extension LoginViewController: UIDocumentPickerDelegate {
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        if let fileURL = urls.first {
-            print("File with URL:: \(fileURL)")
-            let metaData = AppFileManager().getMetaData(for: fileURL)
-            print("Meta data of URL:: \(metaData)")
-        }
     }
 }

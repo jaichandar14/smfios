@@ -50,11 +50,12 @@ extension DataOperation {
                     let json = try JSONSerialization.jsonObject(with: self.responseData!, options: []) as? [String : Any]
                     if let json = json {
                         if let message = json["message"] as? String, message == "The incoming token has expired" {
+                            print("API response - TokenExpired fetch new token")
                             AmplifyLoginUtility.fetchAuthToken { authStatus in
                                 switch authStatus {
                                 case .authenticationFailed:
-                                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                        DispatchQueue.main.async {
+                                    DispatchQueue.main.async {
+                                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                                             appDelegate.showAlertAndLogOut()
                                         }
                                     }

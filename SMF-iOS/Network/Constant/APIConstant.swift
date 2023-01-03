@@ -31,4 +31,7 @@ class APIConstant {
     static let isAvailable = "isAvailable"
     static let modifiedSlot = "modifiedSlot"
     static let isMonth = "isMonth"
+    static let isActive = "isActive"
+    static let notificationIds = "notificationIds"
+    static let noKey = "no_key"
 }

@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
+import MobileCoreServices
+
 protocol QuoteDetailsPopUpDelegate {
     func cancelTapped()
-    func okTapped(bidInfo: BidStatusInfo, cost: String, comment: String, isQuoteSelected: Bool)
+    func okTapped(bidInfo: BidStatusInfo, param: [String: Any], isQuoteSelected: Bool)
     func chooseFileTapped()
 }
 
@@ -59,9 +62,18 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     
     var activeField: ActiveField = .none
     
+    
     @IBOutlet weak var quoteLaterStack: UIStackView!
     var quoteAlreadySubmitted: Bool = false
-        
+    
+    var filePicked: [String: Any]?
+    
+    var selectedCurrency: CurrencyType?
+    var currenciesAvailable = CurrencyType.allCases
+    @IBOutlet weak var lblSelectedFileName: UILabel!
+    @IBOutlet weak var selectedFileStack: UIStackView!
+    @IBOutlet weak var btnDeleteFileButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -103,6 +115,9 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     
     func styleUI() {
         
+        filePicked = nil
+        self.selectedFileStack.isHidden = true
+        
         if self.quoteAlreadySubmitted {
             self.forkSpoonTopConstraint.priority = UILayoutPriority(850)
             self.quoteLaterStack.isHidden = true
@@ -141,6 +156,8 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         self.btnWillProvideLater.backgroundColor = .clear
         self.updateQuoteSelection()
         
+        self.selectedCurrency = CurrencyType.allCases.first
+        self.btnCurrency.setTitle(self.selectedCurrency?.rawValue, for: .normal)
         self.btnCurrency.setTitleColor(ColorConstant.greyColor4, for: .normal)
         self.btnCurrency.titleLabel?.font = _theme.ralewayFont(size: 14, style: .ralewayRegular)
         self.btnCurrency.layer.borderColor = ColorConstant.greyColor7.cgColor
@@ -219,8 +236,32 @@ class QuoteDetailsPopUpViewController: BaseViewController {
         print("NetworkChange")
     }
     
+    @IBAction func btnChooseCurrency(_ sender: UIButton) {
+        self.showDropDown(on: sender, items: (currenciesAvailable.map { $0.rawValue })) { index, title in
+            self.selectedCurrency = CurrencyType(rawValue: title)
+            sender.setTitle(title, for: .normal)
+        }
+    }
+    
     @IBAction func btnChooseFile(_ sender: UIButton) {
-        delegate?.chooseFileTapped()
+        if #available(iOS 14.0, *) {
+            let openingType: [UTType] = [.pdf, .spreadsheet, .image, .wordDoc, .wordDocx]
+            let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: openingType, asCopy: false)
+            documentPicker.delegate = self
+            documentPicker.modalPresentationStyle = .formSheet
+
+            self.present(documentPicker, animated: true, completion: nil)
+        } else {
+            // Use this code if your are developing prior iOS 14
+            let types = [kUTTypePDF, kUTTypeText, kUTTypeRTF, kUTTypeSpreadsheet]
+            var coreTypes: [String] = ["public.image", "com.apple.iwork.pages.pages", "com.apple.iwork.numbers.numbers"]
+            coreTypes.append(contentsOf: types as [String])
+            
+            let documentPicker = UIDocumentPickerViewController(documentTypes: coreTypes, in: .import)
+            documentPicker.delegate = self
+            documentPicker.modalPresentationStyle = .formSheet
+            self.present(documentPicker, animated: true, completion: nil)
+        }
     }
     
     @IBAction func btnCancelAction(_ sender: UIButton) {
@@ -229,8 +270,25 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     }
     
     @IBAction func btnOkAction(_ sender: UIButton) {
+        if self.txtQuotePrice.text ?? "" == "" && self.isHavingQuoteSelected {
+            self.view.makeToast("Please enter amount details.")
+            return
+        }
+        
         self.dismiss(animated: false, completion: nil)
-        delegate?.okTapped(bidInfo: self.bidInfo!, cost: self.txtQuotePrice.text ?? "", comment: self.txtAreaComment.text, isQuoteSelected: self.isHavingQuoteSelected)
+        var data: [String: Any] = [:]
+        
+        if let filePicked = filePicked {
+            filePicked.forEach { (key, value) in
+                data[key] = value
+            }
+        }
+//        data[APIConstant.cost] = self.txtQuotePrice.text ?? ""
+        data[APIConstant.latestBidValue] = self.txtQuotePrice.text ?? ""
+        data[APIConstant.comment] = self.txtAreaComment.text ?? ""
+        data[APIConstant.currencyType] = self.selectedCurrency!.rawValue
+        
+        delegate?.okTapped(bidInfo: self.bidInfo!, param: data, isQuoteSelected: self.isHavingQuoteSelected)
     }
     
     @IBAction func btnHavingQuote(_ sender: UIButton) {
@@ -241,6 +299,11 @@ class QuoteDetailsPopUpViewController: BaseViewController {
     @IBAction func btnWillProvideLater(_ sender: UIButton) {
         self.isHavingQuoteSelected = !self.isHavingQuoteSelected
         self.updateQuoteSelection()
+    }
+    
+    @IBAction func btnDeleteFile(_ sender: UIButton) {
+        self.filePicked = nil
+        self.selectedFileStack.isHidden = true
     }
 }
 
@@ -264,5 +327,32 @@ extension QuoteDetailsPopUpViewController: UITextFieldDelegate, UITextViewDelega
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         self.activeField = .none
         return true
+    }
+}
+
+extension QuoteDetailsPopUpViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if let fileURL = urls.first {
+            print("File with URL:: \(fileURL)")
+            self.filePicked = AppFileManager().getMetaData(for: fileURL)
+            print("Meta data of URL:: \(self.filePicked!)")
+            self.selectedFileStack.isHidden = false
+            self.lblSelectedFileName.text = self.filePicked!["fileName"] as? String
+        }
+    }
+}
+
+
+@available(iOS 14.0, *)
+extension UTType {
+    // Word documents are not an existing property on UTType
+    static var wordDoc: UTType {
+        // Look up the type from the file extension
+        UTType.types(tag: "doc", tagClass: .filenameExtension, conformingTo: nil).first!
+    }
+    
+    static var wordDocx: UTType {
+        // Look up the type from the file extension
+        UTType.types(tag: "docx", tagClass: .filenameExtension, conformingTo: nil).first!
     }
 }

@@ -8,6 +8,9 @@
 import Foundation
 
 protocol CalendarPickerViewModel {
+    var businessValidityStartDate: Observable<Date?> { get }
+    var businessValidityEndDate: Observable<Date?> { get }
+    
     var calendarEvents: Observable<[CalendarEvent]> { get }
     var calendarEventLoading: Observable<Bool> { get }
     var calendarEventFetchError: Observable<String?> { get }
@@ -19,6 +22,8 @@ protocol CalendarPickerViewModel {
     var dayCount: Observable<Int> { get }
     var weekCount: Observable<Int> { get }
     var monthCount: Observable<Int> { get }
+    
+    func fetchBusinessValidity() 
     
     func fetchCalendarEvents(categoryId: Int?, onboardingVendorId: Int?, fromDate: Date?, toDate: Date?)
     func fetchBookedServiceSlots(calendarHeaderId: Int, categoryId: Int?, onboardingVendorId: Int?, fromDate: Date?, toDate: Date?)

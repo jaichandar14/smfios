@@ -32,6 +32,7 @@ class APIConfig {
     static let viewQuote            = baseURL + "\(envIdentifier)service/api/app-services/quote"
     
     // Calendar
+    static let businessValidity  = baseURL + "\(envIdentifier)service/api/app-services/business-validity"
     static let calendarEvents    = baseURL + "\(envIdentifier)service/api/app-services/calendar-events"
     static let bookedServiceSlot = baseURL + "\(envIdentifier)service/api/app-services/booked-service-slots"
     static let slotsAvailability = baseURL + "\(envIdentifier)service/api/app-services/slot-availability"
@@ -39,4 +40,8 @@ class APIConfig {
     static let modifyWeekSlots   = baseURL + "\(envIdentifier)service/api/app-services/modify-week-slot"
     static let modifyMonthSlots  = baseURL + "\(envIdentifier)service/api/app-services/modify-month-slot"
 
+    // Notifications
+    static let getNotificationCount = baseURL + "\(envIdentifier)user/api/mobile-notification/notification-count"
+    static let getNotifications     = baseURL + "\(envIdentifier)user/api/mobile-notification/notifications"
+    static let moveToOld            = baseURL + "\(envIdentifier)user/api/mobile-notification/notification"
 }

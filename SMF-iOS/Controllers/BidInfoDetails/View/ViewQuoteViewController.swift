@@ -41,6 +41,9 @@ class ViewQuoteViewController: BaseViewController {
     @IBOutlet weak var lblQuoteDetailTitle: UILabel!
     @IBOutlet weak var btnFile: UIButton!
     @IBOutlet weak var lblComment: UILabel!
+    @IBOutlet weak var lblFileName: UILabel!
+    @IBOutlet weak var imgFileRightIcon: UIImageView!
+    @IBOutlet weak var imgFileLeftIcon: UIImageView!
     
     @IBOutlet weak var commentTopConstraint: NSLayoutConstraint!
     var bidInfo: BidStatusInfo?
@@ -94,23 +97,27 @@ class ViewQuoteViewController: BaseViewController {
 
         viewModel.fetchViewQuote(bidRequestId: self.bidInfo?.bidRequestId ?? 0)
         viewModel.viewQuoteLoading.bindAndFire { isLoading in
-            if isLoading {
-                self.showLoader()
-            } else {
-                self.hideLoader()
+            DispatchQueue.main.async {
+                if isLoading {
+                    self.showLoader()
+                } else {
+                    self.hideLoader()
+                }
             }
         }
         
         viewModel.viewQuoteFetchError.bindAndFire { error in
             if let err = error {
-                self.view.makeToast(err)
+                DispatchQueue.main.async {
+                    self.view.makeToast(err)
+                }
             }
         }
         
         viewModel.viewQuoteData.bindAndFire { viewQuote in
             if let quote = viewQuote {
                 DispatchQueue.main.async {
-                    self.btnFile.setTitle(quote.fileName, for: .normal)
+                    self.lblFileName.text = quote.fileName
                     self.btnFile.setTitleColor(.darkGray, for: .normal)
                     self.lblCostingType.text = quote.costingType
                     self.lblComment.text = (quote.comment ?? "") == "" ? "No comments available" : quote.comment
@@ -119,6 +126,10 @@ class ViewQuoteViewController: BaseViewController {
                         self.commentTopConstraint.constant = 10
                         self.btnFile.isHidden = true
                         self.lblQuoteDetailTitle.isHidden = true
+                        
+                        self.lblFileName.isHidden = true
+                        self.imgFileLeftIcon.isHidden = true
+                        self.imgFileRightIcon.isHidden = true
                     } else {
                         self.commentTopConstraint.constant = 85
                         self.btnFile.isHidden = false
@@ -138,9 +149,18 @@ class ViewQuoteViewController: BaseViewController {
     }
     
     @IBAction func btnFileTapped(_ sender: UIButton) {
-        let isFileWritten = AppFileManager().writeAFile(quote: self.viewModel?.viewQuoteData.value)
+        let (isFileWritten, url) = AppFileManager().writeAFile(quote: self.viewModel?.viewQuoteData.value)
         if isFileWritten {
             self.view.makeToast("File saved in local")
+            if #available(iOS 14.0, *) {
+                let docPicker = UIDocumentPickerViewController(forExporting: [url!])
+                docPicker.modalPresentationStyle = .formSheet
+                self.present(docPicker, animated: true)
+            } else {
+                let docPicker = UIDocumentPickerViewController(url: url!, in: .exportToService)
+                docPicker.modalPresentationStyle = .formSheet
+                self.present(docPicker, animated: true)
+            }
         }
     }
 }

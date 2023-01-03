@@ -25,11 +25,11 @@ extension UIViewController {
     }
     
     func showLoader() {
-        ProgressHUD.show("Progress loader...")
+        CVProgressHUD.showProgressHUD(title: "Please wait")
     }
     
     func hideLoader() {
-        ProgressHUD.dismiss()
+        CVProgressHUD.hideProgressHUD()
     }
     
     func showAlert(withTitle title: String, withMessage message: String, isDefault: Bool?, actions: [UIAlertAction]) {

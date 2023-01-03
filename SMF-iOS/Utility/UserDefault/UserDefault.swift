@@ -15,6 +15,7 @@ enum UserDefaultKeys: String {
     case userData
     case awsToken
     case isAlreadyLaunch
+    case isUserLoggedOut
     case userInactiveStartTime
 }
 

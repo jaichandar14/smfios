@@ -253,6 +253,7 @@ class OTPScreenViewController: BaseViewController {
     }
     
     func fetchAuthToken() {
+        print("OTP Controller - TokenExpired fetch new token")
         AmplifyLoginUtility.fetchAuthToken { [weak self] status in
             switch status {
             case .authenticationSuccess(_):
@@ -282,6 +283,7 @@ class OTPScreenViewController: BaseViewController {
             case .success(_):
                 DispatchQueue.main.async {
                     CVProgressHUD.hideProgressHUD()
+                    UserDefault[boolValueFor: .isUserLoggedOut] = false
                     self?.navigationController?.setViewControllers([LandingViewController.create()], animated: true)
                 }
                 break

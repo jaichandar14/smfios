@@ -148,7 +148,7 @@
                                 </subviews>
                             </stackView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HI-C6-XTO">
-                                <rect key="frame" x="232" y="122" width="119" height="30"/>
+                                <rect key="frame" x="232" y="176" width="119" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Change in Mind? ">
@@ -250,7 +250,6 @@
                             <constraint firstItem="Xga-ZO-K3Z" firstAttribute="centerY" secondItem="KDE-HQ-cBt" secondAttribute="centerY" id="Az9-vK-veL"/>
                             <constraint firstItem="0H5-Gg-y9T" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fSO-sZ-XID" secondAttribute="bottom" constant="11" id="GaY-KY-gEY"/>
                             <constraint firstItem="MFY-bS-buJ" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="leading" id="Me6-rH-tXv"/>
-                            <constraint firstItem="4HI-C6-XTO" firstAttribute="top" secondItem="x5q-wt-kx1" secondAttribute="bottom" constant="35" id="MlY-2b-Oz7"/>
                             <constraint firstItem="KDE-HQ-cBt" firstAttribute="top" secondItem="FMW-bu-Iay" secondAttribute="top" constant="12" id="NNr-ZI-i60"/>
                             <constraint firstAttribute="bottom" secondItem="sYc-X3-WFk" secondAttribute="bottom" constant="15" id="OE7-A2-dQT"/>
                             <constraint firstItem="2A2-1X-abw" firstAttribute="centerY" secondItem="sYc-X3-WFk" secondAttribute="centerY" id="OyH-en-1l3"/>
@@ -270,6 +269,7 @@
                             <constraint firstItem="sYc-X3-WFk" firstAttribute="leading" secondItem="5D6-ld-oCU" secondAttribute="leading" id="pOY-KB-VP8"/>
                             <constraint firstItem="0H5-Gg-y9T" firstAttribute="leading" secondItem="FMW-bu-Iay" secondAttribute="leading" constant="12" id="ugE-5m-Mvc"/>
                             <constraint firstItem="x5q-wt-kx1" firstAttribute="leading" secondItem="KDE-HQ-cBt" secondAttribute="trailing" constant="10" id="v1s-mt-Myd"/>
+                            <constraint firstItem="4HI-C6-XTO" firstAttribute="centerY" secondItem="sYc-X3-WFk" secondAttribute="centerY" id="xgX-Er-U7W"/>
                             <constraint firstItem="sYc-X3-WFk" firstAttribute="top" secondItem="5D6-ld-oCU" secondAttribute="bottom" constant="22" id="yJX-Ls-lPg"/>
                         </constraints>
                     </view>

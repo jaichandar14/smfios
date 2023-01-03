@@ -22,11 +22,14 @@
                 <outlet property="btnFile" destination="P8U-m5-907" id="fO1-oG-P7v"/>
                 <outlet property="commentTopConstraint" destination="wvo-PW-GCm" id="oOc-pa-b2R"/>
                 <outlet property="eventDetailContainer" destination="Izh-4n-1u3" id="HlI-pg-OQ1"/>
+                <outlet property="imgFileLeftIcon" destination="dhG-aD-fdl" id="39Q-dA-xCa"/>
+                <outlet property="imgFileRightIcon" destination="ekq-ay-ug1" id="gOd-gh-WG2"/>
                 <outlet property="lblBranch" destination="85z-da-fr9" id="fod-8Y-mHc"/>
                 <outlet property="lblComment" destination="6gw-Am-LGM" id="pqS-N3-1GE"/>
                 <outlet property="lblCostingType" destination="EaX-BM-Lnd" id="afy-Cd-I3Y"/>
                 <outlet property="lblEventDescID" destination="CRQ-kc-5Hh" id="qE3-9J-Qps"/>
                 <outlet property="lblEventTitle" destination="acz-if-onK" id="iMq-Cp-VLC"/>
+                <outlet property="lblFileName" destination="LIe-96-3rJ" id="NxL-Sx-Ncb"/>
                 <outlet property="lblQuoteDetailTitle" destination="eBp-BE-4dj" id="x83-fY-ntG"/>
                 <outlet property="lblServices" destination="c84-KL-aAs" id="2z1-FZ-hWO"/>
                 <outlet property="txtCostingAmount" destination="jYS-V7-9N2" id="Aec-bC-9PT"/>
@@ -125,36 +128,24 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3b-Ae-m7I">
-                                            <rect key="frame" x="141" y="215" width="92" height="12"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Muli" family="Muli" pointSize="14"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="File.extension">
-                                                <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="btnFileTapped:" destination="-1" eventType="touchUpInside" id="HlN-df-fnH"/>
-                                            </connections>
-                                        </button>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download_doc" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-aD-fdl">
-                                            <rect key="frame" x="12" y="323" width="16" height="16"/>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="document" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-aD-fdl">
+                                            <rect key="frame" x="12" y="325" width="12" height="12"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="MtG-fj-HXo"/>
-                                                <constraint firstAttribute="height" constant="16" id="VOD-tn-qjB"/>
+                                                <constraint firstAttribute="width" constant="12" id="MtG-fj-HXo"/>
+                                                <constraint firstAttribute="height" constant="12" id="VOD-tn-qjB"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File.extension" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIe-96-3rJ">
-                                            <rect key="frame" x="30" y="320" width="78.5" height="18"/>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="File.extension" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIe-96-3rJ">
+                                            <rect key="frame" x="26" y="320" width="78.5" height="18"/>
                                             <fontDescription key="fontDescription" name="Muli" family="Muli" pointSize="12"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download_doc" translatesAutoresizingMaskIntoConstraints="NO" id="ekq-ay-ug1">
-                                            <rect key="frame" x="110.5" y="322" width="16" height="16"/>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="download_doc" translatesAutoresizingMaskIntoConstraints="NO" id="ekq-ay-ug1">
+                                            <rect key="frame" x="106.5" y="320" width="20" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="16" id="pES-YV-p8a"/>
-                                                <constraint firstAttribute="height" constant="16" id="qyM-xF-ZVu"/>
+                                                <constraint firstAttribute="width" constant="20" id="pES-YV-p8a"/>
+                                                <constraint firstAttribute="height" constant="20" id="qyM-xF-ZVu"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8U-m5-907">
@@ -234,6 +225,7 @@
         </view>
     </objects>
     <resources>
+        <image name="document" width="24" height="24"/>
         <image name="download_doc" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

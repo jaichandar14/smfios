@@ -259,7 +259,7 @@ extension LandingViewController: SideMenuViewControllerDelegate {
         switch (key) {
         case .dashboard:
             let controller = DashboardViewController.create()
-            self.dashboardModel = controller.viewModel
+            self.dashboardModel = DashboardViewModelContainer(model: DashboardModel())
             self.showViewController(controller: UINavigationController(rootViewController: controller))
             break
         case .availability:

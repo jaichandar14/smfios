@@ -12,6 +12,7 @@ class LoadingSplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Check if token expired and then navigate - TokenExpired fetch new token")
         AmplifyLoginUtility.fetchAuthToken { authStatus in
             DispatchQueue.main.async {
                 switch authStatus {

@@ -26,7 +26,7 @@ class AppFileManager {
         }
     }
     
-    func writeAFile(quote: ViewQuote?) -> Bool {
+    func writeAFile(quote: ViewQuote?) -> (Bool, URL?) {
         let folderPath = createDownloadPath()
         
         if let path = folderPath, let viewQuote = quote {
@@ -36,13 +36,14 @@ class AppFileManager {
                     do {
                         try data.write(to: url)
                         print("File Written to path: \(path + "/" + fileName)")
+                        return (true, url)
                     } catch {
                         print("Data write error")
                     }
                 }
             }
         }
-        return false
+        return (false, nil)
     }
     
     func getMetaData(for url: URL) -> [String: Any] {
@@ -50,9 +51,22 @@ class AppFileManager {
         do {
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: url.path)
             attributes["fileSize"] = fileAttributes[.size]
+
+            let copyOfURL = url
+            let urlWithoutFileExtension: URL =  copyOfURL.deletingPathExtension()
+            let fileNameWithoutExtension: String = urlWithoutFileExtension.lastPathComponent
+            
+            attributes["fileName"] = fileNameWithoutExtension
+            attributes["fileType"] = "QUOTE_DETAILS"
+            
+            let fileData = try Data.init(contentsOf: url)
+            let base64String = fileData.base64EncodedString()
+            
+            attributes["fileContent"] = base64String
         } catch {
             print("Failed to fetch attributes of the attribute")
         }
         return attributes
     }
 }
+

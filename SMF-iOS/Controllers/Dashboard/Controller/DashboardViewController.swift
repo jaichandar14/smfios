@@ -30,6 +30,8 @@ class DashboardViewController: BaseViewController {
     @IBOutlet weak var arrowDown2: UILabel!
     @IBOutlet weak var servicesCollectionView: UICollectionView!
     
+    var notificationModel: NotificationsViewModel?
+    
     var viewModel: DashboardViewModel? {
         didSet {
             setDataToUI()
@@ -41,6 +43,7 @@ class DashboardViewController: BaseViewController {
         
         let viewModel = DashboardViewModelContainer(model: DashboardModel())
         controller.viewModel = viewModel
+        controller.notificationModel = NotificationViewModelExecutor()
         
         return controller
     }
@@ -58,6 +61,7 @@ class DashboardViewController: BaseViewController {
         
         self.clearNavigationBar()
         self.addMenuButton();
+        self.addRightNavButtons(badgeCount: self.notificationModel?.activeNotifications.value)
         
         actionStatusController?.setDataToUI()
     }
@@ -68,6 +72,32 @@ class DashboardViewController: BaseViewController {
         self.cornerRadiusView.roundCorners([.topLeft, .topRight], radius: 25)
         self.btnAllServices.setBorderedButton(textColor: _theme.textColor, borderSide: .bottom)
         self.btnBranch.setBorderedButton(textColor: _theme.textColor, borderSide: .bottom)
+    }
+    
+    func addRightNavButtons(badgeCount: Int? = nil) {
+        let notificationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 45, height: 40))
+        notificationButton.setImage(UIImage(named: "NotificationBell"), for: .normal)
+        notificationButton.addTarget(self, action: #selector(self.btnNotificationAction(_:)), for: .touchUpInside)
+        
+        if let badgeCount = badgeCount, badgeCount != 0 {
+            let badge = badgeLabel(withCount: badgeCount)
+            notificationButton.addSubview(badge)
+            NSLayoutConstraint.activate([
+                badge.leftAnchor.constraint(equalTo: notificationButton.leftAnchor, constant: 14),
+                badge.topAnchor.constraint(equalTo: notificationButton.topAnchor, constant: -8),
+                badge.widthAnchor.constraint(equalToConstant: badgeSize),
+                badge.heightAnchor.constraint(equalToConstant: badgeSize)
+            ])
+        }
+        let notificationBarButton = UIBarButtonItem(customView: notificationButton)
+        
+        let calendarButton = UIButton(frame: CGRect(x: 0, y: 0, width: 45, height: 40))
+        calendarButton.setImage(UIImage(named: "Calendar"), for: .normal)
+        calendarButton.tintColor = UIColor.white
+        calendarButton.addTarget(self, action: #selector(self.btnCalendarAction(_:)), for: .touchUpInside)
+
+        let calendarBarButton = UIBarButtonItem(customView: calendarButton)
+        self.navigationItem.rightBarButtonItems = [calendarBarButton, notificationBarButton]
     }
     
     func addMenuButton() {
@@ -139,6 +169,16 @@ class DashboardViewController: BaseViewController {
         
         viewModel.fetchServiceCount()
         viewModel.fetchServices()
+        
+        notificationModel?.activeNotifications.bindAndFire({ activeNotification in
+            if let notiCount = activeNotification {
+                DispatchQueue.main.async {
+                    self.addRightNavButtons(badgeCount: notiCount)
+                }
+            }
+        })
+        
+        notificationModel?.fetchNotificationsCount()
     }
     
     func getActionStatusController() -> ActionStatusViewController {
@@ -267,6 +307,11 @@ class DashboardViewController: BaseViewController {
         }
     }
     
+    @objc func btnNotificationAction(_ sender: UIButton) {
+        let controller = NotificationViewController.create(viewModel: self.notificationModel ?? NotificationViewModelExecutor())
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     @IBAction func btnCalendarLeftAction(_ sender: UIButton) {
         if let indexPath = self.servicesCollectionView.indexPathsForVisibleItems.first {
             if indexPath.row > 0 {
@@ -292,7 +337,7 @@ class DashboardViewController: BaseViewController {
         }
     }
     
-    @IBAction func btnCalendarAction(_ sender: UIButton) {
+    @objc func btnCalendarAction(_ sender: UIButton) {
         self.navigateToCalendar()
     }
     
@@ -467,6 +512,7 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
             controller.viewModel = self.viewModel
             controller.rejectBid = bidInfo
             controller.delegate = self
+            controller.status = status
             controller.modalPresentationStyle = .overCurrentContext
             self.present(controller, animated: false, completion: nil)
         }
@@ -492,6 +538,7 @@ extension DashboardViewController: ActionListDelegate, ChangeInMindDelegate {
         controller.viewModel = self.viewModel
         controller.rejectBid = bidInfo
         controller.delegate = self
+        controller.status = status
         controller.modalPresentationStyle = .overCurrentContext
         self.present(controller, animated: false, completion: nil)
     }
@@ -543,7 +590,7 @@ extension DashboardViewController: QuoteDetailsPopUpDelegate {
         // Nothing to do here
     }
     
-    func okTapped(bidInfo: BidStatusInfo, cost: String, comment: String, isQuoteSelected: Bool) {
+    func okTapped(bidInfo: BidStatusInfo, param: [String: Any], isQuoteSelected: Bool) {
         // Will provide later
         // {"bidRequestId":2668,"bidStatus":"PENDING FOR QUOTE", "branchName":"jai56","costingType":"Bidding","fileType":"QUOTE_DETAILS","latestBidValue":0}
         // Having Quote
@@ -552,26 +599,27 @@ extension DashboardViewController: QuoteDetailsPopUpDelegate {
         var params: [String: Any] = [
             APIConstant.bidRequestId: bidInfo.bidRequestId,
             APIConstant.costingType: CostingType.bidding.rawValue,
-            APIConstant.latestBidValue: cost,
             APIConstant.fileType: "QUOTE_DETAILS",
             APIConstant.branchName: bidInfo.branchName
         ]
         
         if isQuoteSelected {
             params[APIConstant.bidStatus] = BiddingStatus.bidSubmitted.rawValue
-            params[APIConstant.comment] = comment
-            params[APIConstant.currencyType] = bidInfo.currencyType ?? ""
+            
         } else {
             params[APIConstant.bidStatus] = BiddingStatus.pendingForQuote.rawValue
         }
         
         viewModel?.acceptBid(requestId: bidInfo.bidRequestId, params: params, completion: {
             DispatchQueue.main.async {
+                self.actionsListController?.updateData()
+                
                 let controller = BidInfoDetailsViewController()
                 controller.bidInfo = bidInfo
                 controller.bidStatus = .bidSubmitted
                 controller.viewModel = BidInfoDetailViewModelContainer(model: BidInfoDetailsModel())
                 self.navigationController?.pushViewController(controller, animated: true)
+
             }
         })
     }

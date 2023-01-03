@@ -112,6 +112,7 @@ class AmplifyLoginUtility {
         Amplify.Auth.signOut { result in
             switch result {
             case .success:
+                UserDefault[boolValueFor: .isUserLoggedOut] = true
                 completion(.logout)
             case .failure(let error):
                 print("Sign in failed \(error)")
@@ -223,6 +224,7 @@ class AmplifyLoginUtility {
 
     
     @objc static func fetchUpdatedToken() {
+        print("Token expired fetching for sceduled timer - TokenExpired fetch new token")
         AmplifyLoginUtility.fetchAuthToken { authStatus in
             switch authStatus {
             case .authenticationFailed:
@@ -248,7 +250,7 @@ class AmplifyLoginUtility {
     }
     
     static func didBecomeActive() {
-        if let date = UserDefault[key: .userInactiveStartTime] as? Date, let after20Min = Calendar.current.date(byAdding: .second, value: 20, to: date) {
+        if let date = UserDefault[key: .userInactiveStartTime] as? Date, let after20Min = Calendar.current.date(byAdding: .minute, value: 20, to: date) {
             if Date() > after20Min {
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                     DispatchQueue.main.async {
@@ -263,9 +265,12 @@ class AmplifyLoginUtility {
     }
     
     static func fetchTokenInfo() -> TokenInfo? {
-        let originalToken = "eyJraWQiOiI1OTV2RlJoWUZLeGVNZytYaU9kVGV1VE9nY1U3QmJWOGVZejlOWXZIcVlRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiNmQ2YTVhOS1iYWNhLTQ2YmYtOTBlZS1hMDhjZWIxMmUzYTkiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfV1ExU2RJbEM1IiwicGhvbmVfbnVtYmVyX3ZlcmlmaWVkIjp0cnVlLCJjb2duaXRvOnVzZXJuYW1lIjoiY2hhbjk3NzI5NWphaSIsIm9yaWdpbl9qdGkiOiI3YWE0ZjBkNS1mN2U0LTRiNzktYThkYS02MTFhMDY2MzAwMjkiLCJhdWQiOiI0cWhzc2UyaWQwYWE5YWFmcTlkNDdia2ZxcyIsImV2ZW50X2lkIjoiZDQ1OGU4NDEtZDAyYy00ZmQwLTk0NjItNTg1NWJkNjM0MjhhIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2NjQ1MzE1OTYsIm5hbWUiOiJqYWkgY2hhbiIsInBob25lX251bWJlciI6Iis5MTg4NzAyMDMxNDEiLCJleHAiOjE2NjQ1MzMzOTYsImlhdCI6MTY2NDUzMTU5NiwianRpIjoiMTBlZjNkYWMtNjc2My00N2QxLThmOTMtYmVkMzJmN2IxNTcxIiwiZW1haWwiOiJqYWljaGFuZGFyMTRAZ21haWwuY29tIn0.TAvmNpEg90t6BoaH-CuEHmR-66QIU1AjffyYxUGfLO9tyYEJ6VvRgABAYEPevvImoMFgwO2p90yRdEXSfF6JLjKN_BG8tLOcXd2qAWtLTu1QcDyLUpcjf-1zxayxhNGWPfZTyf5YiUugSD1qaOKY30hKQs2h4evAT8hgdxtRSzP_yc6b4_jnOkRvR1vsS4DgaLaaNZJTIhDyZU2K9Kv8PSJtgU4DTBcw9x2RW8UpdfO8k1IWAzDvWoVNp2QwZGUHNecdRaMFpbszOOqIjK_0eFd9K6whnebFuDPmv7G_FubkoFZvqkJ2nVbQ7xtq6RQ0TV7CEiyGu2CVHDW3i6g1Fg"
+        let originalToken = UserDefault[key: .awsToken] as? String
+        if originalToken == nil {
+            return nil
+        }
         
-        let splits = originalToken.split(separator: ".")
+        let splits = originalToken!.split(separator: ".")
         if splits.count > 2 {
             let token = splits[1]
 
@@ -287,25 +292,23 @@ class AmplifyLoginUtility {
         return nil
     }
     
-    
-//                    let dateFormatterGet = DateFormatter()
-//                    dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//                    print("Date - \(dateFormatterGet.string(from: date))")
-    
     static func sceduleTokenUpdateTimer(for tokenInfo: TokenInfo?) {
         if tokenInfo == nil {
             return
         }
         
         let date = Date(timeIntervalSince1970: TimeInterval(tokenInfo!.exp))
-        print("date - \(date)")
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        print("Date - \(dateFormatterGet.string(from: date))")
+        
         let remainingSec = date.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate
         
         self.timer?.invalidate()
         self.timer = nil
         
-        self.timer = Timer.scheduledTimer(timeInterval: remainingSec + 2, target: self, selector: #selector(self.fetchUpdatedToken), userInfo: nil, repeats: true)
-        
+        self.timer = Timer.scheduledTimer(timeInterval: remainingSec + 2, target: self, selector: #selector(self.fetchUpdatedToken), userInfo: nil, repeats: false)
     }
     
     static func stopTokenUpdateService() {

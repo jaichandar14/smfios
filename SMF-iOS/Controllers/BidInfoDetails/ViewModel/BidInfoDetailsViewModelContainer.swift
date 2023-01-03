@@ -185,7 +185,7 @@ class BidInfoDetailViewModelContainer: BidInfoDetailViewModel {
             ServiceDetail(title: "Bid Cut Off Date", subTitle: model.eventServiceDescriptionDto.biddingCutOffDate.toSMFFullFormatDate(), isCompleted: false),
             ServiceDetail(title: "Estimation Budget", subTitle: "\(model.eventServiceDescriptionDto.currencyType ?? "") \(model.eventServiceDescriptionDto.estimatedBudget)", isCompleted: false),
             ServiceDetail(title: "Service Radius", subTitle: model.eventServiceDescriptionDto.radius, isCompleted: false),
-            ServiceDetail(title: "Preferred Time Slot", subTitle: model.eventServiceDescriptionDto.preferredSlots.joined(separator: ","), isCompleted: false),
+            ServiceDetail(title: "Preferred Time Slot", subTitle: model.eventServiceDescriptionDto.preferredSlots.joined(separator: ", "), isCompleted: false),
         ])
     }
     

@@ -132,7 +132,7 @@ class OrderDetailViewController: BaseViewController {
                     print("Show Loader")
                 } else {
                     self?.orderDetailsView.isHidden = false
-//                    ProgressHUD.dismiss()
+                    ProgressHUD.dismiss()
                     print("Hide Loader")
                 }
             }

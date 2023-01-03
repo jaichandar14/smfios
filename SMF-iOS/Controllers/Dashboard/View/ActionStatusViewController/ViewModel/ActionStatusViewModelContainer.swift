@@ -66,6 +66,7 @@ class ActionStatusViewModelContainer: ActionStatusViewModel {
                                     statusItems.append(BidCount(key: key, title: title, count: intData, apiLabel: apiLabel))
                                 }
                             }
+                            pendingActions.append(BidCount(key: "pendingReview", title: "Pending Review", count: 0, apiLabel: .pendingReview))
                         }
                     }
                     

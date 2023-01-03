@@ -13,7 +13,7 @@ enum BiddingStatus: String, Codable {
     case bidSubmitted = "BID SUBMITTED"
     case wonBid = "WON BID"
     case serviceInProgress = "SERVICE IN PROGRESS" // NEW
-    case pendingReview = "Pending review not known"
+    case pendingReview = "PENDING REVIEW" // NOT WORKING FOR NOW
     
     case serviceClosed = "SERVICE COMPLETED"
     case bidRejected = "BID REJECTED"
@@ -29,12 +29,15 @@ enum CostingType: String, Codable {
     case variable = "Variable Cost"
 }
 
-enum CurrencyType: String, Codable {
-    case inr = "INR(₹)"
+enum CurrencyType: String, Codable, CaseIterable {
+    case dollar = "USD($)"
     case pound = "GBP(£)"
+    case inr = "INR(₹)"
     
     var currency: String {
         switch self {
+        case .dollar:
+            return "$"
         case .inr:
             return "₹"
         case .pound:

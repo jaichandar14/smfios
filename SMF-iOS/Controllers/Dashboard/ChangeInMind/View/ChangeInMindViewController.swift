@@ -24,9 +24,11 @@ class ChangeInMindViewController: BaseViewController {
     @IBOutlet weak var txtCommentView: UITextView!
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnOK: UIButton!
+    @IBOutlet weak var lblCommentDesc: UILabel!
     
     var reasonToReject: String?
     var rejectBid: BidStatusInfo?
+    var status: BiddingStatus?
     var viewModel: DashboardViewModel?
     
     var delegate: ChangeInMindDelegate?
@@ -38,6 +40,12 @@ class ChangeInMindViewController: BaseViewController {
     }
 
     func styleUI() {
+        if self.status == .pendingForQuote {
+            self.lblCommentDesc.isHidden = true
+        } else {
+            self.lblCommentDesc.isHidden = false
+        }
+        
         self.lblRejectedBidTitle.text = "You are rejecting a \(self.rejectBid?.eventName ?? "") #\(self.rejectBid?.eventServiceDescriptionId ?? 0)"
         self.lblRejectedBidTitle.textColor = _theme.textColor
         self.lblRejectedBidTitle.font = _theme.muliFont(size: 14, style: .muliSemiBold)

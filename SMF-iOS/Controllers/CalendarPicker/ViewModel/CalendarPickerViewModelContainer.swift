@@ -9,6 +9,8 @@ import Foundation
 
 class CalendarPickerViewModelContainer: CalendarPickerViewModel {
 
+    var businessValidityStartDate: Observable<Date?>
+    var businessValidityEndDate: Observable<Date?>
     
     var calendarEvents: Observable<[CalendarEvent]>
     var calendarEventLoading: Observable<Bool>
@@ -23,6 +25,9 @@ class CalendarPickerViewModelContainer: CalendarPickerViewModel {
     var monthCount: Observable<Int>
     
     init() {
+        self.businessValidityStartDate = Observable<Date?>(nil)
+        self.businessValidityEndDate = Observable<Date?>(nil)
+        
         self.calendarEvents = Observable<[CalendarEvent]>([])
         self.calendarEventLoading = Observable<Bool>(false)
         self.calendarEventFetchError = Observable<String?>("")
@@ -36,19 +41,35 @@ class CalendarPickerViewModelContainer: CalendarPickerViewModel {
         self.monthCount = Observable<Int>(0)
     }
     
+    func fetchBusinessValidity() {
+        self.calendarEventLoading.value = true
+        
+        let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]
+        let url = APIConfig.businessValidity + "/\(AmplifyLoginUtility.user!.spRegId)"
+        APIManager().executeDataRequest(id: "Business Validity", url: url, method: .GET, parameters: nil, header: headers, cookieRequired: false, priority: .normal, queueType: .data) { response, result, error in
+            
+            self.calendarEventLoading.value = false
+            switch result {
+            case true:
+                
+                if let respData = response?["data"] as? [String: Any] {
+                    if let fromStr = respData["fromDate"] as? String {
+                        self.businessValidityStartDate.value = fromStr.convertToDate()
+                    }
+                    if let fromStr = respData["toDate"] as? String {
+                        self.businessValidityEndDate.value = fromStr.convertToDate()
+                    }
+                } else {
+                    self.calendarEventFetchError.value = "Data could not be parsed"
+                }
+            case false:
+                self.calendarEventFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
+            }
+        }
+    }
+    
     func fetchCalendarEvents(categoryId: Int?, onboardingVendorId: Int?, fromDate: Date?, toDate: Date?) {
         self.calendarEventLoading.value = true
-
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.calendarEventLoading.value = false
-//            var dates: [CalendarEvent] = []
-//            ["06/03/2022", "06/13/2022", "06/18/2022", "06/24/2022", "06/28/2022"].forEach { dateStr in
-//                dates.append(CalendarEvent(date: dateStr.convertToDate()!))
-//            }
-//            self.calendarEvents.value = dates
-//        }
-//
-//        return
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let headers = [APIConstant.auth: AmplifyLoginUtility.amplifyToken]

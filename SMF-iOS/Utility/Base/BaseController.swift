@@ -11,6 +11,9 @@ import DropDown
 class BaseController: UIViewController {
     var _theme: Theme!
     
+    let badgeSize: CGFloat = 20
+    let badgeTag = 9830384
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +28,20 @@ class BaseController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    func badgeLabel(withCount count: Int) -> UILabel {
+        let badgeCount = UILabel(frame: CGRect(x: 0, y: 0, width: badgeSize, height: badgeSize))
+        badgeCount.translatesAutoresizingMaskIntoConstraints = false
+        badgeCount.tag = badgeTag
+        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
+        badgeCount.textAlignment = .center
+        badgeCount.layer.masksToBounds = true
+        badgeCount.textColor = .white
+        badgeCount.font = badgeCount.font.withSize(12)
+        badgeCount.backgroundColor = .systemRed
+        badgeCount.text = String(count)
+        return badgeCount
     }
     
     func addNetworkListener() {

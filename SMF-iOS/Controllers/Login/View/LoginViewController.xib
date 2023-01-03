@@ -240,12 +240,13 @@
                         <constraint firstAttribute="width" secondItem="jTD-Dj-mMC" secondAttribute="height" multiplier="99:38" id="bVD-fL-ufs"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pw-pF-RZL">
-                    <rect key="frame" x="199" y="98" width="67" height="31"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOc-fd-FF4">
+                    <rect key="frame" x="255" y="98" width="67" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Button"/>
                     <connections>
-                        <action selector="pickFile:" destination="-1" eventType="touchUpInside" id="VLe-hK-Lib"/>
+                        <action selector="btnNotification:" destination="-1" eventType="touchUpInside" id="8ez-D1-9p6"/>
                     </connections>
                 </button>
             </subviews>
@@ -253,10 +254,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="oO3-6b-uTX" firstAttribute="top" secondItem="jTD-Dj-mMC" secondAttribute="bottom" constant="35" id="50i-8x-3hF"/>
-                <constraint firstItem="7pw-pF-RZL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="199" id="5ru-wg-PPK"/>
-                <constraint firstItem="7pw-pF-RZL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="54" id="CHI-w8-MW6"/>
                 <constraint firstItem="oO3-6b-uTX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Dvt-gO-hOR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7pw-pF-RZL" secondAttribute="trailing" constant="148" id="Gyu-Mo-Z7X"/>
                 <constraint firstItem="oR0-kd-3tW" firstAttribute="centerY" secondItem="Lfq-BK-FTk" secondAttribute="centerY" id="V2m-xq-XYm"/>
                 <constraint firstItem="oR0-kd-3tW" firstAttribute="leading" secondItem="U1O-if-zt2" secondAttribute="trailing" id="WGf-b5-uSH"/>
                 <constraint firstAttribute="bottom" secondItem="oO3-6b-uTX" secondAttribute="bottom" id="d7B-br-54h"/>
