@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -44,13 +44,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPF-ao-Laa">
-                            <rect key="frame" x="24" y="95.5" width="88.5" height="19.5"/>
+                            <rect key="frame" x="24.000000000000007" y="95.333333333333329" width="88.666666666666686" height="19.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Dll-ok-6ls">
-                            <rect key="frame" x="50" y="141" width="220" height="99"/>
+                            <rect key="frame" x="50" y="140.66666666666666" width="220" height="99.333333333333343"/>
                             <inset key="scrollIndicatorInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dWc-vT-1lj">
                                 <size key="itemSize" width="128" height="128"/>
@@ -79,13 +79,13 @@
                             </connections>
                         </button>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8v6-HM-HzF">
-                            <rect key="frame" x="176.5" y="95.5" width="65.5" height="19.5"/>
+                            <rect key="frame" x="176.66666666666666" y="95.333333333333329" width="65.333333333333343" height="19.333333333333329"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMV-oM-0Wm">
-                            <rect key="frame" x="10" y="170.5" width="40" height="40"/>
+                            <rect key="frame" x="10" y="170.33333333333334" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="CF4-oZ-jq6"/>
                                 <constraint firstAttribute="height" constant="40" id="jfd-gn-DdM"/>
@@ -100,7 +100,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0H-j3-ZCS">
-                            <rect key="frame" x="270" y="170.5" width="40" height="40"/>
+                            <rect key="frame" x="270" y="170.33333333333334" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="HTT-bW-pQ5"/>
                                 <constraint firstAttribute="width" constant="40" id="as8-L5-mqX"/>
@@ -161,7 +161,7 @@
                                     <rect key="frame" x="0.0" y="45" width="280" height="35"/>
                                     <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="30" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" title="Branch  ">
+                                    <state key="normal" title="All Branches  ">
                                         <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <connections>
@@ -180,7 +180,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpL-K5-Ggh">
-                    <rect key="frame" x="281" y="300.5" width="14" height="14"/>
+                    <rect key="frame" x="281" y="300.66666666666669" width="14" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="14" id="Zbs-Iq-eIL"/>
                         <constraint firstAttribute="height" constant="14" id="fCS-vx-MvJ"/>
@@ -190,7 +190,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="b" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNG-3F-LUn">
-                    <rect key="frame" x="281" y="345.5" width="14" height="14"/>
+                    <rect key="frame" x="281" y="345.66666666666669" width="14" height="14"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="14" id="ULk-9x-89d"/>
                         <constraint firstAttribute="width" constant="14" id="smg-9x-44g"/>
@@ -200,7 +200,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="607-EZ-OBr">
-                    <rect key="frame" x="0.0" y="380" width="320" height="578"/>
+                    <rect key="frame" x="0.0" y="380" width="320" height="544"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </subviews>

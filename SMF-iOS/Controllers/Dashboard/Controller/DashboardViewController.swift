@@ -159,13 +159,15 @@ class DashboardViewController: BaseViewController {
             print("\(isLoading ? "Show" : "Hide") loading")
         }
         
-        viewModel.selectedService.bindAndFire { service in
-            self.btnAllServices.setTitle((service?.serviceName ?? "All Services") + "   ", for: .normal)
-        }
+        // command this code becase when we move to avability page and coming back at the time some issue occurs
         
-        viewModel.selectedBranch.bindAndFire { branch in
-            self.btnBranch.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
-        }
+//        viewModel.selectedService.bindAndFire { service in
+//            self.btnAllServices.setTitle((service?.serviceName ?? "All Services") + "   ", for: .normal)
+//        }
+//
+//        viewModel.selectedBranch.bindAndFire { branch in
+//            self.btnBranch.setTitle((branch?.branchName ?? "All Branches") + "   ", for: .normal)
+//        }
         
         viewModel.fetchServiceCount()
         viewModel.fetchServices()
@@ -353,8 +355,13 @@ class DashboardViewController: BaseViewController {
         showDropDown(on: sender, items: services) { [weak self] (index, item) in
             if index == 0 {
                 self?.viewModel?.selectedService.value = nil
+                self?.btnAllServices.setTitle("All Services", for: .normal)
+                self?.btnBranch.setTitle("All Branches", for: .normal)
             } else {
                 self?.viewModel?.selectedService.value = self?.viewModel?.getServiceItem(for: index - 1)
+                let serviceName1 = self?.viewModel?.selectedService.value
+                self?.btnAllServices.setTitle(serviceName1?.serviceName, for: .normal)
+                self?.btnBranch.setTitle("All Branches", for: .normal)
             }
             self?.viewModel?.fetchBranches()
             self?.actionStatusController?.updateData()
@@ -370,8 +377,11 @@ class DashboardViewController: BaseViewController {
         showDropDown(on: sender, items: branches) { [weak self] (index, item) in
             if index == 0 {
                 self?.viewModel?.selectedBranch.value = nil
+                self?.btnBranch.setTitle("All Branches", for: .normal)
             } else {
                 self?.viewModel?.selectedBranch.value = self?.viewModel?.getBranchItem(for: index - 1)
+                let branchName1 = self?.viewModel?.selectedBranch.value
+                self?.btnBranch.setTitle(branchName1?.branchName, for: .normal)
             }
             self?.actionStatusController?.updateData()
             if let self = self {
