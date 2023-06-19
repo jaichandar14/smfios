@@ -59,14 +59,10 @@ class DashboardViewModelContainer: DashboardViewModel {
             self.isServiceCountLoading.value = false
             switch result {
             case true:
-                var services: [ServiceCount] = []
+                
                 if let data = response?["data"] as? [String: Any] {
-                    data.forEach { (key, value) in
-                        if let count = value as? Int {
-                            services.append(ServiceCount(key: key, count: count))
-                        }
-                    }
-                    self.serviceCountList.value = services
+                    
+                    self.serviceCountList.value =   self.fetchOrderedServiceCount(data: data)
                 } else {
                     self.serviceCountFetchError.value = "Data could not be parsed"
                 }
@@ -74,7 +70,63 @@ class DashboardViewModelContainer: DashboardViewModel {
                 self.serviceCountFetchError.value = error?.localizedDescription ?? "Error in fetchServiceCount"
             }
         }
+        
+        
     }
+    
+    // 3521 when ever i try to refresh we getting the unaligned order of service names
+    func fetchOrderedServiceCount(data:[String: Any])->[ServiceCount]{
+        var services: [ServiceCount] = []
+        data.forEach { (key, value) in
+            if let count = value as? Int {
+                if key == "activeServiceCount"{
+                    services.append(ServiceCount(key: key, count: count))
+                    data.forEach { (key, value) in
+                        if let count = value as? Int {
+                            if key == "approvalPendingServiceCount"{
+                                services.append(ServiceCount(key: key, count: count))
+                                data.forEach { (key, value) in
+                                    if let count = value as? Int {
+                                        if key == "draftServiceCount"{
+                                            services.append(ServiceCount(key: key, count: count))
+                                            data.forEach { (key, value) in
+                                                if let count = value as? Int {
+                                                    if key == "inactiveServiceCount"{
+                                                        services.append(ServiceCount(key: key, count: count))
+                                                        data.forEach { (key, value) in
+                                                            if let count = value as? Int {
+                                                                if key == "rejectedServiceCount"{
+                                                                    services.append(ServiceCount(key: key, count: count))
+                                                                    
+                                                                }
+                                                                
+                                                            }
+                                                            
+                                                        }
+                                                        
+                                                    }
+                                                    
+                                                }
+                                                
+                                            }
+                                            
+                                        }
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        return services
+    }
+    
     
     func fetchServices() {
         self.isServicesLoading.value = true
@@ -150,7 +202,7 @@ class DashboardViewModelContainer: DashboardViewModel {
             switch result {
             case true:
                 if let respData = response?["data"] as? [String: Any] {
-                   completion()
+                    completion()
                 } else {
                     self.branchesFetchError.value = "Data could not be parsed"
                 }
@@ -170,7 +222,7 @@ class DashboardViewModelContainer: DashboardViewModel {
             switch result {
             case true:
                 if let respData = response?["data"] as? [String: Any] {
-                   completion()
+                    completion()
                 } else {
                     self.branchesFetchError.value = "Data could not be parsed"
                 }
@@ -189,7 +241,7 @@ class DashboardViewModelContainer: DashboardViewModel {
             switch result {
             case true:
                 if let respData = response?["data"] as? [String: Any] {
-                   completion()
+                    completion()
                 } else {
                     self.branchesFetchError.value = "Data could not be parsed"
                 }
@@ -226,7 +278,7 @@ class DashboardViewModelContainer: DashboardViewModel {
             switch result {
             case true:
                 if let respData = response?["data"] as? [String: Any] {
-                   completion()
+                    completion()
                 } else {
                     self.branchesFetchError.value = "Data could not be parsed"
                 }
