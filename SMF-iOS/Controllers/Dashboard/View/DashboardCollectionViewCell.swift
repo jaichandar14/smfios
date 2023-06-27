@@ -37,6 +37,7 @@ class DashboardCollectionViewCell: UICollectionViewCell {
         self.cellBackgroundView.layer.cornerRadius = 10
     }
     
+    
     func setShadow() {
         self.cellBackgroundView.setShadowAndRoundedCorner(borderWidth: 0.5, borderColor: UIColor.gray.withAlphaComponent(0.3).cgColor, shadowColor: UIColor.gray.cgColor, offset: CGSize(width: 0.0, height: 1.5), opacity: 0.4, radius:  1)
         
