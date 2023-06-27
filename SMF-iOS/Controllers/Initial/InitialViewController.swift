@@ -19,6 +19,12 @@ class InitialViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
+    // This method is created when were app is close this mthod is called
+    static func create() -> InitialViewController {
+        let controller = InitialViewController()
+        return controller
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -38,7 +44,7 @@ class InitialViewController: BaseViewController {
         let attributed = NSMutableAttributedString()
         attributed.append(eventAttributed)
         attributed.append(plannerAttributed)
-//        self.lblEventPlanner.attributedText = NSAttributedString(attributedString: attributed)
+        //        self.lblEventPlanner.attributedText = NSAttributedString(attributedString: attributed)
         
         self.btnGetStarted.backgroundColor = _theme.accentColor
         self.btnGetStarted.titleLabel?.font = _theme.muliFont(size: 16, style: .muliBold)
@@ -58,7 +64,7 @@ class InitialViewController: BaseViewController {
     func networkChangeListener(connectivity: Bool, connectionType: String?) {
         print("NetworkChange")
     }
-
+    
     @IBAction func btnGetStartedAction(_ sender: Any) {
         UserDefault[boolValueFor: .isAlreadyLaunch] = true
         AmplifyLoginUtility.signOut(completion: { signoutStatus in

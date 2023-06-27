@@ -284,7 +284,7 @@ class OTPScreenViewController: BaseViewController {
                 DispatchQueue.main.async {
                     CVProgressHUD.hideProgressHUD()
                     UserDefault[boolValueFor: .isUserLoggedOut] = false
-                    self?.navigationController?.setViewControllers([LandingViewController.create()], animated: true)
+                    self?.navigationController?.setViewControllers([DashboardViewController.create()], animated: true)
                 }
                 break
             case .failure:

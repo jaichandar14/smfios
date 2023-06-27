@@ -64,6 +64,7 @@ class LoginViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         setNavBar(hidden: true)
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -144,7 +145,7 @@ class LoginViewController: BaseViewController {
             print("Signout Status \(status)")
         }
     }
-
+    
     
     @IBAction func btnSignInAction(_ sender: Any) {
         self.hideKeyboard()
@@ -293,4 +294,5 @@ extension LoginViewController: UITextFieldDelegate {
         self.btnSignIn.isEnabled = enabled
         self.btnSignIn.backgroundColor = enabled ? _theme.accentColor : _theme.accentDisabledColor
     }
+    
 }

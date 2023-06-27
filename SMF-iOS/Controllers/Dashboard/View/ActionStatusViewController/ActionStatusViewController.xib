@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,30 +28,30 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1M-mN-hbL">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1M-mN-hbL">
+                    <rect key="frame" x="0.0" y="48" width="414" height="814"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEJ-XA-cOl">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="630.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="590.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5jR-t9-OWM">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="429.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="389.5"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Active" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZj-a7-rS8">
-                                    <rect key="frame" x="20" y="30" width="51.5" height="21"/>
+                                    <rect key="frame" x="20" y="10" width="51.5" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Pending Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhs-60-PPe">
-                                    <rect key="frame" x="20" y="54" width="145" height="21"/>
+                                    <rect key="frame" x="20" y="34" width="145" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="TA1-el-bb5">
-                                    <rect key="frame" x="0.0" y="85" width="414" height="105"/>
+                                    <rect key="frame" x="0.0" y="65" width="414" height="105"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="105" id="0zT-e1-ITo"/>
                                     </constraints>
@@ -64,19 +64,19 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inactive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PJk-Mm-hpi">
-                                    <rect key="frame" x="20" y="230" width="64.5" height="21"/>
+                                    <rect key="frame" x="20" y="190" width="64.5" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 Pending Actions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNM-xM-O4E">
-                                    <rect key="frame" x="20" y="254" width="145" height="20.5"/>
+                                    <rect key="frame" x="20" y="214" width="145" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YDr-n4-8Fk">
-                                    <rect key="frame" x="0.0" y="284.5" width="414" height="105"/>
+                                    <rect key="frame" x="0.0" y="244.5" width="414" height="105"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="105" id="q8u-Ja-Msu"/>
                                     </constraints>
@@ -89,13 +89,13 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fkv-0c-9l5">
-                                    <rect key="frame" x="20" y="449.5" width="142" height="21"/>
+                                    <rect key="frame" x="20" y="409.5" width="142" height="21"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2wN-5a-pj6">
-                                    <rect key="frame" x="0.0" y="490.5" width="414" height="120"/>
+                                    <rect key="frame" x="0.0" y="450.5" width="414" height="120"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="120" id="kZI-dI-Ejy"/>
                                     </constraints>
@@ -118,8 +118,10 @@
                                 <constraint firstItem="Fkv-0c-9l5" firstAttribute="top" secondItem="YDr-n4-8Fk" secondAttribute="bottom" constant="60" id="DT1-GS-ztJ"/>
                                 <constraint firstAttribute="trailing" secondItem="5jR-t9-OWM" secondAttribute="trailing" id="ETN-xG-4Xf"/>
                                 <constraint firstAttribute="trailing" secondItem="YDr-n4-8Fk" secondAttribute="trailing" id="FI8-h6-p0u"/>
+                                <constraint firstItem="XZj-a7-rS8" firstAttribute="top" secondItem="YEJ-XA-cOl" secondAttribute="top" constant="10" id="Gtn-sH-U8G"/>
                                 <constraint firstItem="5jR-t9-OWM" firstAttribute="leading" secondItem="YEJ-XA-cOl" secondAttribute="leading" id="HvS-tD-cPn"/>
                                 <constraint firstItem="uNM-xM-O4E" firstAttribute="leading" secondItem="YEJ-XA-cOl" secondAttribute="leading" constant="20" id="LKg-xn-HOp"/>
+                                <constraint firstItem="PJk-Mm-hpi" firstAttribute="top" secondItem="TA1-el-bb5" secondAttribute="bottom" constant="20" id="O3f-25-CKU"/>
                                 <constraint firstAttribute="trailing" secondItem="2wN-5a-pj6" secondAttribute="trailing" id="VSm-sJ-6sx"/>
                                 <constraint firstItem="TA1-el-bb5" firstAttribute="leading" secondItem="YEJ-XA-cOl" secondAttribute="leading" id="Xb8-Jf-yNK"/>
                                 <constraint firstItem="YDr-n4-8Fk" firstAttribute="leading" secondItem="YEJ-XA-cOl" secondAttribute="leading" id="Zez-b3-m4W"/>

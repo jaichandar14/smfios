@@ -27,10 +27,10 @@ class LandingViewController: UIViewController {
     var dashboardModel: DashboardViewModel?
     
     var currentController: UIViewController?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpMenuBar()
     }
     
@@ -38,7 +38,7 @@ class LandingViewController: UIViewController {
         let controller = LandingViewController()
         return controller
     }
-
+    
     func setUpMenuBar() {
         if let percent = percentageWidth {
             sideMenuRevealWidth = (UIScreen.main.bounds.width * CGFloat(percent)) / 100
@@ -49,10 +49,10 @@ class LandingViewController: UIViewController {
         self.sideMenuShadowView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.sideMenuShadowView.backgroundColor = .black
         self.sideMenuShadowView.alpha = 0.0
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TapGestureRecognizer))
-//        tapGestureRecognizer.numberOfTapsRequired = 1
-//        tapGestureRecognizer.delegate = self
-//        view.addGestureRecognizer(tapGestureRecognizer)
+        //        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TapGestureRecognizer))
+        //        tapGestureRecognizer.numberOfTapsRequired = 1
+        //        tapGestureRecognizer.delegate = self
+        //        view.addGestureRecognizer(tapGestureRecognizer)
         if self.revealSideMenuOnTop {
             view.insertSubview(self.sideMenuShadowView, at: 1)
         }
@@ -82,13 +82,14 @@ class LandingViewController: UIViewController {
         ])
         
         // Side Menu Gestures
-//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
-//        panGestureRecognizer.delegate = self
-//        view.addGestureRecognizer(panGestureRecognizer)
+        //        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+        //        panGestureRecognizer.delegate = self
+        //        view.addGestureRecognizer(panGestureRecognizer)
         
         // Default Main View Controller
-        let controller = DashboardViewController.create()
-        self.dashboardModel = controller.viewModel
+        //  When ever we  close the app line 91 is claled to show thw splash screen
+        let controller = InitialViewController.create()
+        // self.dashboardModel = controller.viewModel
         showViewController(controller: UINavigationController(rootViewController: controller))
     }
     
@@ -330,7 +331,7 @@ extension LandingViewController: SideMenuViewControllerDelegate {
                 subview.removeFromSuperview()
             }
         }
-
+        
         let vc = controller
         vc.view.tag = 99
         view.insertSubview(vc.view, at: self.revealSideMenuOnTop ? 0 : 1)
